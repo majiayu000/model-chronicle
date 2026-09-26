@@ -13,25 +13,43 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600&family=Noto+Sans+SC:wght@400;500;700&display=swap">
 <style>body{margin:0;background:#0e0f11;color:#ecebe6;font-size:14px;line-height:1.55;font-family:"Geist","Noto Sans SC",-apple-system,sans-serif;-webkit-font-smoothing:antialiased}*{box-sizing:border-box}a{color:#d4f53c}a:hover{color:#e6ff7a}input[type=range]{accent-color:#d4f53c}::selection{background:#d4f53c;color:#0e0f11}::-webkit-scrollbar{height:8px;width:8px}::-webkit-scrollbar-thumb{background:#33363c;border-radius:8px}::-webkit-scrollbar-track{background:transparent}</style>
+
+<style>
+@media(max-width:760px){
+.site-header{height:auto!important;min-height:56px;flex-wrap:wrap;gap:10px!important;padding:10px 16px!important}
+.site-header nav{order:3;width:100%;flex:1 0 100%!important;margin:0!important}
+.site-header>button{margin-left:auto}
+.hero{grid-template-columns:minmax(0,1fr)!important;gap:28px!important;padding:36px 16px 28px!important}
+.hero>div{min-width:0}
+.hero-stats{gap:24px!important}
+.site-main{padding:0 16px 72px!important}
+.status-bar{white-space:nowrap;overflow-x:auto}
+.status-bar>span{flex:none}
+.status-bar>span:nth-child(n+3){display:none!important}
+.detail-grid,.diagram-grid,.summary-grid{grid-template-columns:minmax(0,1fr)!important}
+.detail-grid>aside{position:static!important}
+}
+</style>
 </helmet>
 <header style="position:sticky;top:0;z-index:30;background:rgba(14,15,17,.88);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid #26282d">
-  <div style="max-width:1440px;margin:0 auto;padding:0 32px;height:56px;display:flex;align-items:center;gap:20px">
-    <a href="#" onClick="{{ goHome }}" style="display:flex;align-items:center;gap:10px;text-decoration:none;color:#ecebe6">
+  <div class="site-header" style="max-width:1440px;margin:0 auto;padding:0 32px;height:56px;display:flex;align-items:center;gap:20px">
+    <a href="#" onClick="{{ goHome }}" style="display:flex;align-items:center;gap:10px;text-decoration:none;color:#ecebe6;flex:none">
       <span style="display:grid;grid-template-columns:repeat(3,5px);gap:2px"><span style="height:5px;background:#d4f53c"></span><span style="height:5px;background:#33363c"></span><span style="height:5px;background:#d4f53c"></span><span style="height:5px;background:#33363c"></span><span style="height:5px;background:#d4f53c"></span><span style="height:5px;background:#33363c"></span><span style="height:5px;background:#d4f53c"></span><span style="height:5px;background:#d4f53c"></span><span style="height:5px;background:#33363c"></span></span>
       <span style="font-family:'Geist Mono',monospace;font-size:13px;font-weight:600">model-chronicle</span>
       <span style="font-family:'Geist Mono',monospace;font-size:12px;color:#62656d">@main</span>
     </a>
-    <nav style="margin-left:auto;display:flex;gap:2px;padding:3px;background:#141518;border:1px solid #26282d;border-radius:9px">
+    <nav style="margin-left:auto;display:flex;gap:2px;padding:3px;min-width:0;flex:0 1 auto;overflow-x:auto;scrollbar-width:none;background:#141518;border:1px solid #26282d;border-radius:9px">
       <sc-for list="{{ nav }}" as="n" hint-placeholder-count="3">
-        <sc-if value="{{ n.on }}"><a href="#" onClick="{{ n.go }}" style="text-decoration:none;background:#26282d;color:#ecebe6;padding:4px 10px 4px 12px;border-radius:6px;font-size:13px;font-weight:500;display:flex;gap:10px;align-items:center">{{ n.label }}<span style="font-family:'Geist Mono',monospace;font-size:10px;color:#0e0f11;background:#d4f53c;border-radius:3px;padding:0 4px;line-height:15px">{{ n.key }}</span></a></sc-if>
-        <sc-if value="{{ n.off }}"><a href="#" onClick="{{ n.go }}" style="text-decoration:none;color:#9a9ca3;padding:4px 10px 4px 12px;border-radius:6px;font-size:13px;display:flex;gap:10px;align-items:center" style-hover="color:#ecebe6;background:#1b1c20">{{ n.label }}<span style="font-family:'Geist Mono',monospace;font-size:10px;color:#9a9ca3;border:1px solid #33363c;border-radius:3px;padding:0 4px;line-height:13px">{{ n.key }}</span></a></sc-if>
+        <sc-if value="{{ n.on }}"><a href="#" onClick="{{ n.go }}" style="text-decoration:none;background:#26282d;color:#ecebe6;padding:4px 10px 4px 12px;border-radius:6px;font-size:13px;font-weight:500;display:flex;gap:10px;align-items:center;white-space:nowrap;flex:none">{{ n.label }}<span style="font-family:'Geist Mono',monospace;font-size:10px;color:#0e0f11;background:#d4f53c;border-radius:3px;padding:0 4px;line-height:15px">{{ n.key }}</span></a></sc-if>
+        <sc-if value="{{ n.off }}"><a href="#" onClick="{{ n.go }}" style="text-decoration:none;color:#9a9ca3;padding:4px 10px 4px 12px;border-radius:6px;font-size:13px;display:flex;gap:10px;align-items:center;white-space:nowrap;flex:none" style-hover="color:#ecebe6;background:#1b1c20">{{ n.label }}<span style="font-family:'Geist Mono',monospace;font-size:10px;color:#9a9ca3;border:1px solid #33363c;border-radius:3px;padding:0 4px;line-height:13px">{{ n.key }}</span></a></sc-if>
       </sc-for>
     </nav>
+    <button aria-label="搜索模型" onClick="{{ pal.openPal }}" style="font:inherit;font-size:13px;display:flex;align-items:center;gap:10px;background:#141518;color:#9a9ca3;border:1px solid #26282d;border-radius:9px;padding:6px 8px;cursor:pointer;white-space:nowrap;flex:none" style-hover="color:#ecebe6;border-color:#33363c" title="搜索模型"><span style="font-family:'Geist Mono',monospace;font-size:10px;border:1px solid #33363c;border-radius:3px;padding:0 4px;line-height:15px">⌘K</span></button>
   </div>
 </header>
 
 <sc-if value="{{ hero }}" hint-placeholder-val="{{ true }}">
-  <section style="max-width:1440px;margin:0 auto;padding:72px 32px 48px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,auto);gap:64px;align-items:end">
+  <section class="hero" style="max-width:1440px;margin:0 auto;padding:72px 32px 48px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,auto);gap:64px;align-items:end">
     <div style="display:flex;flex-direction:column;gap:20px;min-width:0">
       <span style="font-family:'Geist Mono',monospace;font-size:12px;color:#62656d">~/model-chronicle <span style="color:#33363c">·</span> {{ span }}</span>
       <h1 style="margin:0;font-weight:700;font-size:clamp(40px,5vw,60px);line-height:1.08;letter-spacing:-.02em">大模型编年史</h1>
@@ -40,8 +58,9 @@
       <sc-if value="{{ isArch }}"><p style="margin:0;max-width:560px;color:#9a9ca3;font-size:15px;line-height:1.75;text-wrap:pretty">已公开模型的参数规模、稠密与混合专家结构、注意力机制。</p></sc-if>
       <sc-if value="{{ isCatchup }}"><p style="margin:0;max-width:560px;color:#9a9ca3;font-size:15px;line-height:1.75;text-wrap:pretty">仅在基准版本、工具、推理强度和评测框架一致且已核实的对照组内计算追赶用时。</p></sc-if>
       <sc-if value="{{ isCost }}"><p style="margin:0;max-width:560px;color:#9a9ca3;font-size:15px;line-height:1.75;text-wrap:pretty">达到同一分数线的模型，其发布时 API 定价所形成的历史最低记录。</p></sc-if>
+      <sc-if value="{{ isCompare }}"><p style="margin:0;max-width:560px;color:#9a9ca3;font-size:15px;line-height:1.75;text-wrap:pretty">任选最多 4 个模型并排查看规格、发布价与基准分数；基准仅在已核实的同条件对照组内高亮。</p></sc-if>
       <sc-if value="{{ isLife }}"><p style="margin:0;max-width:560px;color:#9a9ca3;font-size:15px;line-height:1.75;text-wrap:pretty">每个模型从正式可用到弃用、下线的时段，以及即将下线的模型和它的同档后继。</p></sc-if>
-      <div style="display:flex;gap:40px;margin-top:12px;flex-wrap:wrap">
+      <div class="hero-stats" style="display:flex;gap:40px;margin-top:12px;flex-wrap:wrap">
         <div style="display:flex;flex-direction:column;gap:2px"><span style="font-family:'Geist Mono',monospace;font-size:40px;font-weight:500;line-height:1;letter-spacing:-.03em">{{ total }}</span><span style="font-size:12px;color:#62656d">收录模型</span></div>
         <div style="display:flex;flex-direction:column;gap:2px"><span style="font-family:'Geist Mono',monospace;font-size:40px;font-weight:500;line-height:1;letter-spacing:-.03em">{{ vendorCount }}</span><span style="font-size:12px;color:#62656d">厂商</span></div>
         <div style="display:flex;flex-direction:column;gap:2px"><span style="font-family:'Geist Mono',monospace;font-size:40px;font-weight:500;line-height:1;letter-spacing:-.03em;color:#d4f53c">{{ priceCount }}</span><span style="font-size:12px;color:#62656d">有发布价</span></div>
@@ -64,7 +83,7 @@
   </section>
 </sc-if>
 
-<main style="max-width:1440px;margin:0 auto;padding:0 32px 120px">
+<main class="site-main" style="max-width:1440px;margin:0 auto;padding:0 32px 120px">
   <sc-if value="{{ showFilters }}" hint-placeholder-val="{{ true }}">
     <div style="display:flex;flex-wrap:wrap;gap:14px 28px;align-items:center;padding:14px 0;border-top:1px solid #26282d;border-bottom:1px solid #26282d;margin-top:{{ filterGap }}px">
       <div style="display:flex;flex-wrap:wrap;gap:6px;align-items:center">
@@ -138,6 +157,9 @@
                   <sc-if value="{{ d.moe }}"><span style="position:absolute;inset:1px;transform:rotate(45deg);background:{{ r.color }};box-shadow:{{ d.ring }}"></span></sc-if>
                   <sc-if value="{{ d.unknown }}"><span style="position:absolute;inset:0;border-radius:50%;background:#141518;border:2px solid {{ r.color }};box-shadow:{{ d.ring }}"></span></sc-if>
                   <sc-if value="{{ d.showGen }}"><span style="position:absolute;top:18px;left:50%;transform:translateX(-50%);font-family:'Geist Mono',monospace;font-size:10px;white-space:nowrap;color:#ecebe6">{{ d.gen }}</span></sc-if>
+                  <sc-if value="{{ d.showGenUp }}"><span style="position:absolute;top:-17px;left:50%;transform:translateX(-50%);font-family:'Geist Mono',monospace;font-size:10px;white-space:nowrap;color:#ecebe6">{{ d.gen }}</span></sc-if>
+                  <sc-if value="{{ d.showGenL }}"><span style="position:absolute;top:18px;right:calc(50% + 3px);font-family:'Geist Mono',monospace;font-size:10px;white-space:nowrap;color:#ecebe6">{{ d.gen }}</span></sc-if>
+                  <sc-if value="{{ d.showGenUpL }}"><span style="position:absolute;top:-17px;right:calc(50% + 3px);font-family:'Geist Mono',monospace;font-size:10px;white-space:nowrap;color:#ecebe6">{{ d.gen }}</span></sc-if>
                 </a>
               </sc-for>
             </div>
@@ -170,7 +192,7 @@
           <button onClick="{{ t.pick }}" style="font:inherit;font-size:12px;background:{{ t.bg }};color:{{ t.fg }};border:1px solid {{ t.bd }};border-radius:6px;padding:4px 10px;cursor:pointer;display:flex;gap:6px;align-items:baseline">{{ t.label }}<span style="font-family:'Geist Mono',monospace;font-size:10px;opacity:.6">{{ t.n }}</span></button>
         </sc-for>
       </div>
-      <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px">
+      <div class="summary-grid" style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px">
         <div style="background:#141518;border:1px solid #26282d;border-radius:12px;padding:18px;display:flex;flex-direction:column;gap:6px"><span style="font-size:12px;color:#9a9ca3">对照组最高</span><span style="font-family:'Geist Mono',monospace;font-size:44px;font-weight:500;line-height:1.05;letter-spacing:-.03em;color:#d4f53c">{{ trend.bestClosedAny }}</span><span style="font-size:12px">{{ trend.leader }}</span></div>
         <div style="background:#141518;border:1px solid #26282d;border-radius:12px;padding:18px;display:flex;flex-direction:column;gap:6px"><span style="font-size:12px;color:#9a9ca3">组内开源权重最高</span><span style="font-family:'Geist Mono',monospace;font-size:44px;font-weight:500;line-height:1.05;letter-spacing:-.03em;color:#5ad1c8">{{ trend.bestOpen }}</span><span style="font-size:12px">{{ trend.openLeader }}</span></div>
         <div style="background:#141518;border:1px solid #26282d;border-radius:12px;padding:18px;display:flex;flex-direction:column;gap:6px"><span style="font-size:12px;color:#9a9ca3">组内闭源 − 开源</span><span style="font-family:'Geist Mono',monospace;font-size:44px;font-weight:500;line-height:1.05;letter-spacing:-.03em">{{ trend.gap }}</span><span style="font-size:12px;color:#62656d">分差（百分点）</span></div>
@@ -204,7 +226,7 @@
 
   <sc-if value="{{ isArch }}">
     <section style="display:flex;flex-direction:column;gap:20px;margin-top:24px">
-      <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px">
+      <div class="summary-grid" style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px">
         <div style="background:#141518;border:1px solid #26282d;border-radius:12px;padding:18px;display:flex;flex-direction:column;gap:6px"><span style="font-size:12px;color:#9a9ca3">稠密 Dense</span><span style="font-family:'Geist Mono',monospace;font-size:44px;font-weight:500;line-height:1.05">{{ arch.denseCount }}</span></div>
         <div style="background:#141518;border:1px solid #26282d;border-radius:12px;padding:18px;display:flex;flex-direction:column;gap:6px"><span style="font-size:12px;color:#9a9ca3">混合专家 MoE</span><span style="font-family:'Geist Mono',monospace;font-size:44px;font-weight:500;line-height:1.05;color:#d4f53c">{{ arch.moeCount }}</span></div>
         <div style="background:#141518;border:1px solid #26282d;border-radius:12px;padding:18px;display:flex;flex-direction:column;gap:6px"><span style="font-size:12px;color:#9a9ca3">架构未核实</span><span style="font-family:'Geist Mono',monospace;font-size:44px;font-weight:500;line-height:1.05;color:#62656d">{{ arch.closedCount }}</span></div>
@@ -440,6 +462,64 @@
     </section>
   </sc-if>
 
+  <sc-if value="{{ isCompare }}">
+    <section style="display:flex;flex-direction:column;gap:20px;margin-top:24px">
+      <div style="display:flex;flex-wrap:wrap;align-items:center;gap:10px;font-size:12px;color:#9a9ca3">
+        <span style="font-family:'Geist Mono',monospace;color:#62656d">{{ cp.n }}/4</span>
+        <sc-if value="{{ cp.canAdd }}"><button onClick="{{ cp.addOpen }}" style="font:inherit;font-size:12px;background:#d4f53c;color:#0e0f11;border:0;border-radius:6px;padding:5px 12px;cursor:pointer;font-weight:600">+ 添加模型</button></sc-if>
+        <sc-if value="{{ cp.full }}"><span>已达上限，移除一个后可继续添加</span></sc-if>
+        <a href="#" onClick="{{ cp.clear }}" style="margin-left:auto;color:#9a9ca3;text-decoration:none" style-hover="color:#ecebe6">清空</a>
+        <a href="#" onClick="{{ cp.reset }}" style="color:#9a9ca3;text-decoration:none" style-hover="color:#ecebe6">恢复默认</a>
+      </div>
+      <sc-if value="{{ cp.empty }}">
+        <div style="background:#141518;border:1px dashed #33363c;border-radius:12px;padding:72px 24px;display:flex;flex-direction:column;align-items:center;gap:14px;color:#9a9ca3">
+          <span>还没有选择模型</span>
+          <button onClick="{{ cp.addOpen }}" style="font:inherit;font-size:13px;background:#d4f53c;color:#0e0f11;border:0;border-radius:6px;padding:6px 14px;cursor:pointer;font-weight:600">+ 添加模型</button>
+        </div>
+      </sc-if>
+      <sc-if value="{{ cp.n }}">
+        <div style="background:#141518;border:1px solid #26282d;border-radius:12px;overflow-x:auto">
+          <div style="min-width:720px">
+            <div style="display:grid;grid-template-columns:{{ cp.cols }};border-bottom:1px solid #26282d;position:sticky;top:0;background:#141518">
+              <div style="padding:16px;font-size:12px;color:#62656d;border-right:1px solid #26282d;display:flex;align-items:flex-end">同条件基准领先项</div>
+              <sc-for list="{{ cp.heads }}" as="h" hint-placeholder-count="3">
+                <a href="#" onClick="{{ h.go }}" style="padding:14px 16px;display:flex;flex-direction:column;gap:4px;text-decoration:none;color:#ecebe6;border-right:1px solid #1f2125;position:relative;min-width:0" style-hover="background:#18191d">
+                  <span style="display:flex;align-items:center;gap:8px"><span style="width:8px;height:8px;border-radius:2px;flex:none;background:{{ h.color }}"></span><span style="font-weight:600;font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ h.name }}</span></span>
+                  <span style="font-size:11px;color:#9a9ca3">{{ h.sub }}</span>
+                  <span style="font-family:'Geist Mono',monospace;font-size:28px;font-weight:500;letter-spacing:-.03em;line-height:1.1;margin-top:6px">{{ h.wins }}</span>
+                  <span onClick="{{ h.remove }}" title="移除" style="position:absolute;top:10px;right:10px;width:22px;height:22px;border-radius:5px;display:flex;align-items:center;justify-content:center;color:#62656d;font-size:14px;cursor:pointer" style-hover="background:#26282d;color:#ecebe6">×</span>
+                </a>
+              </sc-for>
+            </div>
+            <div style="padding:10px 16px 6px;font-size:11px;color:#62656d;letter-spacing:.06em">规格</div>
+            <sc-for list="{{ cp.specs }}" as="r" hint-placeholder-count="10">
+              <div style="display:grid;grid-template-columns:{{ cp.cols }};border-top:1px solid #1f2125;font-size:13px" style-hover="background:#18191d">
+                <span style="padding:9px 16px;color:#9a9ca3;font-size:12px;border-right:1px solid #26282d">{{ r.label }}</span>
+                <sc-for list="{{ r.cells }}" as="c"><span style="padding:9px 16px;font-family:'Geist Mono',monospace;font-size:12px;border-right:1px solid #1f2125;color:{{ c.fg }}">{{ c.v }}</span></sc-for>
+              </div>
+            </sc-for>
+            <sc-if value="{{ cp.hasBench }}">
+              <div style="padding:18px 16px 6px;font-size:11px;color:#62656d;letter-spacing:.06em;border-top:1px solid #26282d">基准测试 · 来源分数</div>
+              <sc-for list="{{ cp.bench }}" as="r" hint-placeholder-count="5">
+                <div style="display:grid;grid-template-columns:{{ cp.cols }};border-top:1px solid #1f2125" style-hover="background:#18191d">
+                  <span style="padding:10px 16px;color:#9a9ca3;font-size:12px;border-right:1px solid #26282d">{{ r.label }}</span>
+                  <sc-for list="{{ r.cells }}" as="c">
+                    <span style="padding:8px 16px;display:flex;flex-direction:column;gap:5px;border-right:1px solid #1f2125">
+                      <span style="font-family:'Geist Mono',monospace;font-size:13px;color:{{ c.fg }}">{{ c.v }}</span>
+                      <sc-if value="{{ c.has }}"><span style="height:4px;border-radius:2px;background:#1f2125;overflow:hidden"><span style="display:block;height:100%;width:{{ c.w }}%;background:{{ c.bar }}"></span></span></sc-if>
+                    </span>
+                  </sc-for>
+                </div>
+              </sc-for>
+            </sc-if>
+            <sc-if value="{{ cp.noBench }}"><div style="padding:28px;text-align:center;color:#62656d;border-top:1px solid #26282d">所选模型没有已收录的基准分数</div></sc-if>
+          </div>
+        </div>
+      </sc-if>
+      <div style="font-size:12px;color:#9a9ca3;display:flex;gap:10px;align-items:center"><span style="font-family:'Geist Mono',monospace;font-size:10px;color:#0e0f11;background:#d4f53c;border-radius:3px;padding:0 5px">note</span>规格高亮表示所选模型中的最高值或最低发布价。基准高亮与领先项只统计已核实的同条件对照组，其他分数仅作展示。</div>
+    </section>
+  </sc-if>
+
   <sc-if value="{{ isDetail }}">
     <div style="display:flex;flex-direction:column;gap:28px;padding-top:36px">
       <div style="display:flex;flex-direction:column;gap:14px">
@@ -456,7 +536,7 @@
       <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1px;background:#26282d;border:1px solid #26282d;border-radius:12px;overflow:hidden">
         <sc-for list="{{ d.facts }}" as="f" hint-placeholder-count="5"><div style="padding:14px 16px;display:flex;flex-direction:column;gap:4px;background:#141518"><span style="font-size:11px;color:#62656d">{{ f.k }}</span><span style="font-family:'Geist Mono',monospace;font-size:18px;font-weight:500;white-space:nowrap">{{ f.v }}</span></div></sc-for>
       </div>
-      <div style="display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:28px;align-items:start">
+      <div class="detail-grid" style="display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:28px;align-items:start">
         <article style="display:flex;flex-direction:column;gap:20px;min-width:0">
           <section style="background:#141518;border:1px solid #26282d;border-radius:12px;overflow:hidden">
             <div style="font-size:13px;font-weight:600;padding:12px 16px;border-bottom:1px solid #26282d">关键变化</div>
@@ -465,7 +545,7 @@
           <section style="background:#141518;border:1px solid #26282d;border-radius:12px;overflow:hidden">
             <div style="font-size:13px;font-weight:600;padding:12px 16px;border-bottom:1px solid #26282d">架构</div>
             <sc-if value="{{ d.hasDiag }}">
-              <div style="display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr)">
+              <div class="diagram-grid" style="display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr)">
                 <div style="padding:20px;display:flex;flex-direction:column;align-items:stretch;gap:6px;border-right:1px solid #26282d;font-size:12px">
                   <div style="display:flex;gap:6px;justify-content:center"><span style="background:#1f2125;border-radius:6px;padding:3px 10px">文本输入</span><sc-if value="{{ d.diag.vision }}"><span style="background:#1f2125;border-radius:6px;padding:3px 10px">图像输入</span></sc-if></div>
                   <sc-if value="{{ d.diag.vision }}"><div style="font-size:11px;color:#9a9ca3;text-align:center;border:1px dashed #33363c;border-radius:6px;padding:5px">{{ d.diag.visionLabel }}</div></sc-if>
@@ -550,11 +630,36 @@
     </div>
   </sc-if>
 </main>
-<div style="position:fixed;left:0;right:0;bottom:0;z-index:35;height:28px;background:#141518;border-top:1px solid #26282d;display:flex;align-items:stretch;font-family:'Geist Mono',monospace;font-size:11px;color:#9a9ca3">
+<sc-if value="{{ pal.open }}">
+  <div onClick="{{ pal.close }}" style="position:fixed;inset:0;z-index:60;background:rgba(8,9,10,.72);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);display:flex;justify-content:center;align-items:flex-start;padding:12vh 16px 16px">
+    <div onClick="{{ pal.stop }}" style="width:100%;max-width:560px;background:#141518;border:1px solid #33363c;border-radius:12px;box-shadow:0 24px 64px rgba(0,0,0,.5);overflow:hidden">
+      <div style="display:flex;align-items:center;gap:10px;padding:0 14px;border-bottom:1px solid #26282d">
+        <span style="font-family:'Geist Mono',monospace;color:#d4f53c;font-size:14px">›</span>
+        <input aria-label="搜索模型" autoFocus="{{ true }}" value="{{ pal.q }}" onChange="{{ pal.onQ }}" onKeyDown="{{ pal.onKey }}" placeholder="模型名、厂商或产品线" style="flex:1;font:inherit;font-size:15px;background:transparent;border:0;outline:0;color:#ecebe6;padding:14px 0">
+        <span style="font-family:'Geist Mono',monospace;font-size:10px;color:#62656d;border:1px solid #33363c;border-radius:3px;padding:0 4px;line-height:15px">esc</span>
+      </div>
+      <div style="display:flex;flex-direction:column;padding:6px;max-height:420px;overflow-y:auto">
+        <sc-for list="{{ pal.hits }}" as="h" hint-placeholder-count="6">
+          <a href="#" onClick="{{ h.go }}" style="display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:7px;text-decoration:none;color:#ecebe6;background:{{ h.bg }}" style-hover="background:#1f2125">
+            <span style="width:8px;height:8px;border-radius:2px;flex:none;background:{{ h.color }}"></span>
+            <span style="display:flex;flex-direction:column;min-width:0"><span style="font-weight:600;font-size:13px">{{ h.name }}</span><span style="font-size:11px;color:#9a9ca3">{{ h.sub }}</span></span>
+            <sc-if value="{{ h.canAdd }}"><span onClick="{{ h.add }}" style="margin-left:auto;font-size:11px;color:#9a9ca3;border:1px solid #33363c;border-radius:5px;padding:2px 8px;white-space:nowrap" style-hover="color:#0e0f11;background:#d4f53c;border-color:#d4f53c">+ 对比</span></sc-if>
+            <sc-if value="{{ h.inCmp }}"><span style="margin-left:auto;font-size:11px;color:#d4f53c;white-space:nowrap">已在对比中</span></sc-if>
+            <sc-if value="{{ h.cantAdd }}"><span style="margin-left:auto;font-size:11px;color:#62656d;white-space:nowrap">对比已满</span></sc-if>
+          </a>
+        </sc-for>
+        <sc-if value="{{ pal.empty }}"><div style="padding:28px;text-align:center;color:#62656d;font-size:13px">没有匹配的模型</div></sc-if>
+      </div>
+      <div style="display:flex;gap:16px;padding:8px 14px;border-top:1px solid #26282d;font-size:11px;color:#62656d"><span>↵ 打开详情</span><span>⌘↵ 加入对比</span><span style="margin-left:auto;font-family:'Geist Mono',monospace">{{ pal.count }}</span></div>
+    </div>
+  </div>
+</sc-if>
+
+<div class="status-bar" style="position:fixed;left:0;right:0;bottom:0;z-index:35;height:28px;background:#141518;border-top:1px solid #26282d;display:flex;align-items:stretch;font-family:'Geist Mono',monospace;font-size:11px;color:#9a9ca3">
   <span style="background:#d4f53c;color:#0e0f11;font-weight:600;padding:0 12px;display:flex;align-items:center;letter-spacing:.06em">{{ mode }}</span>
   <span style="padding:0 14px;display:flex;align-items:center;border-right:1px solid #26282d">{{ shown }}/{{ total }} models</span>
   <span style="padding:0 14px;display:flex;align-items:center;border-right:1px solid #26282d">价格 {{ priceCount }}/{{ total }} · 基准 {{ benchmarkCount }}/{{ total }}</span>
-  <span style="margin-left:auto;padding:0 14px;display:flex;align-items:center;gap:6px;border-left:1px solid #26282d">1–6 切换视图 · esc 返回</span>
+  <span style="margin-left:auto;padding:0 14px;display:flex;align-items:center;gap:6px;border-left:1px solid #26282d">1–7 切换视图 · ⌘K 搜索 · esc 返回</span>
   <span style="padding:0 14px;display:flex;align-items:center;gap:8px;border-left:1px solid #26282d;color:#ecebe6"><span style="width:6px;height:6px;border-radius:50%;background:#d4f53c"></span>{{ clock }}</span>
 </div>
 </x-dc>
@@ -562,11 +667,15 @@
 class Component extends DCLogic {
   state = { ready: false };
   componentDidMount() {
-    const tick = () => (window.MC && window.MC.vm && window.MC.ext && window.MC.models ? this.setState({ ...window.MC.initState(), ready: true }) : setTimeout(tick, 30));
+    const tick = () => (window.MC && window.MC.vm && window.MC.ext && window.MC.ext2 && window.MC.models ? this.setState({ ...window.MC.initState(), ready: true }) : setTimeout(tick, 30));
     tick();
     this._key = e => {
-      if (!this.state.ready || /input|textarea/i.test((e.target && e.target.tagName) || "")) return;
-      const map = { "1": "timeline", "2": "trends", "3": "arch", "4": "catchup", "5": "cost", "6": "life" };
+      if (!this.state.ready) return;
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") { e.preventDefault(); this.setState(s => ({ pal: !s.pal, q: "" })); return; }
+      if (e.key === "Escape" && this.state.pal) { this.setState({ pal: false }); return; }
+      if (this.state.pal || /input|textarea/i.test((e.target && e.target.tagName) || "")) return;
+      if (e.key === "/") { e.preventDefault(); this.setState({ pal: true, q: "" }); return; }
+      const map = { "1": "timeline", "2": "trends", "3": "arch", "4": "catchup", "5": "cost", "6": "life", "7": "compare" };
       if (map[e.key]) this.setState({ view: map[e.key], id: null, hover: null });
       else if (e.key === "Escape" && this.state.view === "detail") this.setState({ view: "timeline", id: null });
     };
@@ -604,11 +713,12 @@ class Component extends DCLogic {
     if (!this.state.ready || !window.MC || !window.MC.vm) return { ...base, mode: "LOADING", total: "…", shown: "…", priceCount: "…", benchmarkCount: "…", vendorCount: "…", span: "", heat: [], nav: [], vendorChips: [], tierChips: [], capChips: [], showFilters: true, isTimeline: true, hero: showHero, filterGap: showHero ? 0 : 24 };
     const MC = window.MC, set = p => this.setState(p);
     const v = MC.vm(this.state, set, { up: "#7ee081", down: "#ff6b5b", muted: "#62656d" });
-    Object.assign(v, base, MC.ext(this.state, set));
-    v.nav = v.nav.concat([["catchup", "开源追赶"], ["cost", "能力成本"], ["life", "在役状态"]].map(([k, label]) => ({ label, on: this.state.view === k, go: e => { e.preventDefault(); set({ view: k, id: null, hover: null }); window.scrollTo(0, 0); } })));
+    Object.assign(v, base, MC.ext(this.state, set), MC.ext2(this.state, set));
+    if (v.isCompare) v.showFilters = false;
+    v.nav = v.nav.concat([["catchup", "开源追赶"], ["cost", "能力成本"], ["life", "在役状态"], ["compare", "对比"]].map(([k, label]) => ({ label, on: this.state.view === k, go: e => { e.preventDefault(); set({ view: k, id: null, hover: null }); window.scrollTo(0, 0); } })));
     const TX = "#ecebe6", MU = "#9a9ca3", FA = "#62656d", LN = "#26282d", ACC = "#d4f53c";
     const a = (hex, al) => (typeof hex === "string" && /^#[0-9a-f]{6}$/i.test(hex) ? hex + al : hex);
-    v.mode = ({ timeline: "TIMELINE", trends: "TRENDS", arch: "ARCH", catchup: "CATCH-UP", cost: "COST", life: "LIFECYCLE", detail: "DETAIL" })[this.state.view] || "READY";
+    v.mode = ({ timeline: "TIMELINE", trends: "TRENDS", arch: "ARCH", catchup: "CATCH-UP", cost: "COST", life: "LIFECYCLE", compare: "COMPARE", detail: "DETAIL" })[this.state.view] || "READY";
     v.hero = showHero && !v.isDetail;
     v.filterGap = v.hero ? 0 : 24;
     v.vendorCount = MC.VENDORS.length;
@@ -624,10 +734,18 @@ class Component extends DCLogic {
       v.tl.rows.forEach(r => {
         r.line = a(r.color, "88");
         r.pendingGap = showGaps;
+        let lo = -1e9, up = -1e9; const ups = [];
+        r.dots.forEach(d => {
+          d.showGen = d.px - lo >= 30; d.showGenUp = false;
+          if (d.showGen) lo = d.px; else if (d.px - up >= 30) { d.showGenUp = true; up = d.px; ups.push(d.px); }
+          const near = Math.abs(d.px - v.tl.todayPx) < 16;
+          d.showGenL = near && d.showGen; d.showGenUpL = near && d.showGenUp;
+          if (near) { d.showGen = false; d.showGenUp = false; }
+          d.ring = d.reasoning ? "0 0 0 2px #141518,0 0 0 3px " + r.color : "none";
+        });
         let lastMid = -1e9;
-        r.segs.forEach(s => { s.showGap = s.showGap && showGaps && s.mid - lastMid >= 64; if (s.showGap) lastMid = s.mid; });
-        let lastPx = -1e9;
-        r.dots.forEach(d => { d.showGen = d.px - lastPx >= 30; if (d.showGen) lastPx = d.px; d.ring = d.reasoning ? "0 0 0 2px #141518,0 0 0 3px " + r.color : "none"; });
+        r.segs.forEach(s => { s.showGap = s.showGap && showGaps && s.mid - lastMid >= 64 && !ups.some(p => Math.abs(p - s.mid) < 40); if (s.showGap) lastMid = s.mid; });
+        if (r.pending && ups.some(p => Math.abs(p - r.pending.mid) < 40)) r.pendingGap = false;
       });
     }
     if (v.trend) {

@@ -11,7 +11,7 @@ window.__CHRONICLE_MODELS__ = models;
 function loadScript(path: string): Promise<void> {
   return new Promise((resolve, reject) => {
     const script = document.createElement("script");
-    script.src = path;
+    script.src = `${import.meta.env.BASE_URL}${path}`;
     script.onload = () => resolve();
     script.onerror = () => reject(new Error(`无法加载界面脚本：${path}`));
     document.head.appendChild(script);
@@ -20,12 +20,13 @@ function loadScript(path: string): Promise<void> {
 
 async function boot() {
   // The exported design runtime targets React 18's UMD API.
-  await loadScript("/graph-v2/vendor/react.production.min.js");
-  await loadScript("/graph-v2/vendor/react-dom.production.min.js");
-  await loadScript("/graph-v2/chronicle.js");
-  await loadScript("/graph-v2/chronicle-vm.js");
-  await loadScript("/graph-v2/chronicle-ext.js");
-  await loadScript("/graph-v2/support.js");
+  await loadScript("graph-v2/vendor/react.production.min.js");
+  await loadScript("graph-v2/vendor/react-dom.production.min.js");
+  await loadScript("graph-v2/chronicle.js");
+  await loadScript("graph-v2/chronicle-vm.js");
+  await loadScript("graph-v2/chronicle-ext.js");
+  await loadScript("graph-v2/chronicle-ext2.js");
+  await loadScript("graph-v2/support.js");
 }
 
 boot().catch((error: unknown) => {

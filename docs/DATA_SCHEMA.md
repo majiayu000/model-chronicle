@@ -15,7 +15,7 @@
 id: claude-3-7-sonnet          # kebab-case，全局唯一，等于文件名
 name: Claude 3.7 Sonnet        # 官方展示名
 vendor: anthropic              # 取值见 src/lib/constants.ts 的 VENDORS
-family: claude                 # 产品线，见下方“family 取值”
+family: sonnet                 # 产品线，见下方“family 取值”
 tier: mid                      # flagship | mid | small
 generation: "3.7"              # 字符串形式的代号/版本
 predecessor: claude-3-5-sonnet-new   # 同 vendor + family + tier 的上一个模型 id；该线第一个填 null
@@ -62,7 +62,7 @@ verified_at: 2026-09-24
 
 | vendor | family |
 |---|---|
-| anthropic | `claude`、`fable` |
+| anthropic | `opus`、`sonnet`、`haiku`、`fable`、`claude`（Claude 2 / 2.1） |
 | openai | `gpt`（GPT-3.5/4/4o/4.1/4.5/5…）、`gpt-pro`、`o-series`（o1/o3/o4…）、`o-series-pro`、`gpt-oss` |
 | google | `gemini`、`gemma`、`palm` |
 | meta | `llama` |

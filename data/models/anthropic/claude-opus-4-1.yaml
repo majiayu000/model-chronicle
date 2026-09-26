@@ -1,7 +1,7 @@
 id: claude-opus-4-1
 name: Claude Opus 4.1
 vendor: anthropic
-family: claude
+family: opus
 tier: flagship
 generation: "4.1"
 predecessor: claude-opus-4

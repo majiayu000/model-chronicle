@@ -1,10 +1,10 @@
 id: claude-3-opus
 name: Claude 3 Opus
 vendor: anthropic
-family: claude
+family: opus
 tier: flagship
 generation: "3"
-predecessor: claude-2-1
+predecessor: null
 open_weights: false
 dates:
   announced: 2024-03-04

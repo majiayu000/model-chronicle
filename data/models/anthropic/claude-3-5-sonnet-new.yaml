@@ -1,7 +1,7 @@
 id: claude-3-5-sonnet-new
 name: Claude 3.5 Sonnet (新)
 vendor: anthropic
-family: claude
+family: sonnet
 tier: mid
 generation: 3.5 新
 predecessor: claude-3-5-sonnet

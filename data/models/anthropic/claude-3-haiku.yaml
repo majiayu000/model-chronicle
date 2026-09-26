@@ -1,7 +1,7 @@
 id: claude-3-haiku
 name: Claude 3 Haiku
 vendor: anthropic
-family: claude
+family: haiku
 tier: small
 generation: "3"
 predecessor: null

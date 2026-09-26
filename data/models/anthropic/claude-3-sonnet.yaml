@@ -1,7 +1,7 @@
 id: claude-3-sonnet
 name: Claude 3 Sonnet
 vendor: anthropic
-family: claude
+family: sonnet
 tier: mid
 generation: "3"
 predecessor: null
