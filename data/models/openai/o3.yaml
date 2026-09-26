@@ -1,0 +1,33 @@
+id: o3
+name: o3
+vendor: openai
+family: o-series
+tier: flagship
+generation: o3
+predecessor: o1
+open_weights: false
+reasoning: true
+dates:
+  announced: 2025-04-16
+  ga: 2025-04-16
+  deprecated: null
+  retired: null
+specs:
+  context_window: 200000
+  max_output: 100000
+  modalities_in:
+    - text
+    - image
+  modalities_out:
+    - text
+  knowledge_cutoff: null
+  params_b: null
+  pricing:
+    input_per_mtok: null
+    output_per_mtok: null
+benchmarks: []
+highlights: []
+sources:
+  - https://openai.com/index/introducing-o3-and-o4-mini/
+  - https://developers.openai.com/api/docs/models/o3
+verified_at: 2026-09-25

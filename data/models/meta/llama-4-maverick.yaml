@@ -1,0 +1,62 @@
+id: llama-4-maverick
+name: Llama 4 Maverick
+vendor: meta
+family: llama
+tier: mid
+generation: "4"
+predecessor: llama-3-2-11b-vision
+open_weights: true
+arch:
+  type: moe
+  active: 17
+  experts: 128
+  topk: 1
+  shared: 1
+  layers: 48
+  d: 5120
+  heads: 40
+  kv: 8
+  attn: GQA
+  vision: early
+  vocab: 202048
+  interleave: true
+  source: https://github.com/meta-llama/llama-models/blob/main/models/llama4/MODEL_CARD.md
+dates:
+  announced: 2025-04-05
+  ga: 2025-04-05
+  deprecated: null
+  retired: null
+specs:
+  context_window: 1000000
+  max_output: null
+  modalities_in:
+    - text
+    - image
+  modalities_out:
+    - text
+  knowledge_cutoff: 2024-08
+  params_b: 400
+  pricing:
+    input_per_mtok: null
+    output_per_mtok: null
+benchmarks:
+  - name: MMMU
+    score: 73.4
+    reported_by: vendor
+    source: https://github.com/meta-llama/llama-models/blob/main/models/llama4/MODEL_CARD.md
+  - name: MMLU-Pro
+    score: 80.5
+    reported_by: vendor
+    source: https://github.com/meta-llama/llama-models/blob/main/models/llama4/MODEL_CARD.md
+  - name: GPQA Diamond
+    score: 69.8
+    reported_by: vendor
+    source: https://github.com/meta-llama/llama-models/blob/main/models/llama4/MODEL_CARD.md
+highlights:
+  - 首批 MoE 架构 Llama：17B 激活、128 专家、400B 总参数
+  - 原生多模态（早期融合），支持 1M 上下文
+  - 由 Llama 4 Behemoth 共蒸馏训练
+sources:
+  - https://ai.meta.com/blog/llama-4-multimodal-intelligence/
+  - https://github.com/meta-llama/llama-models/blob/main/models/llama4/MODEL_CARD.md
+verified_at: 2026-09-25

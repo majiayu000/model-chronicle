@@ -1,0 +1,31 @@
+id: deepseek-v2-lite
+name: DeepSeek-V2-Lite
+vendor: deepseek
+family: deepseek-v
+tier: small
+generation: "2"
+predecessor: null
+open_weights: true
+reasoning: false
+dates:
+  announced: 2024-05-16
+  ga: 2024-05-16
+  deprecated: null
+  retired: null
+specs:
+  context_window: 32000
+  max_output: null
+  modalities_in:
+    - text
+  modalities_out:
+    - text
+  knowledge_cutoff: null
+  params_b: 16
+  pricing:
+    input_per_mtok: null
+    output_per_mtok: null
+benchmarks: []
+highlights: []
+sources:
+  - https://github.com/deepseek-ai/DeepSeek-V2
+verified_at: 2026-09-25

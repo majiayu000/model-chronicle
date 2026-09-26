@@ -1,0 +1,39 @@
+id: qwen2-5-72b
+name: Qwen2.5-72B
+vendor: qwen
+family: qwen
+tier: flagship
+generation: "2.5"
+predecessor: qwen2-72b
+open_weights: true
+dates:
+  announced: 2024-09-19
+  ga: 2024-09-19
+  deprecated: null
+  retired: null
+specs:
+  context_window: 131072
+  max_output: null
+  modalities_in:
+    - text
+  modalities_out:
+    - text
+  knowledge_cutoff: null
+  params_b: 72.7
+  pricing:
+    input_per_mtok: null
+    output_per_mtok: null
+benchmarks:
+  - name: MMLU
+    score: 86.1
+    reported_by: vendor
+    source: https://qwenlm.github.io/blog/qwen2.5-llm/
+  - name: MMLU-Pro
+    score: 58.1
+    reported_by: vendor
+    source: https://qwenlm.github.io/blog/qwen2.5-llm/
+highlights: []
+sources:
+  - https://qwenlm.github.io/blog/qwen2.5/
+  - https://qwenlm.github.io/blog/qwen2.5-llm/
+verified_at: 2026-09-25

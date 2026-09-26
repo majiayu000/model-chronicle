@@ -1,0 +1,44 @@
+id: deepseek-v2
+name: DeepSeek-V2
+vendor: deepseek
+family: deepseek-v
+tier: flagship
+generation: V2
+predecessor: null
+open_weights: true
+dates:
+  announced: 2024-05-06
+  ga: 2024-05-06
+  deprecated: null
+  retired: null
+specs:
+  context_window: 128000
+  max_output: null
+  modalities_in:
+    - text
+  modalities_out:
+    - text
+  knowledge_cutoff: null
+  params_b: 236
+  pricing:
+    input_per_mtok: null
+    output_per_mtok: null
+benchmarks:
+  - name: MMLU
+    score: 78.5
+    reported_by: vendor
+    source: https://github.com/deepseek-ai/DeepSeek-V2
+  - name: HumanEval
+    score: 48.8
+    reported_by: vendor
+    source: https://github.com/deepseek-ai/DeepSeek-V2
+highlights: []
+sources:
+  - https://github.com/deepseek-ai/DeepSeek-V2
+verified_at: 2026-09-25
+arch:
+  type: moe
+  total: 236
+  active: 21
+  attn: MLA
+  source: https://github.com/deepseek-ai/DeepSeek-V2

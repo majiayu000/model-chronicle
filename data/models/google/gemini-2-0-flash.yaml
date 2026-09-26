@@ -1,0 +1,35 @@
+id: gemini-2-0-flash
+name: Gemini 2.0 Flash
+vendor: google
+family: gemini
+tier: mid
+generation: "2.0"
+predecessor: gemini-1-5-flash
+open_weights: false
+dates:
+  announced: 2024-12-11
+  ga: 2025-02-05
+  deprecated: null
+  retired: null
+specs:
+  context_window: 1048576
+  max_output: 8192
+  modalities_in:
+    - text
+    - image
+    - video
+    - audio
+  modalities_out:
+    - text
+  knowledge_cutoff: null
+  params_b: null
+  pricing:
+    input_per_mtok: null
+    output_per_mtok: null
+benchmarks: []
+highlights: []
+sources:
+  - https://blog.google/innovation-and-ai/models-and-research/google-deepmind/google-gemini-ai-update-december-2024/
+  - https://blog.google/innovation-and-ai/models-and-research/google-deepmind/gemini-model-updates-february-2025/
+  - https://ai.google.dev/gemini-api/docs/models/gemini-2.0-flash
+verified_at: 2026-09-25

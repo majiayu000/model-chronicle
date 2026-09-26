@@ -1,0 +1,31 @@
+id: claude-opus-4-8
+name: Claude Opus 4.8
+vendor: anthropic
+family: claude
+tier: flagship
+generation: "4.8"
+predecessor: claude-opus-4-7
+open_weights: false
+reasoning: true
+dates:
+  announced: 2026-05-28
+  ga: 2026-05-28
+  deprecated: null
+  retired: null
+specs:
+  context_window: null
+  max_output: null
+  modalities_in:
+    - text
+  modalities_out:
+    - text
+  knowledge_cutoff: null
+  params_b: null
+  pricing:
+    input_per_mtok: 5
+    output_per_mtok: 25
+benchmarks: []
+highlights: []
+sources:
+  - https://www.anthropic.com/news/claude-opus-4-8
+verified_at: 2026-09-25

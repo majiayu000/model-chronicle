@@ -1,0 +1,36 @@
+id: deepseek-v4-pro
+name: DeepSeek-V4-Pro
+vendor: deepseek
+family: deepseek-v
+tier: flagship
+generation: "4"
+predecessor: deepseek-v3-2
+open_weights: true
+reasoning: true
+dates:
+  announced: 2026-04-24
+  ga: 2026-04-24
+  deprecated: null
+  retired: null
+specs:
+  context_window: 1000000
+  max_output: null
+  modalities_in:
+    - text
+  modalities_out:
+    - text
+  knowledge_cutoff: null
+  params_b: 1600
+  pricing:
+    input_per_mtok: null
+    output_per_mtok: null
+benchmarks: []
+highlights: []
+sources:
+  - https://api-docs.deepseek.com/news/news260424/
+verified_at: 2026-09-25
+arch:
+  type: moe
+  total: 1600
+  active: 49
+  source: https://api-docs.deepseek.com/news/news260424/

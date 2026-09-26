@@ -1,0 +1,31 @@
+id: gpt-5-3-instant
+name: GPT-5.3 Instant
+vendor: openai
+family: gpt
+tier: mid
+generation: "5.3"
+predecessor: gpt-4-1
+open_weights: false
+reasoning: true
+dates:
+  announced: 2026-03-03
+  ga: 2026-03-03
+  deprecated: null
+  retired: null
+specs:
+  context_window: null
+  max_output: null
+  modalities_in:
+    - text
+  modalities_out:
+    - text
+  knowledge_cutoff: null
+  params_b: null
+  pricing:
+    input_per_mtok: null
+    output_per_mtok: null
+benchmarks: []
+highlights: []
+sources:
+  - https://openai.com/index/gpt-5-3-instant/
+verified_at: 2026-09-25

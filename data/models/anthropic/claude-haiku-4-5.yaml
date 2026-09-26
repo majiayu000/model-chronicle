@@ -1,0 +1,32 @@
+id: claude-haiku-4-5
+name: Claude Haiku 4.5
+vendor: anthropic
+family: claude
+tier: small
+generation: "4.5"
+predecessor: claude-3-5-haiku
+open_weights: false
+reasoning: true
+dates:
+  announced: 2025-10-15
+  ga: 2025-10-15
+  deprecated: null
+  retired: null
+specs:
+  context_window: 200000
+  max_output: null
+  modalities_in:
+    - text
+    - image
+  modalities_out:
+    - text
+  knowledge_cutoff: null
+  params_b: null
+  pricing:
+    input_per_mtok: 1
+    output_per_mtok: 5
+benchmarks: []
+highlights: []
+sources:
+  - https://www.anthropic.com/news/claude-haiku-4-5
+verified_at: 2026-09-25

@@ -1,0 +1,33 @@
+id: o1
+name: o1
+vendor: openai
+family: o-series
+tier: flagship
+generation: o1
+predecessor: o1-preview
+open_weights: false
+reasoning: true
+dates:
+  announced: 2024-12-05
+  ga: 2024-12-05
+  deprecated: null
+  retired: null
+specs:
+  context_window: 200000
+  max_output: 100000
+  modalities_in:
+    - text
+    - image
+  modalities_out:
+    - text
+  knowledge_cutoff: null
+  params_b: null
+  pricing:
+    input_per_mtok: 15
+    output_per_mtok: 60
+benchmarks: []
+highlights: []
+sources:
+  - https://openai.com/index/o1-and-new-tools-for-developers/
+  - https://developers.openai.com/api/docs/models/o1
+verified_at: 2026-09-25

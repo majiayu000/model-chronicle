@@ -1,0 +1,32 @@
+id: claude-3-sonnet
+name: Claude 3 Sonnet
+vendor: anthropic
+family: claude
+tier: mid
+generation: "3"
+predecessor: null
+open_weights: false
+dates:
+  announced: 2024-03-04
+  ga: 2024-03-04
+  deprecated: 2025-01-21
+  retired: 2025-07-21
+specs:
+  context_window: 200000
+  max_output: null
+  modalities_in:
+    - text
+    - image
+  modalities_out:
+    - text
+  knowledge_cutoff: null
+  params_b: null
+  pricing:
+    input_per_mtok: 3
+    output_per_mtok: 15
+benchmarks: []
+highlights: []
+sources:
+  - https://www.anthropic.com/news/claude-3-family
+  - https://platform.claude.com/docs/en/about-claude/model-deprecations
+verified_at: 2026-09-25

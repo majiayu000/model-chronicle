@@ -1,0 +1,33 @@
+id: gpt-5-5-pro
+name: GPT-5.5 Pro
+vendor: openai
+family: gpt-pro
+tier: flagship
+generation: "5.5"
+predecessor: gpt-5-4-pro
+open_weights: false
+dates:
+  announced: 2026-04-23
+  ga: 2026-04-24
+  deprecated: null
+  retired: null
+specs:
+  context_window: 1050000
+  max_output: 128000
+  modalities_in:
+    - text
+    - image
+  modalities_out:
+    - text
+  knowledge_cutoff: null
+  params_b: null
+  pricing:
+    input_per_mtok: 30
+    output_per_mtok: 180
+benchmarks: []
+highlights: []
+sources:
+  - https://openai.com/index/introducing-gpt-5-5/
+  - https://developers.openai.com/api/docs/models/gpt-5.5-pro
+verified_at: 2026-09-25
+reasoning: true

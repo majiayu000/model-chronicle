@@ -1,0 +1,30 @@
+id: gemma-4-e2b
+name: Gemma 4 E2B
+vendor: google
+family: gemma
+tier: small
+generation: "4"
+predecessor: null
+open_weights: true
+dates:
+  announced: 2026-04-02
+  ga: 2026-04-02
+  deprecated: null
+  retired: null
+specs:
+  context_window: 128000
+  max_output: null
+  modalities_in:
+    - text
+  modalities_out:
+    - text
+  knowledge_cutoff: null
+  params_b: null
+  pricing:
+    input_per_mtok: null
+    output_per_mtok: null
+benchmarks: []
+highlights: []
+sources:
+  - https://blog.google/innovation-and-ai/technology/developers-tools/gemma-4/
+verified_at: 2026-09-25

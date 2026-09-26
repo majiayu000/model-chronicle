@@ -1,0 +1,36 @@
+id: gemini-3-5-flash-lite
+name: Gemini 3.5 Flash-Lite
+vendor: google
+family: gemini
+tier: small
+generation: "3.5"
+predecessor: gemini-3-1-flash-lite
+open_weights: false
+reasoning: true
+dates:
+  announced: 2026-07-21
+  ga: 2026-07-21
+  deprecated: null
+  retired: null
+specs:
+  context_window: 1048576
+  max_output: 65536
+  modalities_in:
+    - text
+    - image
+    - video
+    - audio
+    - pdf
+  modalities_out:
+    - text
+  knowledge_cutoff: null
+  params_b: null
+  pricing:
+    input_per_mtok: null
+    output_per_mtok: null
+benchmarks: []
+highlights: []
+sources:
+  - https://blog.google/innovation-and-ai/models-and-research/gemini-models/gemini-3-6-flash-3-5-flash-lite-3-5-flash-cyber/
+  - https://ai.google.dev/gemini-api/docs/models/gemini-3.5-flash-lite
+verified_at: 2026-09-25

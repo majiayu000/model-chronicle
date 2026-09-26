@@ -1,0 +1,39 @@
+id: qwen3-7-max
+name: Qwen3.7-Max
+vendor: qwen
+family: qwen
+tier: flagship
+generation: "3.7"
+predecessor: qwen3-6-plus
+open_weights: false
+reasoning: true
+dates:
+  announced: 2026-05-20
+  ga: 2026-05-20
+  deprecated: null
+  retired: null
+specs:
+  context_window: 1000000
+  max_output: 65536
+  modalities_in:
+    - text
+  modalities_out:
+    - text
+  knowledge_cutoff: null
+  params_b: null
+  pricing:
+    input_per_mtok: null
+    output_per_mtok: null
+benchmarks:
+  - name: SWE-bench Verified
+    score: 80.4
+    reported_by: vendor
+    source: https://qwen.ai/blog?id=qwen3.7
+  - name: GPQA Diamond
+    score: 92.4
+    reported_by: vendor
+    source: https://qwen.ai/blog?id=qwen3.7
+highlights: []
+sources:
+  - https://qwen.ai/blog?id=qwen3.7
+verified_at: 2026-09-25

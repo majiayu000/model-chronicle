@@ -1,0 +1,41 @@
+id: qwen3-30b-a3b
+name: Qwen3-30B-A3B
+vendor: qwen
+family: qwen
+tier: mid
+generation: "3"
+predecessor: null
+open_weights: true
+reasoning: true
+dates:
+  announced: 2025-04-29
+  ga: 2025-04-29
+  deprecated: null
+  retired: null
+specs:
+  context_window: 131072
+  max_output: null
+  modalities_in:
+    - text
+  modalities_out:
+    - text
+  knowledge_cutoff: null
+  params_b: 30
+  pricing:
+    input_per_mtok: null
+    output_per_mtok: null
+benchmarks: []
+highlights: []
+sources:
+  - https://qwenlm.github.io/blog/qwen3/
+verified_at: 2026-09-25
+arch:
+  type: moe
+  total: 30
+  active: 3
+  experts: 128
+  topk: 8
+  layers: 48
+  heads: 32
+  kv: 4
+  source: https://qwenlm.github.io/blog/qwen3/

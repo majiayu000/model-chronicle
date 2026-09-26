@@ -1,0 +1,33 @@
+id: o4-mini
+name: o4-mini
+vendor: openai
+family: o-series
+tier: small
+generation: o4-mini
+predecessor: o3-mini
+open_weights: false
+reasoning: true
+dates:
+  announced: 2025-04-16
+  ga: 2025-04-16
+  deprecated: null
+  retired: null
+specs:
+  context_window: 200000
+  max_output: 100000
+  modalities_in:
+    - text
+    - image
+  modalities_out:
+    - text
+  knowledge_cutoff: null
+  params_b: null
+  pricing:
+    input_per_mtok: 1.1
+    output_per_mtok: 4.4
+benchmarks: []
+highlights: []
+sources:
+  - https://openai.com/index/introducing-o3-and-o4-mini/
+  - https://developers.openai.com/api/docs/models/o4-mini
+verified_at: 2026-09-25

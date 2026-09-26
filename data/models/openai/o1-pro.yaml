@@ -1,0 +1,33 @@
+id: o1-pro
+name: OpenAI o1 pro
+vendor: openai
+family: o-series-pro
+tier: flagship
+generation: "1"
+predecessor: null
+open_weights: false
+dates:
+  announced: 2024-12-05
+  ga: 2024-12-05
+  deprecated: null
+  retired: null
+specs:
+  context_window: 200000
+  max_output: 100000
+  modalities_in:
+    - text
+    - image
+  modalities_out:
+    - text
+  knowledge_cutoff: null
+  params_b: null
+  pricing:
+    input_per_mtok: 150
+    output_per_mtok: 600
+benchmarks: []
+highlights: []
+sources:
+  - https://openai.com/index/introducing-chatgpt-pro/
+  - https://developers.openai.com/api/docs/models/o1-pro
+verified_at: 2026-09-25
+reasoning: true

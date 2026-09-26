@@ -1,0 +1,30 @@
+id: qwen1-5-72b
+name: Qwen1.5-72B
+vendor: qwen
+family: qwen
+tier: flagship
+generation: "1.5"
+predecessor: qwen-72b
+open_weights: true
+dates:
+  announced: 2024-02-04
+  ga: 2024-02-04
+  deprecated: null
+  retired: null
+specs:
+  context_window: 32768
+  max_output: null
+  modalities_in:
+    - text
+  modalities_out:
+    - text
+  knowledge_cutoff: null
+  params_b: 72
+  pricing:
+    input_per_mtok: null
+    output_per_mtok: null
+benchmarks: []
+highlights: []
+sources:
+  - https://qwenlm.github.io/blog/qwen1.5/
+verified_at: 2026-09-25

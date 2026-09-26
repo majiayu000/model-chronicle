@@ -1,0 +1,30 @@
+id: gemma-3-12b
+name: Gemma 3 12B
+vendor: google
+family: gemma
+tier: mid
+generation: "3"
+predecessor: gemma-2-9b
+open_weights: true
+dates:
+  announced: 2025-03-12
+  ga: 2025-03-12
+  deprecated: null
+  retired: null
+specs:
+  context_window: 128000
+  max_output: null
+  modalities_in:
+    - text
+  modalities_out:
+    - text
+  knowledge_cutoff: null
+  params_b: 12
+  pricing:
+    input_per_mtok: null
+    output_per_mtok: null
+benchmarks: []
+highlights: []
+sources:
+  - https://blog.google/innovation-and-ai/technology/developers-tools/gemma-3/
+verified_at: 2026-09-25

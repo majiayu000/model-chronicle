@@ -1,0 +1,33 @@
+id: gpt-6-sol
+name: GPT-6 Sol
+vendor: openai
+family: gpt
+tier: mid
+generation: "6"
+predecessor: gpt-5-6-terra
+open_weights: false
+reasoning: true
+dates:
+  announced: 2026-09-22
+  ga: 2026-09-22
+  deprecated: null
+  retired: null
+specs:
+  context_window: 1050000
+  max_output: 128000
+  modalities_in:
+    - text
+    - image
+  modalities_out:
+    - text
+  knowledge_cutoff: null
+  params_b: null
+  pricing:
+    input_per_mtok: 2
+    output_per_mtok: 10
+benchmarks: []
+highlights: []
+sources:
+  - https://openai.com/index/introducing-gpt-6-sol-and-luna/
+  - https://developers.openai.com/api/docs/models/gpt-6-sol
+verified_at: 2026-09-25

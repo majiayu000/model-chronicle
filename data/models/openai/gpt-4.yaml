@@ -1,0 +1,32 @@
+id: gpt-4
+name: GPT-4
+vendor: openai
+family: gpt
+tier: flagship
+generation: "4"
+predecessor: null
+open_weights: false
+dates:
+  announced: 2023-03-14
+  ga: 2023-03-14
+  deprecated: null
+  retired: null
+specs:
+  context_window: 8192
+  max_output: 8192
+  modalities_in:
+    - text
+    - image
+  modalities_out:
+    - text
+  knowledge_cutoff: null
+  params_b: null
+  pricing:
+    input_per_mtok: 30
+    output_per_mtok: 60
+benchmarks: []
+highlights: []
+sources:
+  - https://openai.com/index/gpt-4-research/
+  - https://developers.openai.com/api/docs/models/gpt-4
+verified_at: 2026-09-25

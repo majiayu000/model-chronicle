@@ -1,0 +1,37 @@
+id: claude-sonnet-4
+name: Claude Sonnet 4
+vendor: anthropic
+family: claude
+tier: mid
+generation: "4"
+predecessor: claude-3-7-sonnet
+open_weights: false
+reasoning: true
+dates:
+  announced: 2025-05-22
+  ga: 2025-05-22
+  deprecated: 2026-04-14
+  retired: 2026-06-15
+specs:
+  context_window: 200000
+  max_output: null
+  modalities_in:
+    - text
+    - image
+  modalities_out:
+    - text
+  knowledge_cutoff: null
+  params_b: null
+  pricing:
+    input_per_mtok: 3
+    output_per_mtok: 15
+benchmarks:
+  - name: SWE-bench Verified
+    score: 72.7
+    reported_by: vendor
+    source: https://www.anthropic.com/news/claude-4
+highlights: []
+sources:
+  - https://www.anthropic.com/news/claude-4
+  - https://platform.claude.com/docs/en/about-claude/model-deprecations
+verified_at: 2026-09-25

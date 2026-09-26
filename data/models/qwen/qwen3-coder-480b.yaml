@@ -1,0 +1,38 @@
+id: qwen3-coder-480b
+name: Qwen3-Coder-480B-A35B
+vendor: qwen
+family: qwen-coder
+tier: flagship
+generation: "3"
+predecessor: qwen2-5-coder-32b
+open_weights: true
+reasoning: true
+dates:
+  announced: 2025-07-22
+  ga: 2025-07-22
+  deprecated: null
+  retired: null
+specs:
+  context_window: 262144
+  max_output: null
+  modalities_in:
+    - text
+  modalities_out:
+    - text
+  knowledge_cutoff: null
+  params_b: 480
+  pricing:
+    input_per_mtok: null
+    output_per_mtok: null
+benchmarks: []
+highlights: []
+sources:
+  - https://qwenlm.github.io/blog/qwen3-coder/
+verified_at: 2026-09-25
+arch:
+  type: moe
+  total: 480
+  active: 35
+  experts: 160
+  topk: 8
+  source: https://qwenlm.github.io/blog/qwen3-coder/

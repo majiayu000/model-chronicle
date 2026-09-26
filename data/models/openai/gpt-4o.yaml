@@ -1,0 +1,33 @@
+id: gpt-4o
+name: GPT-4o
+vendor: openai
+family: gpt
+tier: flagship
+generation: 4o
+predecessor: gpt-4-turbo
+open_weights: false
+dates:
+  announced: 2024-05-13
+  ga: 2024-05-13
+  deprecated: null
+  retired: null
+specs:
+  context_window: 128000
+  max_output: 16384
+  modalities_in:
+    - text
+    - image
+    - audio
+  modalities_out:
+    - text
+  knowledge_cutoff: null
+  params_b: null
+  pricing:
+    input_per_mtok: 5
+    output_per_mtok: 15
+benchmarks: []
+highlights: []
+sources:
+  - https://openai.com/index/hello-gpt-4o/
+  - https://developers.openai.com/api/docs/models/gpt-4o
+verified_at: 2026-09-25

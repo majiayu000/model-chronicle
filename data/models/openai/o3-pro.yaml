@@ -1,0 +1,33 @@
+id: o3-pro
+name: OpenAI o3-pro
+vendor: openai
+family: o-series-pro
+tier: flagship
+generation: "3"
+predecessor: o1-pro
+open_weights: false
+dates:
+  announced: 2025-06-10
+  ga: 2025-06-10
+  deprecated: null
+  retired: null
+specs:
+  context_window: 200000
+  max_output: 100000
+  modalities_in:
+    - text
+    - image
+  modalities_out:
+    - text
+  knowledge_cutoff: null
+  params_b: null
+  pricing:
+    input_per_mtok: 20
+    output_per_mtok: 80
+benchmarks: []
+highlights: []
+sources:
+  - https://openai.com/index/introducing-o3-and-o4-mini/
+  - https://developers.openai.com/api/docs/models/o3-pro
+verified_at: 2026-09-25
+reasoning: true

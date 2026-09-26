@@ -1,0 +1,60 @@
+id: llama-3-1-405b
+name: Llama 3.1 405B
+vendor: meta
+family: llama
+tier: flagship
+generation: "3.1"
+predecessor: llama-3-70b
+open_weights: true
+arch:
+  type: dense
+  layers: 126
+  d: 16384
+  heads: 128
+  kv: 8
+  attn: GQA
+  vocab: 128256
+  source: https://github.com/meta-llama/llama-models/blob/main/models/llama3_1/MODEL_CARD.md
+dates:
+  announced: 2024-07-23
+  ga: 2024-07-23
+  deprecated: null
+  retired: null
+specs:
+  context_window: 128000
+  max_output: null
+  modalities_in:
+    - text
+  modalities_out:
+    - text
+  knowledge_cutoff: 2023-12
+  params_b: 405
+  pricing:
+    input_per_mtok: null
+    output_per_mtok: null
+benchmarks:
+  - name: MMLU
+    score: 87.3
+    reported_by: vendor
+    source: https://github.com/meta-llama/llama-models/blob/main/models/llama3_1/MODEL_CARD.md
+  - name: MMLU-Pro
+    score: 73.3
+    reported_by: vendor
+    source: https://github.com/meta-llama/llama-models/blob/main/models/llama3_1/MODEL_CARD.md
+  - name: HumanEval
+    score: 89
+    reported_by: vendor
+    source: https://github.com/meta-llama/llama-models/blob/main/models/llama3_1/MODEL_CARD.md
+  - name: GPQA Diamond
+    score: 49
+    reported_by: vendor
+    source: https://github.com/meta-llama/llama-models/blob/main/models/llama3_3/MODEL_CARD.md
+highlights:
+  - Meta 称其为首个前沿级开源权重模型
+  - 上下文扩展到 128K，支持 8 种语言
+  - 在超 1.6 万块 H100 上训练，为此前最大 Llama
+sources:
+  - https://ai.meta.com/blog/meta-llama-3-1/
+  - https://github.com/meta-llama/llama-models/blob/main/models/llama3_1/MODEL_CARD.md
+  - https://github.com/meta-llama/llama-models/blob/main/models/llama3_3/MODEL_CARD.md
+verified_at: 2026-09-25

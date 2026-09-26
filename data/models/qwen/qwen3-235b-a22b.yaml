@@ -1,0 +1,41 @@
+id: qwen3-235b-a22b
+name: Qwen3-235B-A22B
+vendor: qwen
+family: qwen
+tier: flagship
+generation: "3"
+predecessor: qwen2-5-max
+open_weights: true
+reasoning: true
+dates:
+  announced: 2025-04-29
+  ga: 2025-04-29
+  deprecated: null
+  retired: null
+specs:
+  context_window: 131072
+  max_output: null
+  modalities_in:
+    - text
+  modalities_out:
+    - text
+  knowledge_cutoff: null
+  params_b: 235
+  pricing:
+    input_per_mtok: null
+    output_per_mtok: null
+benchmarks: []
+highlights: []
+sources:
+  - https://qwenlm.github.io/blog/qwen3/
+verified_at: 2026-09-25
+arch:
+  type: moe
+  total: 235
+  active: 22
+  experts: 128
+  topk: 8
+  layers: 94
+  heads: 64
+  kv: 4
+  source: https://qwenlm.github.io/blog/qwen3/

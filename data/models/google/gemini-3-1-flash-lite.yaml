@@ -1,0 +1,39 @@
+id: gemini-3-1-flash-lite
+name: Gemini 3.1 Flash-Lite
+vendor: google
+family: gemini
+tier: small
+generation: "3.1"
+predecessor: gemini-2-5-flash-lite
+open_weights: false
+dates:
+  announced: 2026-03-03
+  ga: null
+  deprecated: null
+  retired: null
+specs:
+  context_window: 1048576
+  max_output: 65536
+  modalities_in:
+    - text
+    - image
+    - video
+    - audio
+  modalities_out:
+    - text
+  knowledge_cutoff: null
+  params_b: null
+  pricing:
+    input_per_mtok: 0.25
+    output_per_mtok: 1.5
+benchmarks:
+  - name: GPQA Diamond
+    score: 86.9
+    reported_by: vendor
+    source: https://blog.google/innovation-and-ai/models-and-research/gemini-models/gemini-3-1-flash-lite/
+highlights: []
+sources:
+  - https://blog.google/innovation-and-ai/models-and-research/gemini-models/gemini-3-1-flash-lite/
+  - https://ai.google.dev/gemini-api/docs/models/gemini-3.1-flash-lite-preview
+verified_at: 2026-09-25
+reasoning: true

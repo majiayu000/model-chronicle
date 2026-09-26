@@ -1,0 +1,36 @@
+id: gemini-3-1-pro
+name: Gemini 3.1 Pro
+vendor: google
+family: gemini
+tier: flagship
+generation: "3.1"
+predecessor: gemini-3-pro
+open_weights: false
+reasoning: true
+dates:
+  announced: 2026-02-19
+  ga: null
+  deprecated: null
+  retired: null
+specs:
+  context_window: 1048576
+  max_output: 65536
+  modalities_in:
+    - text
+    - image
+    - video
+    - audio
+    - pdf
+  modalities_out:
+    - text
+  knowledge_cutoff: null
+  params_b: null
+  pricing:
+    input_per_mtok: null
+    output_per_mtok: null
+benchmarks: []
+highlights: []
+sources:
+  - https://blog.google/innovation-and-ai/models-and-research/gemini-models/gemini-3-1-pro/
+  - https://ai.google.dev/gemini-api/docs/models/gemini-3.1-pro-preview
+verified_at: 2026-09-25

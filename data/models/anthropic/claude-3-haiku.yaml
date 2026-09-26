@@ -1,0 +1,32 @@
+id: claude-3-haiku
+name: Claude 3 Haiku
+vendor: anthropic
+family: claude
+tier: small
+generation: "3"
+predecessor: null
+open_weights: false
+dates:
+  announced: 2024-03-04
+  ga: 2024-03-13
+  deprecated: 2026-02-19
+  retired: 2026-04-20
+specs:
+  context_window: 200000
+  max_output: null
+  modalities_in:
+    - text
+    - image
+  modalities_out:
+    - text
+  knowledge_cutoff: null
+  params_b: null
+  pricing:
+    input_per_mtok: 0.25
+    output_per_mtok: 1.25
+benchmarks: []
+highlights: []
+sources:
+  - https://www.anthropic.com/news/claude-3-haiku
+  - https://platform.claude.com/docs/en/about-claude/model-deprecations
+verified_at: 2026-09-25

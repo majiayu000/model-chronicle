@@ -1,0 +1,32 @@
+id: gpt-4-turbo
+name: GPT-4 Turbo
+vendor: openai
+family: gpt
+tier: flagship
+generation: 4 Turbo
+predecessor: gpt-4
+open_weights: false
+dates:
+  announced: 2023-11-06
+  ga: null
+  deprecated: null
+  retired: null
+specs:
+  context_window: 128000
+  max_output: 4096
+  modalities_in:
+    - text
+    - image
+  modalities_out:
+    - text
+  knowledge_cutoff: null
+  params_b: null
+  pricing:
+    input_per_mtok: 10
+    output_per_mtok: 30
+benchmarks: []
+highlights: []
+sources:
+  - https://openai.com/index/new-models-and-developer-products-announced-at-devday/
+  - https://developers.openai.com/api/docs/models/gpt-4-turbo
+verified_at: 2026-09-25

@@ -3,7 +3,8 @@ import type { Model } from "./schema";
 const DAY_MS = 86_400_000;
 
 export function todayISO(): string {
-  return new Date().toISOString().slice(0, 10);
+  const now = new Date();
+  return [now.getFullYear(), String(now.getMonth() + 1).padStart(2, "0"), String(now.getDate()).padStart(2, "0")].join("-");
 }
 
 /** 模型的“发布日”：优先 GA，缺失时用 announced */

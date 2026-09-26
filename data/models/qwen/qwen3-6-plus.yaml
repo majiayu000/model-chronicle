@@ -1,0 +1,34 @@
+id: qwen3-6-plus
+name: Qwen3.6-Plus
+vendor: qwen
+family: qwen
+tier: flagship
+generation: "3.6"
+predecessor: qwen3-5-397b-a17b
+open_weights: false
+reasoning: true
+dates:
+  announced: 2026-04-02
+  ga: 2026-04-02
+  deprecated: null
+  retired: null
+specs:
+  context_window: 1000000
+  max_output: null
+  modalities_in:
+    - text
+    - image
+    - video
+  modalities_out:
+    - text
+  knowledge_cutoff: null
+  params_b: null
+  pricing:
+    input_per_mtok: null
+    output_per_mtok: null
+benchmarks: []
+highlights: []
+sources:
+  - https://www.alibabacloud.com/en/press-room/alibaba-unveils-qwen3-6-plus-to-accelerate-agentic
+  - https://www.alibabacloud.com/help/en/model-studio/qwen3-6-plus
+verified_at: 2026-09-25

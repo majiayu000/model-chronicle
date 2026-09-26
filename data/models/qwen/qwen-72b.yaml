@@ -1,0 +1,30 @@
+id: qwen-72b
+name: Qwen-72B
+vendor: qwen
+family: qwen
+tier: flagship
+generation: "1"
+predecessor: null
+open_weights: true
+dates:
+  announced: 2023-11-30
+  ga: 2023-11-30
+  deprecated: null
+  retired: null
+specs:
+  context_window: 32768
+  max_output: null
+  modalities_in:
+    - text
+  modalities_out:
+    - text
+  knowledge_cutoff: null
+  params_b: 72
+  pricing:
+    input_per_mtok: null
+    output_per_mtok: null
+benchmarks: []
+highlights: []
+sources:
+  - https://qwenlm.github.io/blog/qwen/
+verified_at: 2026-09-25

@@ -1,0 +1,35 @@
+id: gemma-4-12b
+name: Gemma 4 12B
+vendor: google
+family: gemma
+tier: small
+generation: "4"
+predecessor: gemma-3-27b
+open_weights: true
+reasoning: true
+dates:
+  announced: 2026-06-03
+  ga: 2026-06-03
+  deprecated: null
+  retired: null
+specs:
+  context_window: 256000
+  max_output: null
+  modalities_in:
+    - text
+    - image
+    - video
+    - audio
+  modalities_out:
+    - text
+  knowledge_cutoff: null
+  params_b: 12
+  pricing:
+    input_per_mtok: null
+    output_per_mtok: null
+benchmarks: []
+highlights: []
+sources:
+  - https://blog.google/innovation-and-ai/technology/developers-tools/introducing-gemma-4-12b/
+  - https://ai.google.dev/gemma/docs/core/model_card_4
+verified_at: 2026-09-25

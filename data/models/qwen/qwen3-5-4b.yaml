@@ -1,0 +1,33 @@
+id: qwen3-5-4b
+name: Qwen3.5-4B
+vendor: qwen
+family: qwen
+tier: small
+generation: "3.5"
+predecessor: null
+open_weights: true
+reasoning: true
+dates:
+  announced: 2026-03-02
+  ga: 2026-03-02
+  deprecated: null
+  retired: null
+specs:
+  context_window: null
+  max_output: null
+  modalities_in:
+    - text
+    - image
+  modalities_out:
+    - text
+  knowledge_cutoff: null
+  params_b: 4
+  pricing:
+    input_per_mtok: null
+    output_per_mtok: null
+benchmarks: []
+highlights: []
+sources:
+  - https://github.com/QwenLM/Qwen3.8/blob/main/README.md
+  - https://huggingface.co/Qwen/Qwen3.5-4B
+verified_at: 2026-09-25

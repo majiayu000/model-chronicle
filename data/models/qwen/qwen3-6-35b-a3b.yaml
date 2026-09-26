@@ -1,0 +1,38 @@
+id: qwen3-6-35b-a3b
+name: Qwen3.6-35B-A3B
+vendor: qwen
+family: qwen
+tier: mid
+generation: "3.6"
+predecessor: qwen3-5-35b-a3b
+open_weights: true
+reasoning: true
+dates:
+  announced: 2026-04-16
+  ga: 2026-04-16
+  deprecated: null
+  retired: null
+specs:
+  context_window: 262144
+  max_output: null
+  modalities_in:
+    - text
+    - image
+  modalities_out:
+    - text
+  knowledge_cutoff: null
+  params_b: 35
+  pricing:
+    input_per_mtok: null
+    output_per_mtok: null
+benchmarks: []
+highlights: []
+sources:
+  - https://github.com/QwenLM/Qwen3.8/blob/main/README.md
+  - https://huggingface.co/Qwen/Qwen3.6-35B-A3B
+verified_at: 2026-09-25
+arch:
+  type: moe
+  total: 35
+  active: 3
+  source: https://huggingface.co/Qwen/Qwen3.6-35B-A3B

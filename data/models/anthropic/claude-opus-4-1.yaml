@@ -1,0 +1,37 @@
+id: claude-opus-4-1
+name: Claude Opus 4.1
+vendor: anthropic
+family: claude
+tier: flagship
+generation: "4.1"
+predecessor: claude-opus-4
+open_weights: false
+reasoning: true
+dates:
+  announced: 2025-08-05
+  ga: 2025-08-05
+  deprecated: 2026-06-05
+  retired: 2026-08-05
+specs:
+  context_window: 200000
+  max_output: null
+  modalities_in:
+    - text
+    - image
+  modalities_out:
+    - text
+  knowledge_cutoff: null
+  params_b: null
+  pricing:
+    input_per_mtok: 15
+    output_per_mtok: 75
+benchmarks:
+  - name: SWE-bench Verified
+    score: 74.5
+    reported_by: vendor
+    source: https://www.anthropic.com/news/claude-opus-4-1
+highlights: []
+sources:
+  - https://www.anthropic.com/news/claude-opus-4-1
+  - https://platform.claude.com/docs/en/about-claude/model-deprecations
+verified_at: 2026-09-25

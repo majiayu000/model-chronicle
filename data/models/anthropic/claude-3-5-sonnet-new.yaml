@@ -1,0 +1,36 @@
+id: claude-3-5-sonnet-new
+name: Claude 3.5 Sonnet (新)
+vendor: anthropic
+family: claude
+tier: mid
+generation: 3.5 新
+predecessor: claude-3-5-sonnet
+open_weights: false
+dates:
+  announced: 2024-10-22
+  ga: 2024-10-22
+  deprecated: 2025-08-13
+  retired: 2025-10-28
+specs:
+  context_window: 200000
+  max_output: null
+  modalities_in:
+    - text
+    - image
+  modalities_out:
+    - text
+  knowledge_cutoff: null
+  params_b: null
+  pricing:
+    input_per_mtok: 3
+    output_per_mtok: 15
+benchmarks:
+  - name: SWE-bench Verified
+    score: 49
+    reported_by: vendor
+    source: https://www.anthropic.com/news/3-5-models-and-computer-use
+highlights: []
+sources:
+  - https://www.anthropic.com/news/3-5-models-and-computer-use
+  - https://platform.claude.com/docs/en/about-claude/model-deprecations
+verified_at: 2026-09-25

@@ -1,0 +1,32 @@
+id: gpt-oss-20b
+name: gpt-oss-20b
+vendor: openai
+family: gpt-oss
+tier: small
+generation: oss
+predecessor: null
+open_weights: true
+reasoning: true
+dates:
+  announced: 2025-08-05
+  ga: 2025-08-05
+  deprecated: null
+  retired: null
+specs:
+  context_window: 131072
+  max_output: 131072
+  modalities_in:
+    - text
+  modalities_out:
+    - text
+  knowledge_cutoff: null
+  params_b: null
+  pricing:
+    input_per_mtok: null
+    output_per_mtok: null
+benchmarks: []
+highlights: []
+sources:
+  - https://openai.com/index/introducing-gpt-oss/
+  - https://developers.openai.com/api/docs/models/gpt-oss-20b
+verified_at: 2026-09-25

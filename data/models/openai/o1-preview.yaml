@@ -1,0 +1,32 @@
+id: o1-preview
+name: o1-preview
+vendor: openai
+family: o-series
+tier: flagship
+generation: o1-preview
+predecessor: null
+open_weights: false
+reasoning: true
+dates:
+  announced: 2024-09-12
+  ga: 2024-09-12
+  deprecated: null
+  retired: null
+specs:
+  context_window: 128000
+  max_output: 32768
+  modalities_in:
+    - text
+  modalities_out:
+    - text
+  knowledge_cutoff: null
+  params_b: null
+  pricing:
+    input_per_mtok: 15
+    output_per_mtok: 60
+benchmarks: []
+highlights: []
+sources:
+  - https://openai.com/index/introducing-openai-o1-preview/
+  - https://developers.openai.com/api/docs/models/o1-preview
+verified_at: 2026-09-25

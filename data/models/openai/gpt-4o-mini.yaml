@@ -1,0 +1,36 @@
+id: gpt-4o-mini
+name: GPT-4o mini
+vendor: openai
+family: gpt
+tier: small
+generation: 4o mini
+predecessor: null
+open_weights: false
+dates:
+  announced: 2024-07-18
+  ga: 2024-07-18
+  deprecated: null
+  retired: null
+specs:
+  context_window: 128000
+  max_output: 16384
+  modalities_in:
+    - text
+    - image
+  modalities_out:
+    - text
+  knowledge_cutoff: null
+  params_b: null
+  pricing:
+    input_per_mtok: 0.15
+    output_per_mtok: 0.6
+benchmarks:
+  - name: MMLU
+    score: 82
+    reported_by: vendor
+    source: https://openai.com/index/gpt-4o-mini-advancing-cost-efficient-intelligence/
+highlights: []
+sources:
+  - https://openai.com/index/gpt-4o-mini-advancing-cost-efficient-intelligence/
+  - https://developers.openai.com/api/docs/models/gpt-4o-mini
+verified_at: 2026-09-25

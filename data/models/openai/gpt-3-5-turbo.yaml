@@ -1,0 +1,31 @@
+id: gpt-3-5-turbo
+name: GPT-3.5 Turbo
+vendor: openai
+family: gpt
+tier: mid
+generation: "3.5"
+predecessor: null
+open_weights: false
+dates:
+  announced: 2023-03-01
+  ga: 2023-03-01
+  deprecated: null
+  retired: null
+specs:
+  context_window: null
+  max_output: null
+  modalities_in:
+    - text
+  modalities_out:
+    - text
+  knowledge_cutoff: null
+  params_b: null
+  pricing:
+    input_per_mtok: null
+    output_per_mtok: null
+benchmarks: []
+highlights: []
+sources:
+  - https://openai.com/index/introducing-chatgpt-and-whisper-apis/
+  - https://developers.openai.com/api/docs/models/gpt-3.5-turbo
+verified_at: 2026-09-25

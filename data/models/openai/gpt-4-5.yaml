@@ -1,0 +1,32 @@
+id: gpt-4-5
+name: GPT-4.5
+vendor: openai
+family: gpt
+tier: flagship
+generation: "4.5"
+predecessor: gpt-4o
+open_weights: false
+dates:
+  announced: 2025-02-27
+  ga: 2025-02-27
+  deprecated: null
+  retired: null
+specs:
+  context_window: 128000
+  max_output: 16384
+  modalities_in:
+    - text
+    - image
+  modalities_out:
+    - text
+  knowledge_cutoff: null
+  params_b: null
+  pricing:
+    input_per_mtok: 75
+    output_per_mtok: 150
+benchmarks: []
+highlights: []
+sources:
+  - https://openai.com/index/introducing-gpt-4-5/
+  - https://developers.openai.com/api/docs/models/gpt-4.5-preview
+verified_at: 2026-09-25

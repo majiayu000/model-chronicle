@@ -1,0 +1,47 @@
+id: llama-2-7b
+name: Llama 2 7B
+vendor: meta
+family: llama
+tier: small
+generation: "2"
+predecessor: llama-7b
+open_weights: true
+arch:
+  type: dense
+  layers: 32
+  d: 4096
+  heads: 32
+  kv: 32
+  attn: MHA
+  vocab: 32000
+  source: https://github.com/meta-llama/llama/blob/main/MODEL_CARD.md
+dates:
+  announced: 2023-07-18
+  ga: 2023-07-18
+  deprecated: null
+  retired: null
+specs:
+  context_window: 4096
+  max_output: null
+  modalities_in:
+    - text
+  modalities_out:
+    - text
+  knowledge_cutoff: 2022-09
+  params_b: 7
+  pricing:
+    input_per_mtok: null
+    output_per_mtok: null
+benchmarks:
+  - name: MMLU
+    score: 45.3
+    reported_by: vendor
+    source: https://github.com/meta-llama/llama/blob/main/MODEL_CARD.md
+highlights:
+  - 可免费用于研究与商业用途
+  - 预训练数据 2 万亿 token
+  - 新增经 SFT 与 RLHF 对齐的 Llama-2-Chat 对话版
+sources:
+  - https://ai.meta.com/blog/llama-2/
+  - https://github.com/meta-llama/llama/blob/main/MODEL_CARD.md
+verified_at: 2026-09-25

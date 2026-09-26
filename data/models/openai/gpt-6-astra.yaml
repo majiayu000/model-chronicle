@@ -1,0 +1,37 @@
+id: gpt-6-astra
+name: GPT-6 Astra
+vendor: openai
+family: gpt
+tier: flagship
+generation: "6"
+predecessor: gpt-5-6-sol
+open_weights: false
+reasoning: true
+dates:
+  announced: 2026-09-03
+  ga: 2026-09-03
+  deprecated: null
+  retired: null
+specs:
+  context_window: 1050000
+  max_output: 128000
+  modalities_in:
+    - text
+    - image
+  modalities_out:
+    - text
+  knowledge_cutoff: null
+  params_b: null
+  pricing:
+    input_per_mtok: 10
+    output_per_mtok: 50
+benchmarks:
+  - name: GPQA Diamond
+    score: 96
+    reported_by: vendor
+    source: https://openai.com/index/gpt-6-astra/
+highlights: []
+sources:
+  - https://openai.com/index/gpt-6-astra/
+  - https://developers.openai.com/api/docs/models/gpt-6-astra
+verified_at: 2026-09-25

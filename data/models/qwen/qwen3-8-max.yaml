@@ -1,0 +1,37 @@
+id: qwen3-8-max
+name: Qwen3.8-Max
+vendor: qwen
+family: qwen
+tier: flagship
+generation: "3.8"
+predecessor: qwen3-7-max
+open_weights: true
+reasoning: true
+dates:
+  announced: 2026-08-02
+  ga: 2026-08-02
+  deprecated: null
+  retired: null
+specs:
+  context_window: 1000000
+  max_output: null
+  modalities_in:
+    - text
+  modalities_out:
+    - text
+  knowledge_cutoff: null
+  params_b: 2400
+  pricing:
+    input_per_mtok: null
+    output_per_mtok: null
+benchmarks: []
+highlights: []
+sources:
+  - https://www.alibabacloud.com/blog/alibaba-unveils-qwen3-8-27b_603463
+  - https://qwen.ai/blog?id=qwen3.8
+verified_at: 2026-09-25
+arch:
+  type: moe
+  total: 2400
+  active: 95
+  source: https://qwen.ai/blog?id=qwen3.8

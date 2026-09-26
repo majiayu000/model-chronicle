@@ -1,0 +1,37 @@
+id: qwen3-8-flash-next
+name: Qwen3.8-Flash-Next
+vendor: qwen
+family: qwen
+tier: small
+generation: "3.8"
+predecessor: null
+open_weights: true
+reasoning: true
+dates:
+  announced: 2026-08-27
+  ga: 2026-08-27
+  deprecated: null
+  retired: null
+specs:
+  context_window: 262144
+  max_output: null
+  modalities_in:
+    - text
+    - image
+    - video
+  modalities_out:
+    - text
+  knowledge_cutoff: null
+  params_b: null
+  pricing:
+    input_per_mtok: null
+    output_per_mtok: null
+benchmarks: []
+highlights: []
+sources:
+  - https://www.alibabacloud.com/blog/qwen3-8-flash-next-a-new-architecture-towardsultimate-cost-efficiency_603501
+verified_at: 2026-09-25
+arch:
+  type: moe
+  active: 6
+  source: https://www.alibabacloud.com/blog/qwen3-8-flash-next-a-new-architecture-towardsultimate-cost-efficiency_603501

@@ -1,0 +1,34 @@
+id: gemini-1-5-pro
+name: Gemini 1.5 Pro
+vendor: google
+family: gemini
+tier: flagship
+generation: "1.5"
+predecessor: gemini-1-0-ultra
+open_weights: false
+dates:
+  announced: 2024-02-15
+  ga: 2024-05-23
+  deprecated: null
+  retired: null
+specs:
+  context_window: 1000000
+  max_output: null
+  modalities_in:
+    - text
+    - image
+    - audio
+    - video
+  modalities_out:
+    - text
+  knowledge_cutoff: null
+  params_b: null
+  pricing:
+    input_per_mtok: null
+    output_per_mtok: null
+benchmarks: []
+highlights: []
+sources:
+  - https://blog.google/innovation-and-ai/products/google-gemini-next-generation-model-february-2024/
+  - https://ai.google.dev/gemini-api/docs/changelog
+verified_at: 2026-09-25

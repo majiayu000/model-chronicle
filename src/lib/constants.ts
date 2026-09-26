@@ -12,8 +12,8 @@ export const BENCHMARKS = [
 ] as const;
 
 export const FAMILIES: Record<(typeof VENDORS)[number], readonly string[]> = {
-  anthropic: ["claude"],
-  openai: ["gpt", "o-series", "gpt-oss"],
+  anthropic: ["claude", "fable"],
+  openai: ["gpt", "gpt-pro", "o-series", "o-series-pro", "gpt-oss"],
   google: ["gemini", "gemma", "palm"],
   meta: ["llama"],
   deepseek: ["deepseek-v", "deepseek-r", "deepseek-coder"],

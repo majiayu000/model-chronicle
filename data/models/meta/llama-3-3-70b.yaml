@@ -1,0 +1,54 @@
+id: llama-3-3-70b
+name: Llama 3.3 70B
+vendor: meta
+family: llama
+tier: flagship
+generation: "3.3"
+predecessor: llama-3-2-90b-vision
+open_weights: true
+arch:
+  type: dense
+  layers: 80
+  d: 8192
+  heads: 64
+  kv: 8
+  attn: GQA
+  vocab: 128256
+  source: https://github.com/meta-llama/llama-models/blob/main/models/llama3_3/MODEL_CARD.md
+dates:
+  announced: 2024-12-06
+  ga: 2024-12-06
+  deprecated: null
+  retired: null
+specs:
+  context_window: 128000
+  max_output: null
+  modalities_in:
+    - text
+  modalities_out:
+    - text
+  knowledge_cutoff: 2023-12
+  params_b: 70
+  pricing:
+    input_per_mtok: null
+    output_per_mtok: null
+benchmarks:
+  - name: MMLU-Pro
+    score: 68.9
+    reported_by: vendor
+    source: https://github.com/meta-llama/llama-models/blob/main/models/llama3_3/MODEL_CARD.md
+  - name: GPQA Diamond
+    score: 50.5
+    reported_by: vendor
+    source: https://github.com/meta-llama/llama-models/blob/main/models/llama3_3/MODEL_CARD.md
+  - name: HumanEval
+    score: 88.4
+    reported_by: vendor
+    source: https://github.com/meta-llama/llama-models/blob/main/models/llama3_3/MODEL_CARD.md
+highlights:
+  - 仅发布 70B 指令模型，文本输入输出
+  - HumanEval 与 MMLU-Pro 高于 Llama 3.1 70B
+sources:
+  - https://github.com/meta-llama/llama-models/blob/main/models/llama3_3/MODEL_CARD.md
+  - https://huggingface.co/meta-llama/Llama-3.3-70B-Instruct
+verified_at: 2026-09-25

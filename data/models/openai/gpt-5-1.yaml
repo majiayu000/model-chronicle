@@ -1,0 +1,33 @@
+id: gpt-5-1
+name: GPT-5.1
+vendor: openai
+family: gpt
+tier: flagship
+generation: "5.1"
+predecessor: gpt-5
+open_weights: false
+reasoning: true
+dates:
+  announced: 2025-11-12
+  ga: 2025-11-12
+  deprecated: null
+  retired: null
+specs:
+  context_window: 400000
+  max_output: 128000
+  modalities_in:
+    - text
+    - image
+  modalities_out:
+    - text
+  knowledge_cutoff: null
+  params_b: null
+  pricing:
+    input_per_mtok: 1.25
+    output_per_mtok: 10
+benchmarks: []
+highlights: []
+sources:
+  - https://openai.com/index/gpt-5-system-card-addendum-gpt-5-1/
+  - https://developers.openai.com/api/docs/models/gpt-5.1
+verified_at: 2026-09-25

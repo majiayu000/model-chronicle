@@ -1,6 +1,6 @@
 # 数据 Schema
 
-一个模型一个 YAML 文件：`data/models/<vendor>/<id>.yaml`。厂商元数据在 `data/vendors.yaml`。
+一个模型一个 YAML 文件：`data/models/<vendor>/<id>.yaml`。厂商及产品线取值在 `src/lib/constants.ts`。
 构建时 `scripts/build-data.ts` 校验全部文件并编译成 `src/generated/models.json`，校验失败构建即失败。
 
 ## 收录范围
@@ -20,6 +20,7 @@ tier: mid                      # flagship | mid | small
 generation: "3.7"              # 字符串形式的代号/版本
 predecessor: claude-3-5-sonnet-new   # 同 vendor + family + tier 的上一个模型 id；该线第一个填 null
 open_weights: false
+reasoning: true                # 可选；官方明确支持推理模式时填写
 dates:
   announced: 2025-02-24        # YYYY-MM-DD 或 YYYY-MM（只知道月份时）；未知 null
   ga: 2025-02-24               # 正式可用（API/产品对公众开放）；未知 null
@@ -35,11 +36,21 @@ specs:
   pricing:                     # 美元 / 百万 token，发布时官方 API 价格；未知 null
     input_per_mtok: null
     output_per_mtok: null
+arch:                         # 可选；无可核实架构资料时省略
+  type: dense                 # dense | moe
+  source: https://...        # 必须同时列在 sources 中
+  layers: 32                  # 只填写来源明确公开的参数
 benchmarks:                    # 只允许下方“基准白名单”里的 name
   - name: SWE-bench Verified
     score: 62.3                # 百分比数值
     reported_by: vendor        # vendor | third_party
     source: https://...
+    # evaluation:                # 可选；下列四项均有来源时才填写
+    #   benchmark_version: "..." # 试题集/版本
+    #   tools: false             # 是否允许外部工具
+    #   reasoning_effort: "..."  # 推理设置
+    #   harness: "..."           # 评测框架与运行方式
+    # comparison_group: "..."    # 可选；人工核实同一基准、同一评测条件后赋予相同组名
 highlights:                    # 1~4 条中文短句，描述该模型相对前代的关键变化，必须能在 sources 中找到依据
   - 首个混合推理模型，可切换扩展思考
 sources:                       # 至少 1 个官方来源 URL（发布博客/文档/模型卡）
@@ -51,8 +62,8 @@ verified_at: 2026-09-24
 
 | vendor | family |
 |---|---|
-| anthropic | `claude` |
-| openai | `gpt`（GPT-3.5/4/4o/4.1/4.5/5…）、`o-series`（o1/o3/o4…）、`gpt-oss` |
+| anthropic | `claude`、`fable` |
+| openai | `gpt`（GPT-3.5/4/4o/4.1/4.5/5…）、`gpt-pro`、`o-series`（o1/o3/o4…）、`o-series-pro`、`gpt-oss` |
 | google | `gemini`、`gemma`、`palm` |
 | meta | `llama` |
 | deepseek | `deepseek-v`（V2/V3…）、`deepseek-r`（R1…）、`deepseek-coder` |
@@ -73,3 +84,6 @@ verified_at: 2026-09-24
 1. 不确定就填 `null`，不要猜，不要估算。
 2. 日期只写能从来源确认的精度；只知道月份就写 `YYYY-MM`。
 3. `predecessor` 是人工判断的“同档位上一代”，不是按名字推断。
+4. 预览发布与正式可用分开记录：`announced` 填发布或预览日，`ga` 仅在来源明确可公开使用时填写。
+5. `verified_at` 表示本条已填写事实的核对时间；`null` 仍表示未知，不能被页面用示意值替代。
+6. 未填写 `comparison_group` 的基准分数仅作为来源观测点展示，不参与最高分、开源追赶、能力成本或前代分差计算。组名必须对应完整 `evaluation`，同组四项设置必须一致；不能仅因基准名称相同就归入同组。

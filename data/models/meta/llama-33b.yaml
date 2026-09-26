@@ -1,0 +1,43 @@
+id: llama-33b
+name: LLaMA 33B
+vendor: meta
+family: llama
+tier: mid
+generation: "1"
+predecessor: null
+open_weights: true
+arch:
+  type: dense
+  total: 33
+  layers: 60
+  d: 6656
+  heads: 52
+  kv: 52
+  attn: MHA
+  source: https://github.com/meta-llama/llama/blob/llama_v1/MODEL_CARD.md
+dates:
+  announced: 2023-02-24
+  ga: null
+  deprecated: null
+  retired: null
+specs:
+  context_window: 2048
+  max_output: null
+  modalities_in: [text]
+  modalities_out: [text]
+  knowledge_cutoff: null
+  params_b: 33
+  pricing:
+    input_per_mtok: null
+    output_per_mtok: null
+benchmarks:
+  - name: MMLU
+    score: 57.8
+    reported_by: vendor
+    source: https://arxiv.org/abs/2302.13971
+highlights: []
+sources:
+  - https://ai.meta.com/blog/large-language-model-llama-meta-ai/
+  - https://github.com/meta-llama/llama/blob/llama_v1/MODEL_CARD.md
+  - https://arxiv.org/abs/2302.13971
+verified_at: 2026-09-25

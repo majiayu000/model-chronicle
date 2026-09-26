@@ -1,0 +1,31 @@
+id: deepseek-v3-2-exp
+name: DeepSeek-V3.2-Exp
+vendor: deepseek
+family: deepseek-v
+tier: flagship
+generation: 3.2 Exp
+predecessor: deepseek-v3-1-terminus
+open_weights: true
+reasoning: true
+dates:
+  announced: 2025-09-29
+  ga: 2025-09-29
+  deprecated: null
+  retired: null
+specs:
+  context_window: 128000
+  max_output: null
+  modalities_in:
+    - text
+  modalities_out:
+    - text
+  knowledge_cutoff: null
+  params_b: null
+  pricing:
+    input_per_mtok: null
+    output_per_mtok: null
+benchmarks: []
+highlights: []
+sources:
+  - https://api-docs.deepseek.com/news/news250929/
+verified_at: 2026-09-25

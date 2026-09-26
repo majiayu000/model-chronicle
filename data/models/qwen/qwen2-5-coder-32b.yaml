@@ -1,0 +1,30 @@
+id: qwen2-5-coder-32b
+name: Qwen2.5-Coder-32B
+vendor: qwen
+family: qwen-coder
+tier: flagship
+generation: "2.5"
+predecessor: null
+open_weights: true
+dates:
+  announced: 2024-11-12
+  ga: 2024-11-12
+  deprecated: null
+  retired: null
+specs:
+  context_window: 131072
+  max_output: null
+  modalities_in:
+    - text
+  modalities_out:
+    - text
+  knowledge_cutoff: null
+  params_b: 32.5
+  pricing:
+    input_per_mtok: null
+    output_per_mtok: null
+benchmarks: []
+highlights: []
+sources:
+  - https://qwenlm.github.io/blog/qwen2.5-coder-family/
+verified_at: 2026-09-25

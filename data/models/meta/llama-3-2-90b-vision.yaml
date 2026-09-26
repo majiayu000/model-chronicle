@@ -1,0 +1,48 @@
+id: llama-3-2-90b-vision
+name: Llama 3.2 90B Vision
+vendor: meta
+family: llama
+tier: flagship
+generation: "3.2"
+predecessor: llama-3-1-405b
+open_weights: true
+arch:
+  type: dense
+  layers: 80
+  d: 8192
+  heads: 64
+  kv: 8
+  attn: GQA
+  vision: adapter
+  vocab: 128256
+  source: https://github.com/meta-llama/llama-models/blob/main/models/llama3_2/MODEL_CARD_VISION.md
+dates:
+  announced: 2024-09-25
+  ga: 2024-09-25
+  deprecated: null
+  retired: null
+specs:
+  context_window: 128000
+  max_output: null
+  modalities_in:
+    - text
+    - image
+  modalities_out:
+    - text
+  knowledge_cutoff: 2023-12
+  params_b: 88.8
+  pricing:
+    input_per_mtok: null
+    output_per_mtok: null
+benchmarks:
+  - name: MMMU
+    score: 60.3
+    reported_by: vendor
+    source: https://github.com/meta-llama/llama-models/blob/main/models/llama3_2/MODEL_CARD_VISION.md
+highlights:
+  - Llama 首批视觉模型，支持图像输入
+  - 可直接替换对应的文本模型
+sources:
+  - https://ai.meta.com/blog/llama-3-2-connect-2024-vision-edge-mobile-devices/
+  - https://github.com/meta-llama/llama-models/blob/main/models/llama3_2/MODEL_CARD_VISION.md
+verified_at: 2026-09-25

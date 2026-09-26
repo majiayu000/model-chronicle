@@ -1,0 +1,34 @@
+id: gemma-4-26b-moe
+name: Gemma 4 26B MoE
+vendor: google
+family: gemma
+tier: mid
+generation: "4"
+predecessor: null
+open_weights: true
+reasoning: true
+dates:
+  announced: 2026-04-02
+  ga: 2026-04-02
+  deprecated: null
+  retired: null
+specs:
+  context_window: 256000
+  max_output: null
+  modalities_in:
+    - text
+    - image
+    - video
+  modalities_out:
+    - text
+  knowledge_cutoff: null
+  params_b: 26
+  pricing:
+    input_per_mtok: null
+    output_per_mtok: null
+benchmarks: []
+highlights: []
+sources:
+  - https://blog.google/innovation-and-ai/technology/developers-tools/gemma-4/
+  - https://ai.google.dev/gemma/docs/core/model_card_4
+verified_at: 2026-09-25

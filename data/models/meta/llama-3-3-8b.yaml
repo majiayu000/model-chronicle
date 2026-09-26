@@ -1,0 +1,29 @@
+id: llama-3-3-8b
+name: Llama 3.3 8B
+vendor: meta
+family: llama
+tier: small
+generation: "3.3"
+predecessor: null
+open_weights: false
+dates:
+  announced: 2025-04-29
+  ga: null
+  deprecated: null
+  retired: null
+specs:
+  context_window: null
+  max_output: null
+  modalities_in: [text]
+  modalities_out: [text]
+  knowledge_cutoff: null
+  params_b: 8
+  pricing:
+    input_per_mtok: null
+    output_per_mtok: null
+benchmarks: []
+highlights:
+  - 在 Llama API 限量预览中提供微调与评估
+sources:
+  - https://ai.meta.com/blog/llamacon-llama-news/
+verified_at: 2026-09-25

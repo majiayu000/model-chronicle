@@ -1,0 +1,32 @@
+id: claude-2-1
+name: Claude 2.1
+vendor: anthropic
+family: claude
+tier: flagship
+generation: "2.1"
+predecessor: claude-2
+open_weights: false
+dates:
+  announced: 2023-11-21
+  ga: 2023-11-21
+  deprecated: 2025-01-21
+  retired: 2025-07-21
+specs:
+  context_window: null
+  max_output: null
+  modalities_in:
+    - text
+    - pdf
+  modalities_out:
+    - text
+  knowledge_cutoff: null
+  params_b: null
+  pricing:
+    input_per_mtok: null
+    output_per_mtok: null
+benchmarks: []
+highlights: []
+sources:
+  - https://www.anthropic.com/news/claude-2-1
+  - https://platform.claude.com/docs/en/about-claude/model-deprecations
+verified_at: 2026-09-25

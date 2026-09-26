@@ -1,0 +1,36 @@
+id: gemini-3-7-flash
+name: Gemini 3.7 Flash
+vendor: google
+family: gemini
+tier: mid
+generation: "3.7"
+predecessor: gemini-3-6-flash
+open_weights: false
+reasoning: true
+dates:
+  announced: 2026-08-13
+  ga: 2026-08-13
+  deprecated: null
+  retired: null
+specs:
+  context_window: 1048576
+  max_output: 65536
+  modalities_in:
+    - text
+    - image
+    - video
+    - audio
+    - pdf
+  modalities_out:
+    - text
+  knowledge_cutoff: null
+  params_b: null
+  pricing:
+    input_per_mtok: 0.75
+    output_per_mtok: 3.75
+benchmarks: []
+highlights: []
+sources:
+  - https://blog.google/innovation-and-ai/models-and-research/gemini-models/introducing-gemini-3-7-flash/
+  - https://ai.google.dev/gemini-api/docs/models/gemini-3.7-flash
+verified_at: 2026-09-25

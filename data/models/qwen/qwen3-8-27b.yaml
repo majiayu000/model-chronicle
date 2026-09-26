@@ -1,0 +1,33 @@
+id: qwen3-8-27b
+name: Qwen3.8-27B
+vendor: qwen
+family: qwen
+tier: mid
+generation: "3.8"
+predecessor: qwen3-6-27b
+open_weights: true
+reasoning: true
+dates:
+  announced: 2026-08-17
+  ga: 2026-08-17
+  deprecated: null
+  retired: null
+specs:
+  context_window: 262144
+  max_output: null
+  modalities_in:
+    - text
+    - image
+    - video
+  modalities_out:
+    - text
+  knowledge_cutoff: null
+  params_b: 27
+  pricing:
+    input_per_mtok: null
+    output_per_mtok: null
+benchmarks: []
+highlights: []
+sources:
+  - https://www.alibabacloud.com/blog/alibaba-unveils-qwen3-8-27b_603463
+verified_at: 2026-09-25

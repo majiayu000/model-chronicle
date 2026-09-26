@@ -1,0 +1,30 @@
+id: gemma-3-1b
+name: Gemma 3 1B
+vendor: google
+family: gemma
+tier: small
+generation: "3"
+predecessor: null
+open_weights: true
+dates:
+  announced: 2025-03-12
+  ga: 2025-03-12
+  deprecated: null
+  retired: null
+specs:
+  context_window: 32000
+  max_output: null
+  modalities_in:
+    - text
+  modalities_out:
+    - text
+  knowledge_cutoff: null
+  params_b: 1
+  pricing:
+    input_per_mtok: null
+    output_per_mtok: null
+benchmarks: []
+highlights: []
+sources:
+  - https://blog.google/innovation-and-ai/technology/developers-tools/gemma-3/
+verified_at: 2026-09-25

@@ -1,0 +1,32 @@
+id: o3-mini
+name: o3-mini
+vendor: openai
+family: o-series
+tier: small
+generation: o3-mini
+predecessor: o1-mini
+open_weights: false
+reasoning: true
+dates:
+  announced: 2025-01-31
+  ga: 2025-01-31
+  deprecated: null
+  retired: null
+specs:
+  context_window: 200000
+  max_output: 100000
+  modalities_in:
+    - text
+  modalities_out:
+    - text
+  knowledge_cutoff: null
+  params_b: null
+  pricing:
+    input_per_mtok: 1.1
+    output_per_mtok: 4.4
+benchmarks: []
+highlights: []
+sources:
+  - https://openai.com/index/openai-o3-mini/
+  - https://developers.openai.com/api/docs/models/o3-mini
+verified_at: 2026-09-25

@@ -1,0 +1,31 @@
+id: claude-fable-5-1
+name: Claude Fable 5.1
+vendor: anthropic
+family: fable
+tier: flagship
+generation: "5.1"
+predecessor: claude-fable-5
+open_weights: false
+reasoning: true
+dates:
+  announced: 2026-09-01
+  ga: 2026-09-01
+  deprecated: null
+  retired: null
+specs:
+  context_window: 1000000
+  max_output: null
+  modalities_in:
+    - text
+  modalities_out:
+    - text
+  knowledge_cutoff: null
+  params_b: null
+  pricing:
+    input_per_mtok: 10
+    output_per_mtok: 50
+benchmarks: []
+highlights: []
+sources:
+  - https://www.anthropic.com/claude-fable-and-mythos-5-1
+verified_at: 2026-09-25

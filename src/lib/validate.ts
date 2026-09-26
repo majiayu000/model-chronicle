@@ -27,7 +27,27 @@ export function validateModels(raw: { file: string; data: unknown }[]): Validati
   }
 
   const claimed = new Map<string, string>();
+  const comparisonGroups = new Map<string, string>();
   for (const { file, model } of models) {
+    const d = model.dates;
+    const definitelyAfter = (a: string, b: string) => {
+      const earliestA = a.length === 7 ? `${a}-01` : a;
+      const latestB = b.length === 7 ? new Date(Date.UTC(Number(b.slice(0, 4)), Number(b.slice(5, 7)), 0)).toISOString().slice(0, 10) : b;
+      return earliestA > latestB;
+    };
+    for (const [first, second] of [["announced", "ga"], ["ga", "deprecated"], ["deprecated", "retired"]] as const) {
+      if (d[first] && d[second] && definitelyAfter(d[first], d[second])) errors.push(`${file}: ${first} 晚于 ${second}`);
+    }
+    for (const benchmark of model.benchmarks) {
+      if (!model.sources.includes(benchmark.source)) errors.push(`${file}: 基准 ${benchmark.name} 的来源未列在 sources 中`);
+      if (benchmark.comparison_group && benchmark.evaluation) {
+        const key = `${benchmark.name}/${benchmark.comparison_group}`;
+        const settings = JSON.stringify(benchmark.evaluation);
+        const previous = comparisonGroups.get(key);
+        if (previous && previous !== settings) errors.push(`${file}: 基准 ${benchmark.name} 的 comparison_group 评测条件不一致`);
+        comparisonGroups.set(key, settings);
+      }
+    }
     if (model.predecessor === null) continue;
     const prev = byId.get(model.predecessor);
     if (!prev) {

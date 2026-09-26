@@ -1,0 +1,32 @@
+id: o1-mini
+name: o1-mini
+vendor: openai
+family: o-series
+tier: small
+generation: o1-mini
+predecessor: null
+open_weights: false
+reasoning: true
+dates:
+  announced: 2024-09-12
+  ga: 2024-09-12
+  deprecated: null
+  retired: null
+specs:
+  context_window: 128000
+  max_output: 65536
+  modalities_in:
+    - text
+  modalities_out:
+    - text
+  knowledge_cutoff: null
+  params_b: null
+  pricing:
+    input_per_mtok: 1.1
+    output_per_mtok: 4.4
+benchmarks: []
+highlights: []
+sources:
+  - https://openai.com/index/openai-o1-mini-advancing-cost-efficient-reasoning/
+  - https://developers.openai.com/api/docs/models/o1-mini
+verified_at: 2026-09-25

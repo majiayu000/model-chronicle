@@ -1,0 +1,37 @@
+id: deepseek-v4-1-flash
+name: DeepSeek-V4.1-Flash
+vendor: deepseek
+family: deepseek-v
+tier: mid
+generation: "4.1"
+predecessor: deepseek-v4-flash
+open_weights: true
+reasoning: true
+dates:
+  announced: 2026-09-10
+  ga: 2026-09-10
+  deprecated: null
+  retired: null
+specs:
+  context_window: 1000000
+  max_output: null
+  modalities_in:
+    - text
+    - image
+  modalities_out:
+    - text
+  knowledge_cutoff: null
+  params_b: 552
+  pricing:
+    input_per_mtok: null
+    output_per_mtok: null
+benchmarks: []
+highlights: []
+sources:
+  - https://api-docs.deepseek.com/news/news260910/
+  - https://arxiv.org/abs/2609.19969
+verified_at: 2026-09-25
+arch:
+  type: moe
+  total: 552
+  source: https://api-docs.deepseek.com/news/news260910/

@@ -1,0 +1,48 @@
+id: llama-65b
+name: LLaMA 65B
+vendor: meta
+family: llama
+tier: flagship
+generation: "1"
+predecessor: null
+open_weights: true
+arch:
+  type: dense
+  layers: 80
+  d: 8192
+  heads: 64
+  kv: 64
+  attn: MHA
+  vocab: 32000
+  source: https://github.com/meta-llama/llama/blob/llama_v1/MODEL_CARD.md
+dates:
+  announced: 2023-02-24
+  ga: null
+  deprecated: null
+  retired: null
+specs:
+  context_window: 2048
+  max_output: null
+  modalities_in:
+    - text
+  modalities_out:
+    - text
+  knowledge_cutoff: null
+  params_b: 65
+  pricing:
+    input_per_mtok: null
+    output_per_mtok: null
+benchmarks:
+  - name: MMLU
+    score: 63.4
+    reported_by: vendor
+    source: https://github.com/meta-llama/llama/blob/main/MODEL_CARD.md
+highlights:
+  - Meta 首个 LLaMA 基础模型系列中的最大尺寸
+  - 以非商业研究许可按申请向研究者开放
+sources:
+  - https://ai.meta.com/blog/large-language-model-llama-meta-ai/
+  - https://github.com/meta-llama/llama/blob/llama_v1/MODEL_CARD.md
+  - https://github.com/meta-llama/llama/blob/main/MODEL_CARD.md
+  - https://arxiv.org/abs/2302.13971
+verified_at: 2026-09-25

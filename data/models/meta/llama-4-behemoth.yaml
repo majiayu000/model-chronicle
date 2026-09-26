@@ -1,0 +1,42 @@
+id: llama-4-behemoth
+name: Llama 4 Behemoth
+vendor: meta
+family: llama
+tier: flagship
+generation: "4"
+predecessor: llama-3-3-70b
+open_weights: false
+arch:
+  type: moe
+  active: 288
+  experts: 16
+  topk: 1
+  shared: 1
+  attn: GQA
+  vision: early
+  source: https://ai.meta.com/blog/llama-4-multimodal-intelligence/
+dates:
+  announced: 2025-04-05
+  ga: null
+  deprecated: null
+  retired: null
+specs:
+  context_window: null
+  max_output: null
+  modalities_in:
+    - text
+    - image
+  modalities_out:
+    - text
+  knowledge_cutoff: null
+  params_b: null
+  pricing:
+    input_per_mtok: null
+    output_per_mtok: null
+benchmarks: []
+highlights:
+  - 288B 激活参数、16 专家、近 2 万亿总参数的 MoE 模型
+  - 作为教师模型蒸馏 Llama 4 Maverick，发布时仍在训练未开放
+sources:
+  - https://ai.meta.com/blog/llama-4-multimodal-intelligence/
+verified_at: 2026-09-25

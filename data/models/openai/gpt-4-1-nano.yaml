@@ -1,0 +1,32 @@
+id: gpt-4-1-nano
+name: GPT-4.1 nano
+vendor: openai
+family: gpt
+tier: small
+generation: "4.1"
+predecessor: null
+open_weights: false
+dates:
+  announced: 2025-04-14
+  ga: 2025-04-14
+  deprecated: null
+  retired: null
+specs:
+  context_window: 1047576
+  max_output: 32768
+  modalities_in:
+    - text
+    - image
+  modalities_out:
+    - text
+  knowledge_cutoff: null
+  params_b: null
+  pricing:
+    input_per_mtok: 0.1
+    output_per_mtok: 0.4
+benchmarks: []
+highlights: []
+sources:
+  - https://openai.com/index/gpt-4-1/
+  - https://developers.openai.com/api/docs/models/gpt-4.1-nano
+verified_at: 2026-09-25

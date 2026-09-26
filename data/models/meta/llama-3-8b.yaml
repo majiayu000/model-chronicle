@@ -1,0 +1,51 @@
+id: llama-3-8b
+name: Meta Llama 3 8B
+vendor: meta
+family: llama
+tier: small
+generation: "3"
+predecessor: llama-2-7b
+open_weights: true
+arch:
+  type: dense
+  layers: 32
+  d: 4096
+  heads: 32
+  kv: 8
+  attn: GQA
+  vocab: 128256
+  source: https://github.com/meta-llama/llama3/blob/main/MODEL_CARD.md
+dates:
+  announced: 2024-04-18
+  ga: 2024-04-18
+  deprecated: null
+  retired: null
+specs:
+  context_window: 8192
+  max_output: null
+  modalities_in:
+    - text
+  modalities_out:
+    - text
+  knowledge_cutoff: 2023-03
+  params_b: 8
+  pricing:
+    input_per_mtok: null
+    output_per_mtok: null
+benchmarks:
+  - name: MMLU
+    score: 68.4
+    reported_by: vendor
+    source: https://github.com/meta-llama/llama3/blob/main/MODEL_CARD.md
+  - name: HumanEval
+    score: 62.2
+    reported_by: vendor
+    source: https://github.com/meta-llama/llama3/blob/main/MODEL_CARD.md
+highlights:
+  - 预训练数据超 15T token，是 Llama 2 的七倍
+  - 128K 词表分词器，全尺寸使用 GQA
+  - 上下文从 4K 提升到 8K
+sources:
+  - https://ai.meta.com/blog/meta-llama-3/
+  - https://github.com/meta-llama/llama3/blob/main/MODEL_CARD.md
+verified_at: 2026-09-25

@@ -4,13 +4,37 @@ import { BENCHMARKS, FAMILIES, TIERS, VENDORS } from "./constants";
 // YAML 会把未加引号的日期解析成 Date，这里统一转回字符串再校验精度
 const partialDate = z.preprocess(
   (v) => (v instanceof Date ? v.toISOString().slice(0, 10) : v),
-  z.string().regex(/^\d{4}-\d{2}(-\d{2})?$/, "日期必须是 YYYY-MM 或 YYYY-MM-DD"),
+  z.string().regex(/^\d{4}-\d{2}(-\d{2})?$/, "日期必须是 YYYY-MM 或 YYYY-MM-DD").refine((v) => {
+    const [year, month, day] = v.split("-").map(Number);
+    if (month < 1 || month > 12) return false;
+    return day === undefined || new Date(Date.UTC(year, month - 1, day)).toISOString().slice(0, 10) === v;
+  }, "日期不存在"),
 );
 const month = z.preprocess(
   (v) => (v instanceof Date ? v.toISOString().slice(0, 7) : v),
   z.string().regex(/^\d{4}-\d{2}$/, "必须是 YYYY-MM"),
 );
 const modality = z.enum(["text", "image", "audio", "video", "pdf"]);
+const architecture = z.object({
+  type: z.enum(["dense", "moe"]),
+  source: z.url(),
+  total: z.number().positive().optional(),
+  active: z.number().positive().optional(),
+  experts: z.number().int().positive().optional(),
+  topk: z.number().int().positive().optional(),
+  shared: z.number().int().nonnegative().optional(),
+  layers: z.number().int().positive().optional(),
+  d: z.number().int().positive().optional(),
+  heads: z.number().int().positive().optional(),
+  kv: z.number().int().positive().optional(),
+  attn: z.enum(["MHA", "GQA", "MLA"]).optional(),
+  tokens: z.number().positive().optional(),
+  ctxTrain: z.number().int().positive().optional(),
+  vocab: z.number().int().positive().optional(),
+  vision: z.enum(["early", "adapter"]).optional(),
+  interleave: z.boolean().optional(),
+  mtp: z.boolean().optional(),
+}).strict();
 
 export const modelSchema = z
   .object({
@@ -22,6 +46,8 @@ export const modelSchema = z
     generation: z.coerce.string(),
     predecessor: z.string().nullable(),
     open_weights: z.boolean(),
+    arch: architecture.nullable().optional(),
+    reasoning: z.boolean().optional(),
     dates: z.object({
       announced: partialDate.nullable(),
       ga: partialDate.nullable(),
@@ -43,9 +69,19 @@ export const modelSchema = z
     benchmarks: z.array(
       z.object({
         name: z.enum(BENCHMARKS),
-        score: z.number(),
+        score: z.number().min(0).max(100),
         reported_by: z.enum(["vendor", "third_party"]),
         source: z.url(),
+        evaluation: z.object({
+          benchmark_version: z.string().min(1),
+          tools: z.boolean(),
+          reasoning_effort: z.string().min(1),
+          harness: z.string().min(1),
+        }).strict().optional(),
+        comparison_group: z.string().min(1).optional(),
+      }).refine((b) => !b.comparison_group || !!b.evaluation, {
+        message: "comparison_group 需要完整 evaluation 条件",
+        path: ["comparison_group"],
       }),
     ),
     highlights: z.array(z.string()).max(4),
@@ -60,6 +96,10 @@ export const modelSchema = z
   .refine((m) => m.dates.announced !== null || m.dates.ga !== null, {
     message: "announced 和 ga 至少要有一个",
     path: ["dates"],
+  })
+  .refine((m) => !m.arch || m.sources.includes(m.arch.source), {
+    message: "架构来源必须列在 sources 中",
+    path: ["arch", "source"],
   });
 
 export type Model = z.infer<typeof modelSchema>;

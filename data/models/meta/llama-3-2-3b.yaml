@@ -1,0 +1,46 @@
+id: llama-3-2-3b
+name: Llama 3.2 3B
+vendor: meta
+family: llama
+tier: small
+generation: "3.2"
+predecessor: llama-3-1-8b
+open_weights: true
+arch:
+  type: dense
+  layers: 28
+  d: 3072
+  heads: 24
+  kv: 8
+  attn: GQA
+  vocab: 128256
+  source: https://github.com/meta-llama/llama-models/blob/main/models/llama3_2/MODEL_CARD.md
+dates:
+  announced: 2024-09-25
+  ga: 2024-09-25
+  deprecated: null
+  retired: null
+specs:
+  context_window: 128000
+  max_output: null
+  modalities_in:
+    - text
+  modalities_out:
+    - text
+  knowledge_cutoff: 2023-12
+  params_b: 3.21
+  pricing:
+    input_per_mtok: null
+    output_per_mtok: null
+benchmarks:
+  - name: MMLU
+    score: 63.4
+    reported_by: vendor
+    source: https://github.com/meta-llama/llama-models/blob/main/models/llama3_2/MODEL_CARD.md
+highlights:
+  - 面向端侧与移动设备的轻量文本模型
+  - 支持 128K 上下文，首发适配高通与联发科硬件
+sources:
+  - https://ai.meta.com/blog/llama-3-2-connect-2024-vision-edge-mobile-devices/
+  - https://github.com/meta-llama/llama-models/blob/main/models/llama3_2/MODEL_CARD.md
+verified_at: 2026-09-25

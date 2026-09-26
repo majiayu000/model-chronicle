@@ -1,0 +1,32 @@
+id: claude-sonnet-4-5
+name: Claude Sonnet 4.5
+vendor: anthropic
+family: claude
+tier: mid
+generation: "4.5"
+predecessor: claude-sonnet-4
+open_weights: false
+reasoning: true
+dates:
+  announced: 2025-09-29
+  ga: 2025-09-29
+  deprecated: null
+  retired: null
+specs:
+  context_window: 200000
+  max_output: null
+  modalities_in:
+    - text
+    - image
+  modalities_out:
+    - text
+  knowledge_cutoff: null
+  params_b: null
+  pricing:
+    input_per_mtok: 3
+    output_per_mtok: 15
+benchmarks: []
+highlights: []
+sources:
+  - https://www.anthropic.com/news/claude-sonnet-4-5
+verified_at: 2026-09-25

@@ -1,0 +1,46 @@
+id: qwen3-6-27b
+name: Qwen3.6-27B
+vendor: qwen
+family: qwen
+tier: mid
+generation: "3.6"
+predecessor: null
+open_weights: true
+reasoning: true
+dates:
+  announced: 2026-04-21
+  ga: 2026-04-21
+  deprecated: null
+  retired: null
+specs:
+  context_window: 262144
+  max_output: null
+  modalities_in:
+    - text
+    - image
+  modalities_out:
+    - text
+  knowledge_cutoff: null
+  params_b: 27
+  pricing:
+    input_per_mtok: null
+    output_per_mtok: null
+benchmarks:
+  - name: GPQA Diamond
+    score: 87.8
+    reported_by: vendor
+    source: https://qwen.ai/blog?id=qwen3.6-27b
+highlights: []
+sources:
+  - https://qwen.ai/blog?id=qwen3.6-27b
+  - https://huggingface.co/Qwen/Qwen3.6-27B
+verified_at: 2026-09-25
+arch:
+  type: dense
+  total: 27
+  layers: 64
+  d: 5120
+  heads: 24
+  kv: 4
+  mtp: true
+  source: https://huggingface.co/Qwen/Qwen3.6-27B
