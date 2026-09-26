@@ -1,0 +1,34 @@
+id: grok-4-7
+name: Grok 4.7
+vendor: xai
+family: grok
+tier: flagship
+generation: '4.7'
+predecessor: grok-4-6
+open_weights: false
+reasoning: true
+dates:
+  announced: '2026-09-21'
+  ga: '2026-09-21'
+  deprecated: null
+  retired: null
+specs:
+  context_window: 500000
+  max_output: null
+  modalities_in:
+  - text
+  - image
+  modalities_out:
+  - text
+  knowledge_cutoff: null
+  params_b: null
+  pricing:
+    input_per_mtok: 2
+    output_per_mtok: 6
+benchmarks: []
+highlights:
+- 升级基础模型并加强长程代码任务
+sources:
+- https://x.ai/news/grok-4-7
+- https://docs.x.ai/developers/models
+verified_at: '2026-09-26'

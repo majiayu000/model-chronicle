@@ -1,0 +1,34 @@
+id: amazon-nova-2-pro
+name: Amazon Nova 2 Pro (Preview)
+vendor: amazon
+family: nova
+tier: flagship
+generation: 2 Pro
+predecessor: amazon-nova-premier
+open_weights: false
+reasoning: true
+dates:
+  announced: '2025-12-02'
+  ga: null
+  deprecated: null
+  retired: null
+specs:
+  context_window: 1000000
+  max_output: null
+  modalities_in:
+  - text
+  - image
+  - video
+  modalities_out:
+  - text
+  knowledge_cutoff: null
+  params_b: null
+  pricing:
+    input_per_mtok: null
+    output_per_mtok: null
+benchmarks: []
+highlights:
+- 预览版面向复杂多步任务，提供三档思考强度
+sources:
+- https://aws.amazon.com/about-aws/whats-new/2025/12/nova-2-foundation-models-amazon-bedrock/
+verified_at: '2026-09-26'

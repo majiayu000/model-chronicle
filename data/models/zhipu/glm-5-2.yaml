@@ -1,0 +1,32 @@
+id: glm-5-2
+name: GLM-5.2
+vendor: zhipu
+family: glm
+tier: flagship
+generation: '5.2'
+predecessor: null
+open_weights: true
+reasoning: true
+dates:
+  announced: '2026-06-16'
+  ga: '2026-06-16'
+  deprecated: null
+  retired: null
+specs:
+  context_window: 1000000
+  max_output: null
+  modalities_in:
+  - text
+  modalities_out:
+  - text
+  knowledge_cutoff: null
+  params_b: null
+  pricing:
+    input_per_mtok: null
+    output_per_mtok: null
+benchmarks: []
+highlights:
+- 百万 token 上下文，支持可调思考强度
+sources:
+- https://z.ai/blog/glm-5.2
+verified_at: '2026-09-26'

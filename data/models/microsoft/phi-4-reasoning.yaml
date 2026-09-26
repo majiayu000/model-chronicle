@@ -1,0 +1,32 @@
+id: phi-4-reasoning
+name: Phi-4-reasoning
+vendor: microsoft
+family: phi
+tier: small
+generation: 4 reasoning
+predecessor: phi-4
+open_weights: true
+reasoning: true
+dates:
+  announced: '2025-04-30'
+  ga: '2025-04-30'
+  deprecated: null
+  retired: null
+specs:
+  context_window: null
+  max_output: null
+  modalities_in:
+  - text
+  modalities_out:
+  - text
+  knowledge_cutoff: null
+  params_b: null
+  pricing:
+    input_per_mtok: null
+    output_per_mtok: null
+benchmarks: []
+highlights:
+- 在 Phi-4 上强化推理时计算能力
+sources:
+- https://azure.microsoft.com/en-us/blog/one-year-of-phi-small-language-models-making-big-leaps-in-ai/
+verified_at: '2026-09-26'

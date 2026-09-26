@@ -1,0 +1,37 @@
+id: ernie-4-5-300b-a47b
+name: ERNIE-4.5-300B-A47B
+vendor: baidu
+family: ernie-open
+tier: flagship
+generation: '4.5'
+predecessor: null
+open_weights: true
+dates:
+  announced: '2025-06-30'
+  ga: '2025-06-30'
+  deprecated: null
+  retired: null
+specs:
+  context_window: null
+  max_output: null
+  modalities_in:
+  - text
+  modalities_out:
+  - text
+  knowledge_cutoff: null
+  params_b: 300
+  pricing:
+    input_per_mtok: null
+    output_per_mtok: null
+benchmarks: []
+highlights:
+- ERNIE 4.5 开源系列的大规模 MoE 型号
+sources:
+- https://ernie.baidu.com/blog/posts/ernie4.5/
+- https://ernie.baidu.com/blog/posts/plas/
+verified_at: '2026-09-26'
+arch:
+  type: moe
+  total: 300
+  active: 47
+  source: https://ernie.baidu.com/blog/posts/plas/

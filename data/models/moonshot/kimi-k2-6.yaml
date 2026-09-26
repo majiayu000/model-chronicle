@@ -1,0 +1,32 @@
+id: kimi-k2-6
+name: Kimi K2.6
+vendor: moonshot
+family: kimi
+tier: flagship
+generation: K2.6
+predecessor: kimi-k2-5
+open_weights: true
+reasoning: true
+dates:
+  announced: '2026-04-20'
+  ga: '2026-04-20'
+  deprecated: null
+  retired: null
+specs:
+  context_window: null
+  max_output: null
+  modalities_in:
+  - text
+  modalities_out:
+  - text
+  knowledge_cutoff: null
+  params_b: null
+  pricing:
+    input_per_mtok: null
+    output_per_mtok: null
+benchmarks: []
+highlights:
+- 面向代码与长程任务执行，模型权重已开放
+sources:
+- https://github.com/MoonshotAI/kimi-help-center/blob/master/en-US/agent/overview.md
+verified_at: '2026-09-26'

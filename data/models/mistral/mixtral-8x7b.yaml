@@ -1,0 +1,38 @@
+id: mixtral-8x7b
+name: Mixtral 8x7B
+vendor: mistral
+family: mixtral
+tier: mid
+generation: 8x7B
+predecessor: null
+open_weights: true
+dates:
+  announced: '2023-12-11'
+  ga: '2023-12-11'
+  deprecated: null
+  retired: null
+specs:
+  context_window: 32000
+  max_output: null
+  modalities_in:
+  - text
+  modalities_out:
+  - text
+  knowledge_cutoff: null
+  params_b: 46.7
+  pricing:
+    input_per_mtok: null
+    output_per_mtok: null
+benchmarks: []
+highlights:
+- 稀疏 MoE，每 token 选择 8 个专家中的 2 个
+sources:
+- https://mistral.ai/news/mixtral-of-experts/
+verified_at: '2026-09-26'
+arch:
+  type: moe
+  total: 46.7
+  active: 12.9
+  experts: 8
+  topk: 2
+  source: https://mistral.ai/news/mixtral-of-experts/

@@ -1,0 +1,32 @@
+id: ernie-x1
+name: ERNIE X1
+vendor: baidu
+family: ernie-x
+tier: flagship
+generation: X1
+predecessor: null
+open_weights: false
+reasoning: true
+dates:
+  announced: 2025-03
+  ga: 2025-03
+  deprecated: null
+  retired: null
+specs:
+  context_window: null
+  max_output: null
+  modalities_in:
+  - text
+  modalities_out:
+  - text
+  knowledge_cutoff: null
+  params_b: null
+  pricing:
+    input_per_mtok: null
+    output_per_mtok: null
+benchmarks: []
+highlights:
+- 文心系列首个深度推理模型
+sources:
+- https://ir.baidu.com/news-releases/news-release-details/baidu-announces-first-quarter-2025-results
+verified_at: '2026-09-26'

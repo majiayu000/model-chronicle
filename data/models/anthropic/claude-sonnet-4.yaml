@@ -30,8 +30,14 @@ benchmarks:
     score: 72.7
     reported_by: vendor
     source: https://www.anthropic.com/news/claude-4
+    evaluation:
+      benchmark_version: SWE-bench Verified full 500 problems
+      tools: true
+      reasoning_effort: no extended thinking
+      harness: Anthropic Claude 4 bash and string-replacement file-edit scaffold
+    comparison_group: "Claude 4 · SWE-bench Verified 500题（无扩展思考）"
 highlights: []
 sources:
   - https://www.anthropic.com/news/claude-4
   - https://platform.claude.com/docs/en/about-claude/model-deprecations
-verified_at: 2026-09-25
+verified_at: 2026-09-26

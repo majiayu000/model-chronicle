@@ -1,0 +1,38 @@
+id: hunyuan-a13b
+name: Hunyuan-A13B
+vendor: tencent
+family: hunyuan-a
+tier: mid
+generation: A13B
+predecessor: null
+open_weights: true
+reasoning: true
+dates:
+  announced: '2025-06-27'
+  ga: '2025-06-27'
+  deprecated: null
+  retired: null
+specs:
+  context_window: 256000
+  max_output: 32000
+  modalities_in:
+  - text
+  modalities_out:
+  - text
+  knowledge_cutoff: null
+  params_b: 80
+  pricing:
+    input_per_mtok: null
+    output_per_mtok: null
+benchmarks: []
+highlights:
+- 开放权重的混合推理 MoE，13B 激活参数
+sources:
+- https://developer.cloud.tencent.com/article/2536652?policyId=1003
+- https://cloud.tencent.com/document/product/1729/104753
+verified_at: '2026-09-26'
+arch:
+  type: moe
+  total: 80
+  active: 13
+  source: https://developer.cloud.tencent.com/article/2536652?policyId=1003

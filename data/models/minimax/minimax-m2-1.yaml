@@ -1,0 +1,38 @@
+id: minimax-m2-1
+name: MiniMax M2.1
+vendor: minimax
+family: minimax-m
+tier: flagship
+generation: M2.1
+predecessor: minimax-m2
+open_weights: true
+reasoning: true
+dates:
+  announced: '2025-12-23'
+  ga: '2025-12-23'
+  deprecated: null
+  retired: null
+specs:
+  context_window: null
+  max_output: null
+  modalities_in:
+  - text
+  modalities_out:
+  - text
+  knowledge_cutoff: null
+  params_b: 230
+  pricing:
+    input_per_mtok: null
+    output_per_mtok: null
+benchmarks: []
+highlights:
+- 加强多语言代码与长程智能体任务
+sources:
+- https://www.minimax.io/blog/minimax-m21
+- https://www.minimax.io/news/post-training-experience-and-insights-for-agent-models
+verified_at: '2026-09-26'
+arch:
+  type: moe
+  total: 230
+  active: 10
+  source: https://www.minimax.io/news/post-training-experience-and-insights-for-agent-models

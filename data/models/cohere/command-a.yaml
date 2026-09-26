@@ -1,0 +1,33 @@
+id: command-a
+name: Command A
+vendor: cohere
+family: command
+tier: flagship
+generation: A
+predecessor: command-r-plus
+open_weights: true
+dates:
+  announced: '2025-03-13'
+  ga: '2025-03-13'
+  deprecated: null
+  retired: null
+specs:
+  context_window: 256000
+  max_output: 8000
+  modalities_in:
+  - text
+  modalities_out:
+  - text
+  knowledge_cutoff: null
+  params_b: 111
+  pricing:
+    input_per_mtok: 2.5
+    output_per_mtok: 10
+benchmarks: []
+highlights:
+- 111B 参数、256K 上下文，可在两张 GPU 上运行
+sources:
+- https://docs.cohere.com/changelog/command-a
+- https://docs.cohere.com/docs/command-a
+- https://cohere.com/blog/command-a
+verified_at: '2026-09-26'

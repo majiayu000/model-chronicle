@@ -1,0 +1,35 @@
+id: mistral-7b
+name: Mistral 7B
+vendor: mistral
+family: mistral-7b
+tier: small
+generation: 7B
+predecessor: null
+open_weights: true
+dates:
+  announced: '2023-09-27'
+  ga: '2023-09-27'
+  deprecated: null
+  retired: null
+specs:
+  context_window: null
+  max_output: null
+  modalities_in:
+  - text
+  modalities_out:
+  - text
+  knowledge_cutoff: null
+  params_b: 7.3
+  pricing:
+    input_per_mtok: null
+    output_per_mtok: null
+benchmarks: []
+highlights:
+- 首个 Mistral 开放权重模型，采用分组查询注意力
+sources:
+- https://mistral.ai/news/announcing-mistral-7b/
+verified_at: '2026-09-26'
+arch:
+  type: dense
+  attn: GQA
+  source: https://mistral.ai/news/announcing-mistral-7b/

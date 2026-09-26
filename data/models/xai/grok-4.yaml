@@ -1,0 +1,33 @@
+id: grok-4
+name: Grok 4
+vendor: xai
+family: grok
+tier: flagship
+generation: '4'
+predecessor: grok-3
+open_weights: false
+reasoning: true
+dates:
+  announced: '2025-07-09'
+  ga: '2025-07-09'
+  deprecated: null
+  retired: null
+specs:
+  context_window: 256000
+  max_output: null
+  modalities_in:
+  - text
+  - image
+  modalities_out:
+  - text
+  knowledge_cutoff: null
+  params_b: null
+  pricing:
+    input_per_mtok: null
+    output_per_mtok: null
+benchmarks: []
+highlights:
+- 原生工具使用与实时搜索能力
+sources:
+- https://x.ai/news/grok-4
+verified_at: '2026-09-26'

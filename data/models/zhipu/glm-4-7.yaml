@@ -1,0 +1,40 @@
+id: glm-4-7
+name: GLM-4.7
+vendor: zhipu
+family: glm
+tier: flagship
+generation: '4.7'
+predecessor: glm-4-6
+open_weights: true
+reasoning: true
+dates:
+  announced: '2025-12-22'
+  ga: '2025-12-22'
+  deprecated: null
+  retired: null
+specs:
+  context_window: null
+  max_output: null
+  modalities_in:
+  - text
+  modalities_out:
+  - text
+  knowledge_cutoff: null
+  params_b: null
+  pricing:
+    input_per_mtok: null
+    output_per_mtok: null
+benchmarks:
+- name: SWE-bench Verified
+  score: 73.8
+  reported_by: vendor
+  source: https://z.ai/blog/glm-4.7
+- name: GPQA Diamond
+  score: 85.7
+  reported_by: vendor
+  source: https://z.ai/blog/glm-4.7
+highlights:
+- 提升多语言代码智能体和工具调用能力
+sources:
+- https://z.ai/blog/glm-4.7
+verified_at: '2026-09-26'

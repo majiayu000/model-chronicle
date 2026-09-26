@@ -1,0 +1,34 @@
+id: phi-4
+name: Phi-4
+vendor: microsoft
+family: phi
+tier: small
+generation: '4'
+predecessor: phi-3-mini-128k
+open_weights: true
+dates:
+  announced: '2024-12-12'
+  ga: '2024-12-12'
+  deprecated: null
+  retired: null
+specs:
+  context_window: 16000
+  max_output: null
+  modalities_in:
+  - text
+  modalities_out:
+  - text
+  knowledge_cutoff: null
+  params_b: 14
+  pricing:
+    input_per_mtok: null
+    output_per_mtok: null
+benchmarks: []
+highlights:
+- 14B 参数，着重提高数据质量与数学推理
+sources:
+- https://huggingface.co/microsoft/phi-4
+verified_at: '2026-09-26'
+arch:
+  type: dense
+  source: https://huggingface.co/microsoft/phi-4

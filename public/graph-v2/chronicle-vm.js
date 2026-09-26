@@ -11,7 +11,8 @@
   const logTop = v => (1 - Math.log10(v) / Math.log10(3000)) * 100;
 
   function initState() {
-    return { view: "timeline", id: null, vendors: MC.VENDORS.slice(), tiers: MC.TIERS.slice(), caps: [], px: 420, bench: "GPQA Diamond", hover: null, archMode: "total" };
+    const bench = MC.BENCH.find(b => MC.comparable(MC.models, b).models.length >= 2) || "GPQA Diamond";
+    return { view: "timeline", id: null, vendors: MC.VENDORS.slice(), tiers: MC.TIERS.slice(), caps: [], px: 420, bench, hover: null, archMode: "total" };
   }
 
   function vm(s, set, opts) {
@@ -80,7 +81,7 @@
 
     // —— 能力趋势
     if (s.view === "trends") {
-      const pts = models.filter(m => MC.bench(m, s.bench) != null).map(m => ({ m, t: m.t, v: MC.bench(m, s.bench) })).sort((a, b) => a.t - b.t);
+      const pts = models.filter(m => MC.bench(m, s.bench) != null).map(m => ({ m, t: m.t, v: MC.bench(m, s.bench) })).sort((a, b) => a.t - b.t || b.v - a.v);
       const comparable = MC.comparable(models, s.bench);
       const comparableIds = new Set(comparable.models.map(m => m.id));
       const comparablePts = pts.filter(p => comparableIds.has(p.m.id));

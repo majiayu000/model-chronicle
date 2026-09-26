@@ -26,6 +26,10 @@ specs:
     input_per_mtok: 0.25
     output_per_mtok: 2
 benchmarks:
+  - name: SWE-bench Verified
+    score: 71
+    reported_by: vendor
+    source: https://openai.com/index/introducing-gpt-5-for-developers/
   - name: GPQA Diamond
     score: 82.3
     reported_by: vendor
@@ -38,4 +42,4 @@ highlights: []
 sources:
   - https://openai.com/index/introducing-gpt-5-for-developers/
   - https://developers.openai.com/api/docs/models/gpt-5-mini
-verified_at: 2026-09-25
+verified_at: 2026-09-26

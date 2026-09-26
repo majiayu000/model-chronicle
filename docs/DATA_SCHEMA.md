@@ -14,7 +14,7 @@
 ```yaml
 id: claude-3-7-sonnet          # kebab-case，全局唯一，等于文件名
 name: Claude 3.7 Sonnet        # 官方展示名
-vendor: anthropic              # anthropic | openai | google | meta | deepseek | qwen
+vendor: anthropic              # 取值见 src/lib/constants.ts 的 VENDORS
 family: claude                 # 产品线，见下方“family 取值”
 tier: mid                      # flagship | mid | small
 generation: "3.7"              # 字符串形式的代号/版本
@@ -68,6 +68,19 @@ verified_at: 2026-09-24
 | meta | `llama` |
 | deepseek | `deepseek-v`（V2/V3…）、`deepseek-r`（R1…）、`deepseek-coder` |
 | qwen | `qwen`、`qwq`、`qwen-coder` |
+| moonshot | `kimi`、`kimi-thinking` |
+| zhipu | `glm`、`glm-air` |
+| minimax | `minimax-m` |
+| bytedance | `seed`、`seed-vl` |
+| baidu | `ernie`、`ernie-x`、`ernie-open` |
+| tencent | `hunyuan-t`、`hunyuan-a` |
+| xai | `grok`、`grok-fast` |
+| mistral | `mistral-large`、`mistral-medium`、`mistral-small`、`mistral-nemo`、`mistral-7b`、`mixtral` |
+| cohere | `command`、`command-a` |
+| amazon | `nova`、`titan-text` |
+| microsoft | `phi` |
+| ibm | `granite` |
+| nvidia | `nemotron` |
 
 ## tier 判定
 

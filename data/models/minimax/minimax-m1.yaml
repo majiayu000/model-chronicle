@@ -1,0 +1,39 @@
+id: minimax-m1
+name: MiniMax-M1
+vendor: minimax
+family: minimax-m
+tier: flagship
+generation: M1
+predecessor: null
+open_weights: true
+reasoning: true
+dates:
+  announced: '2025-06-16'
+  ga: '2025-06-16'
+  deprecated: null
+  retired: null
+specs:
+  context_window: 1000000
+  max_output: 80000
+  modalities_in:
+  - text
+  modalities_out:
+  - text
+  knowledge_cutoff: null
+  params_b: 456
+  pricing:
+    input_per_mtok: 0.4
+    output_per_mtok: 2.2
+benchmarks: []
+highlights:
+- 混合注意力推理模型，支持百万 token 上下文
+sources:
+- https://www.minimax.io/news/minimaxm1
+- https://www.minimax.io/news/minimax-m1-technical-seminar-2
+verified_at: '2026-09-26'
+arch:
+  type: moe
+  total: 456
+  active: 45.9
+  experts: 32
+  source: https://www.minimax.io/news/minimax-m1-technical-seminar-2

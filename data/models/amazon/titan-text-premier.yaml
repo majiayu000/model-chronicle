@@ -1,0 +1,30 @@
+id: titan-text-premier
+name: Amazon Titan Text Premier
+vendor: amazon
+family: titan-text
+tier: flagship
+generation: Premier
+predecessor: null
+open_weights: false
+dates:
+  announced: '2024-05-07'
+  ga: '2024-05-07'
+  deprecated: null
+  retired: null
+specs:
+  context_window: 32000
+  max_output: null
+  modalities_in:
+  - text
+  modalities_out:
+  - text
+  knowledge_cutoff: null
+  params_b: null
+  pricing:
+    input_per_mtok: null
+    output_per_mtok: null
+benchmarks: []
+highlights: []
+sources:
+- https://docs.aws.amazon.com/nova/latest/userguide/additional-resources.html
+verified_at: '2026-09-26'

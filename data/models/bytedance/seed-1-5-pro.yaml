@@ -1,0 +1,32 @@
+id: seed-1-5-pro
+name: Seed1.5 / Doubao-1.5-pro
+vendor: bytedance
+family: seed
+tier: flagship
+generation: '1.5'
+predecessor: null
+open_weights: false
+dates:
+  announced: '2025-01-22'
+  ga: '2025-01-22'
+  deprecated: null
+  retired: null
+specs:
+  context_window: null
+  max_output: null
+  modalities_in:
+  - text
+  modalities_out:
+  - text
+  knowledge_cutoff: null
+  params_b: null
+  pricing:
+    input_per_mtok: null
+    output_per_mtok: null
+benchmarks: []
+highlights:
+- 豆包 1.5 Pro 在火山方舟正式上线
+sources:
+- https://seed.bytedance.com/en/model_cards
+- https://developer.volcengine.com/articles/7462939272262189083
+verified_at: '2026-09-26'

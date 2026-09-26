@@ -1,0 +1,36 @@
+id: mistral-medium-3-5
+name: Mistral Medium 3.5
+vendor: mistral
+family: mistral-medium
+tier: mid
+generation: '3.5'
+predecessor: mistral-medium-3
+open_weights: true
+reasoning: true
+dates:
+  announced: '2026-05-22'
+  ga: '2026-05-22'
+  deprecated: null
+  retired: null
+specs:
+  context_window: null
+  max_output: null
+  modalities_in:
+  - text
+  modalities_out:
+  - text
+  knowledge_cutoff: null
+  params_b: 128
+  pricing:
+    input_per_mtok: 1.5
+    output_per_mtok: 7.5
+benchmarks:
+- name: SWE-bench Verified
+  score: 77.6
+  reported_by: vendor
+  source: https://mistral.ai/news/vibe-remote-agents-mistral-medium-3-5/
+highlights:
+- 开放权重，面向长程代码与生产力任务
+sources:
+- https://mistral.ai/news/vibe-remote-agents-mistral-medium-3-5/
+verified_at: '2026-09-26'

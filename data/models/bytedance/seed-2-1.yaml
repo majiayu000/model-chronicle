@@ -1,0 +1,30 @@
+id: seed-2-1
+name: Seed2.1
+vendor: bytedance
+family: seed
+tier: flagship
+generation: '2.1'
+predecessor: seed-2-0
+open_weights: false
+dates:
+  announced: '2026-06-23'
+  ga: null
+  deprecated: null
+  retired: null
+specs:
+  context_window: null
+  max_output: null
+  modalities_in:
+  - text
+  modalities_out:
+  - text
+  knowledge_cutoff: null
+  params_b: null
+  pricing:
+    input_per_mtok: null
+    output_per_mtok: null
+benchmarks: []
+highlights: []
+sources:
+- https://seed.bytedance.com/en/model_cards
+verified_at: '2026-09-26'

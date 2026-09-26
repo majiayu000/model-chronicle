@@ -1,0 +1,33 @@
+id: grok-1
+name: Grok-1
+vendor: xai
+family: grok
+tier: flagship
+generation: '1'
+predecessor: null
+open_weights: true
+dates:
+  announced: '2023-11-03'
+  ga: null
+  deprecated: null
+  retired: null
+specs:
+  context_window: 8192
+  max_output: null
+  modalities_in:
+  - text
+  modalities_out:
+  - text
+  knowledge_cutoff: null
+  params_b: null
+  pricing:
+    input_per_mtok: null
+    output_per_mtok: null
+benchmarks: []
+highlights:
+- Grok 初代语言模型，权重于 2024 年 3 月开放
+sources:
+- https://x.ai/news/grok
+- https://x.ai/news/grok-1.5
+- https://x.ai/news/grok/model-card
+verified_at: '2026-09-26'

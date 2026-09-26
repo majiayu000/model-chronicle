@@ -1,0 +1,31 @@
+id: command-r
+name: Command R
+vendor: cohere
+family: command
+tier: mid
+generation: R
+predecessor: null
+open_weights: true
+dates:
+  announced: '2024-03-24'
+  ga: '2024-03-24'
+  deprecated: null
+  retired: null
+specs:
+  context_window: 128000
+  max_output: null
+  modalities_in:
+  - text
+  modalities_out:
+  - text
+  knowledge_cutoff: null
+  params_b: null
+  pricing:
+    input_per_mtok: null
+    output_per_mtok: null
+benchmarks: []
+highlights:
+- 面向检索增强生成和工具调用的长上下文模型
+sources:
+- https://docs.cohere.com/changelog/command-r-retrieval-augmented-generation-at-production-scale
+verified_at: '2026-09-26'

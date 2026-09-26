@@ -1,0 +1,32 @@
+id: glm-4-6
+name: GLM-4.6
+vendor: zhipu
+family: glm
+tier: flagship
+generation: '4.6'
+predecessor: glm-4-5
+open_weights: true
+reasoning: true
+dates:
+  announced: '2025-09-30'
+  ga: '2025-09-30'
+  deprecated: null
+  retired: null
+specs:
+  context_window: 200000
+  max_output: null
+  modalities_in:
+  - text
+  modalities_out:
+  - text
+  knowledge_cutoff: null
+  params_b: null
+  pricing:
+    input_per_mtok: null
+    output_per_mtok: null
+benchmarks: []
+highlights:
+- 上下文从 128K 扩展到 200K
+sources:
+- https://z.ai/blog/glm-4.6
+verified_at: '2026-09-26'

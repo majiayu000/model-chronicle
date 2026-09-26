@@ -1,0 +1,33 @@
+id: amazon-nova-premier
+name: Amazon Nova Premier
+vendor: amazon
+family: nova
+tier: flagship
+generation: Premier
+predecessor: null
+open_weights: false
+dates:
+  announced: '2025-04-30'
+  ga: '2025-04-30'
+  deprecated: null
+  retired: null
+specs:
+  context_window: 1000000
+  max_output: null
+  modalities_in:
+  - text
+  - image
+  - video
+  modalities_out:
+  - text
+  knowledge_cutoff: null
+  params_b: null
+  pricing:
+    input_per_mtok: null
+    output_per_mtok: null
+benchmarks: []
+highlights:
+- Nova 系列的高能力多模态型号
+sources:
+- https://docs.aws.amazon.com/nova/latest/userguide/additional-resources.html
+verified_at: '2026-09-26'

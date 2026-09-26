@@ -1,0 +1,37 @@
+id: glm-4-5
+name: GLM-4.5
+vendor: zhipu
+family: glm
+tier: flagship
+generation: '4.5'
+predecessor: null
+open_weights: true
+reasoning: true
+dates:
+  announced: '2025-07-28'
+  ga: '2025-07-28'
+  deprecated: null
+  retired: null
+specs:
+  context_window: 128000
+  max_output: null
+  modalities_in:
+  - text
+  modalities_out:
+  - text
+  knowledge_cutoff: null
+  params_b: 355
+  pricing:
+    input_per_mtok: null
+    output_per_mtok: null
+benchmarks: []
+highlights:
+- 统一思考与非思考模式，开放模型权重
+sources:
+- https://z.ai/blog/glm-4.5
+verified_at: '2026-09-26'
+arch:
+  type: moe
+  total: 355
+  active: 32
+  source: https://z.ai/blog/glm-4.5

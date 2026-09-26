@@ -1,0 +1,37 @@
+id: minimax-m2-5
+name: MiniMax M2.5
+vendor: minimax
+family: minimax-m
+tier: flagship
+generation: M2.5
+predecessor: minimax-m2-1
+open_weights: true
+reasoning: true
+dates:
+  announced: '2026-02-12'
+  ga: '2026-02-12'
+  deprecated: null
+  retired: null
+specs:
+  context_window: null
+  max_output: null
+  modalities_in:
+  - text
+  modalities_out:
+  - text
+  knowledge_cutoff: null
+  params_b: null
+  pricing:
+    input_per_mtok: null
+    output_per_mtok: null
+benchmarks:
+- name: SWE-bench Verified
+  score: 80.2
+  reported_by: vendor
+  source: https://www.minimax.io/blog/minimax-m25
+highlights:
+- 提升代码、工具调用与办公任务能力
+sources:
+- https://www.minimax.io/blog/minimax-m25
+- https://huggingface.co/MiniMaxAI/MiniMax-M2.5
+verified_at: '2026-09-26'

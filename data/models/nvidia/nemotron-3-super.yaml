@@ -1,0 +1,37 @@
+id: nemotron-3-super
+name: Nemotron 3 Super
+vendor: nvidia
+family: nemotron
+tier: mid
+generation: 3 Super
+predecessor: null
+open_weights: true
+reasoning: true
+dates:
+  announced: '2026-03-11'
+  ga: '2026-03-11'
+  deprecated: null
+  retired: null
+specs:
+  context_window: 1000000
+  max_output: null
+  modalities_in:
+  - text
+  modalities_out:
+  - text
+  knowledge_cutoff: null
+  params_b: 120
+  pricing:
+    input_per_mtok: null
+    output_per_mtok: null
+benchmarks: []
+highlights:
+- 混合 Mamba/Transformer MoE，面向多智能体推理
+sources:
+- https://developer.nvidia.com/blog/introducing-nemotron-3-super-an-open-hybrid-mamba-transformer-moe-for-agentic-reasoning/
+verified_at: '2026-09-26'
+arch:
+  type: moe
+  total: 120
+  active: 12
+  source: https://developer.nvidia.com/blog/introducing-nemotron-3-super-an-open-hybrid-mamba-transformer-moe-for-agentic-reasoning/

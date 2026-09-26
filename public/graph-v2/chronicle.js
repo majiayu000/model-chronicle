@@ -1,6 +1,6 @@
 (function(){
-const V={anthropic:{label:"Anthropic",color:"#D97757"},openai:{label:"OpenAI",color:"#10A37F"},google:{label:"Google",color:"#4285F4"},meta:{label:"Meta",color:"#8B5CF6"},deepseek:{label:"DeepSeek",color:"#4D6BFE"},qwen:{label:"Qwen",color:"#E8A33D"}};
-const VENDORS=["anthropic","openai","google","meta","deepseek","qwen"],TIERS=["flagship","mid","small"];
+const V={anthropic:{label:"Anthropic",color:"#D97757"},openai:{label:"OpenAI",color:"#10A37F"},google:{label:"Google",color:"#4285F4"},meta:{label:"Meta",color:"#8B5CF6"},deepseek:{label:"DeepSeek",color:"#4D6BFE"},qwen:{label:"Qwen",color:"#E8A33D"},moonshot:{label:"Kimi",color:"#5AA8F2"},zhipu:{label:"Z.ai",color:"#35C7B2"},minimax:{label:"MiniMax",color:"#F47BA8"},bytedance:{label:"Seed",color:"#F08B4B"},baidu:{label:"ERNIE",color:"#5F91FF"},tencent:{label:"Hunyuan",color:"#48C2D5"},xai:{label:"xAI",color:"#D7D8DC"},mistral:{label:"Mistral",color:"#F7A13C"},cohere:{label:"Cohere",color:"#B995D8"},amazon:{label:"Amazon",color:"#FFB34E"},microsoft:{label:"Microsoft",color:"#7AB8F5"},ibm:{label:"IBM",color:"#9B8BFA"},nvidia:{label:"NVIDIA",color:"#76B900"}};
+const VENDORS=["anthropic","openai","google","meta","deepseek","qwen","moonshot","zhipu","minimax","bytedance","baidu","tencent","xai","mistral","cohere","amazon","microsoft","ibm","nvidia"],TIERS=["flagship","mid","small"];
 const TIER_LABEL={flagship:"旗舰",mid:"中档",small:"小型"};
 const BENCH=["SWE-bench Verified","GPQA Diamond","MMLU","MMLU-Pro","AIME 2024","AIME 2025","MMMU","HumanEval"];
 // Only schema-validated YAML records are shown and used in analysis.

@@ -1,0 +1,32 @@
+id: kimi-k3
+name: Kimi K3
+vendor: moonshot
+family: kimi
+tier: flagship
+generation: K3
+predecessor: kimi-k2-6
+open_weights: true
+dates:
+  announced: '2026-07-16'
+  ga: '2026-07-16'
+  deprecated: null
+  retired: null
+specs:
+  context_window: 1000000
+  max_output: null
+  modalities_in:
+  - text
+  - image
+  modalities_out:
+  - text
+  knowledge_cutoff: null
+  params_b: 2800
+  pricing:
+    input_per_mtok: null
+    output_per_mtok: null
+benchmarks: []
+highlights:
+- 原生视觉与百万 token 上下文，模型权重于 7 月 27 日开放
+sources:
+- https://github.com/MoonshotAI/kimi-help-center/blob/master/en-US/agent/overview.md
+verified_at: '2026-09-26'

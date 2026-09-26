@@ -1,0 +1,37 @@
+id: mistral-large-3
+name: Mistral Large 3
+vendor: mistral
+family: mistral-large
+tier: flagship
+generation: '3'
+predecessor: mistral-large-2
+open_weights: true
+dates:
+  announced: '2025-12-02'
+  ga: '2025-12-02'
+  deprecated: null
+  retired: null
+specs:
+  context_window: null
+  max_output: null
+  modalities_in:
+  - text
+  - image
+  modalities_out:
+  - text
+  knowledge_cutoff: null
+  params_b: 675
+  pricing:
+    input_per_mtok: null
+    output_per_mtok: null
+benchmarks: []
+highlights:
+- 开放权重的 675B 总参数、41B 激活参数 MoE
+sources:
+- https://mistral.ai/news/mistral-3/
+verified_at: '2026-09-26'
+arch:
+  type: moe
+  total: 675
+  active: 41
+  source: https://mistral.ai/news/mistral-3/

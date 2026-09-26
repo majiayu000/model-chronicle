@@ -1,0 +1,45 @@
+id: kimi-k2
+name: Kimi K2
+vendor: moonshot
+family: kimi
+tier: flagship
+generation: K2
+predecessor: null
+open_weights: true
+dates:
+  announced: '2025-07-11'
+  ga: '2025-07-11'
+  deprecated: null
+  retired: null
+specs:
+  context_window: 131072
+  max_output: null
+  modalities_in:
+  - text
+  modalities_out:
+  - text
+  knowledge_cutoff: null
+  params_b: 1000
+  pricing:
+    input_per_mtok: null
+    output_per_mtok: null
+benchmarks: []
+highlights:
+- 开源 MoE 模型，面向工具使用与智能体任务
+sources:
+- https://platform.kimi.ai/blog/posts/changelog
+- https://github.com/MoonshotAI/Kimi-K2/blob/main/README.md
+verified_at: '2026-09-26'
+arch:
+  type: moe
+  total: 1000
+  active: 32
+  layers: 61
+  d: 7168
+  heads: 64
+  experts: 384
+  topk: 8
+  shared: 1
+  attn: MLA
+  vocab: 160000
+  source: https://github.com/MoonshotAI/Kimi-K2/blob/main/README.md

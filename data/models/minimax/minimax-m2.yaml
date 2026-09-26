@@ -1,0 +1,32 @@
+id: minimax-m2
+name: MiniMax M2
+vendor: minimax
+family: minimax-m
+tier: flagship
+generation: M2
+predecessor: minimax-m1
+open_weights: true
+reasoning: true
+dates:
+  announced: '2025-10-27'
+  ga: '2025-10-27'
+  deprecated: null
+  retired: null
+specs:
+  context_window: null
+  max_output: null
+  modalities_in:
+  - text
+  modalities_out:
+  - text
+  knowledge_cutoff: null
+  params_b: null
+  pricing:
+    input_per_mtok: null
+    output_per_mtok: null
+benchmarks: []
+highlights:
+- 面向代码与智能体任务，开放模型权重
+sources:
+- https://www.minimax.io/news/minimax-m2
+verified_at: '2026-09-26'

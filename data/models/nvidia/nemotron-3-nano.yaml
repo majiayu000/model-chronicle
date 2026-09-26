@@ -1,0 +1,37 @@
+id: nemotron-3-nano
+name: Nemotron 3 Nano
+vendor: nvidia
+family: nemotron
+tier: small
+generation: 3 Nano
+predecessor: null
+open_weights: true
+reasoning: true
+dates:
+  announced: '2025-12-15'
+  ga: '2025-12-15'
+  deprecated: null
+  retired: null
+specs:
+  context_window: 1000000
+  max_output: null
+  modalities_in:
+  - text
+  modalities_out:
+  - text
+  knowledge_cutoff: null
+  params_b: 31.6
+  pricing:
+    input_per_mtok: null
+    output_per_mtok: null
+benchmarks: []
+highlights:
+- 开放权重的 31.6B 总参数、3.2B 激活参数模型
+sources:
+- https://research.nvidia.com/labs/nemotron/Nemotron-3/
+verified_at: '2026-09-26'
+arch:
+  type: moe
+  total: 31.6
+  active: 3.2
+  source: https://research.nvidia.com/labs/nemotron/Nemotron-3/

@@ -1,0 +1,31 @@
+id: mistral-small-3
+name: Mistral Small 3
+vendor: mistral
+family: mistral-small
+tier: small
+generation: '3'
+predecessor: null
+open_weights: true
+dates:
+  announced: '2025-01-30'
+  ga: '2025-01-30'
+  deprecated: null
+  retired: null
+specs:
+  context_window: null
+  max_output: null
+  modalities_in:
+  - text
+  modalities_out:
+  - text
+  knowledge_cutoff: null
+  params_b: 24
+  pricing:
+    input_per_mtok: null
+    output_per_mtok: null
+benchmarks: []
+highlights:
+- 24B 参数的低延迟开放权重模型
+sources:
+- https://mistral.ai/news/mistral-small-3/
+verified_at: '2026-09-26'

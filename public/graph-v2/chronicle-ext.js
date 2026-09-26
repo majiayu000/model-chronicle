@@ -25,7 +25,7 @@
 
     if (out.isCatchup) {
       const comparable = MC.comparable(models, s.bench);
-      const pts = comparable.models.map(m => ({ m, t: m.t, v: MC.bench(m, s.bench) })).sort((a, b) => a.t - b.t);
+      const pts = comparable.models.map(m => ({ m, t: m.t, v: MC.bench(m, s.bench) })).sort((a, b) => a.t - b.t || b.v - a.v);
       const openPts = pts.filter(p => p.m.open_weights), fr = []; let best = -1;
       pts.filter(p => !p.m.open_weights).forEach(p => { if (p.v > best) { best = p.v; fr.push(p); } });
       const rows = fr.map(c => {
@@ -48,7 +48,7 @@
       const thr = (s.thr && s.thr[s.bench]) ?? DEF_THR[s.bench];
       const comparable = MC.comparable(models, s.bench);
       const scored = comparable.models;
-      const pts = scored.filter(m => blend(m) != null).map(m => ({ m, t: m.t, v: MC.bench(m, s.bench), p: blend(m) })).sort((a, b) => a.t - b.t);
+      const pts = scored.filter(m => blend(m) != null).map(m => ({ m, t: m.t, v: MC.bench(m, s.bench), p: blend(m) })).sort((a, b) => a.t - b.t || a.p - b.p);
       const q = pts.filter(x => x.v >= thr), fr = []; let min = Infinity;
       q.forEach(x => { if (x.p < min) { min = x.p; fr.push(x); } });
       const frSet = new Set(fr.map(x => x.m.id));

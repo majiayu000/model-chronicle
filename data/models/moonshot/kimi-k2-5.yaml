@@ -1,0 +1,47 @@
+id: kimi-k2-5
+name: Kimi K2.5
+vendor: moonshot
+family: kimi
+tier: flagship
+generation: K2.5
+predecessor: kimi-k2
+open_weights: true
+reasoning: true
+dates:
+  announced: '2026-01-27'
+  ga: '2026-01-27'
+  deprecated: null
+  retired: null
+specs:
+  context_window: 262144
+  max_output: null
+  modalities_in:
+  - text
+  - image
+  modalities_out:
+  - text
+  knowledge_cutoff: null
+  params_b: 1000
+  pricing:
+    input_per_mtok: null
+    output_per_mtok: null
+benchmarks: []
+highlights:
+- 在 K2 基础上加入原生视觉理解与思考模式
+sources:
+- https://github.com/MoonshotAI/kimi-help-center/blob/master/en-US/agent/overview.md
+- https://github.com/MoonshotAI/Kimi-K2.5/blob/master/README.md
+verified_at: '2026-09-26'
+arch:
+  type: moe
+  total: 1000
+  active: 32
+  layers: 61
+  d: 7168
+  heads: 64
+  experts: 384
+  topk: 8
+  shared: 1
+  attn: MLA
+  vocab: 160000
+  source: https://github.com/MoonshotAI/Kimi-K2.5/blob/master/README.md

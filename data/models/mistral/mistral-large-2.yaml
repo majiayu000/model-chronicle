@@ -1,0 +1,31 @@
+id: mistral-large-2
+name: Mistral Large 2
+vendor: mistral
+family: mistral-large
+tier: flagship
+generation: '2'
+predecessor: mistral-large-1
+open_weights: true
+dates:
+  announced: '2024-07-24'
+  ga: '2024-07-24'
+  deprecated: null
+  retired: null
+specs:
+  context_window: 128000
+  max_output: null
+  modalities_in:
+  - text
+  modalities_out:
+  - text
+  knowledge_cutoff: null
+  params_b: 123
+  pricing:
+    input_per_mtok: null
+    output_per_mtok: null
+benchmarks: []
+highlights:
+- 123B 参数、128K 上下文，研究许可开放权重
+sources:
+- https://mistral.ai/news/mistral-large-2407/
+verified_at: '2026-09-26'

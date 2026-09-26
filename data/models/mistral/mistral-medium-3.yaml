@@ -1,0 +1,32 @@
+id: mistral-medium-3
+name: Mistral Medium 3
+vendor: mistral
+family: mistral-medium
+tier: mid
+generation: '3'
+predecessor: null
+open_weights: false
+dates:
+  announced: '2025-05-07'
+  ga: '2025-05-07'
+  deprecated: null
+  retired: null
+specs:
+  context_window: null
+  max_output: null
+  modalities_in:
+  - text
+  - image
+  modalities_out:
+  - text
+  knowledge_cutoff: null
+  params_b: null
+  pricing:
+    input_per_mtok: null
+    output_per_mtok: null
+benchmarks: []
+highlights:
+- 面向企业代码与多模态任务的均衡档
+sources:
+- https://mistral.ai/news/mistral-medium-3/
+verified_at: '2026-09-26'

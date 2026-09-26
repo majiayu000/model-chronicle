@@ -24,10 +24,22 @@ specs:
   pricing:
     input_per_mtok: 0.05
     output_per_mtok: 0.4
-benchmarks: []
+benchmarks:
+  - name: SWE-bench Verified
+    score: 54.7
+    reported_by: vendor
+    source: https://openai.com/index/introducing-gpt-5-for-developers/
+  - name: GPQA Diamond
+    score: 71.2
+    reported_by: vendor
+    source: https://openai.com/index/introducing-gpt-5-for-developers/
+  - name: AIME 2025
+    score: 85.2
+    reported_by: vendor
+    source: https://openai.com/index/introducing-gpt-5-for-developers/
 highlights: []
 sources:
   - https://openai.com/index/introducing-gpt-5-for-developers/
   - https://developers.openai.com/api/docs/models/gpt-5-nano
-verified_at: 2026-09-25
+verified_at: 2026-09-26
 reasoning: true

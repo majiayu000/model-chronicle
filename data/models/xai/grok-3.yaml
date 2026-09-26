@@ -1,0 +1,32 @@
+id: grok-3
+name: Grok 3
+vendor: xai
+family: grok
+tier: flagship
+generation: '3'
+predecessor: grok-2
+open_weights: false
+reasoning: true
+dates:
+  announced: '2025-02-19'
+  ga: '2025-02-19'
+  deprecated: null
+  retired: null
+specs:
+  context_window: null
+  max_output: null
+  modalities_in:
+  - text
+  modalities_out:
+  - text
+  knowledge_cutoff: null
+  params_b: null
+  pricing:
+    input_per_mtok: null
+    output_per_mtok: null
+benchmarks: []
+highlights:
+- 引入推理模式与 DeepSearch
+sources:
+- https://x.ai/news/grok-3
+verified_at: '2026-09-26'

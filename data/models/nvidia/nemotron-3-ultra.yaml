@@ -1,0 +1,37 @@
+id: nemotron-3-ultra
+name: Nemotron 3 Ultra
+vendor: nvidia
+family: nemotron
+tier: flagship
+generation: 3 Ultra
+predecessor: null
+open_weights: true
+reasoning: true
+dates:
+  announced: '2026-06-04'
+  ga: '2026-06-04'
+  deprecated: null
+  retired: null
+specs:
+  context_window: 1000000
+  max_output: null
+  modalities_in:
+  - text
+  modalities_out:
+  - text
+  knowledge_cutoff: null
+  params_b: 550
+  pricing:
+    input_per_mtok: null
+    output_per_mtok: null
+benchmarks: []
+highlights:
+- 550B 总参数、55B 激活参数的长程智能体模型
+sources:
+- https://developer.nvidia.com/blog/nvidia-nemotron-3-ultra-powers-faster-more-efficient-reasoning-for-long-running-agents/
+verified_at: '2026-09-26'
+arch:
+  type: moe
+  total: 550
+  active: 55
+  source: https://developer.nvidia.com/blog/nvidia-nemotron-3-ultra-powers-faster-more-efficient-reasoning-for-long-running-agents/

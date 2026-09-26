@@ -1,0 +1,36 @@
+id: grok-1-5
+name: Grok-1.5
+vendor: xai
+family: grok
+tier: flagship
+generation: '1.5'
+predecessor: grok-1
+open_weights: false
+reasoning: true
+dates:
+  announced: '2024-03-28'
+  ga: null
+  deprecated: null
+  retired: null
+specs:
+  context_window: 128000
+  max_output: null
+  modalities_in:
+  - text
+  modalities_out:
+  - text
+  knowledge_cutoff: null
+  params_b: null
+  pricing:
+    input_per_mtok: null
+    output_per_mtok: null
+benchmarks:
+- name: HumanEval
+  score: 74.1
+  reported_by: vendor
+  source: https://x.ai/news/grok-1.5
+highlights:
+- 上下文扩展到 128K，并加强代码与数学推理
+sources:
+- https://x.ai/news/grok-1.5
+verified_at: '2026-09-26'

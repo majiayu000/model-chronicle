@@ -1,0 +1,31 @@
+id: grok-4-6
+name: Grok 4.6
+vendor: xai
+family: grok
+tier: flagship
+generation: '4.6'
+predecessor: grok-4-5
+open_weights: false
+reasoning: true
+dates:
+  announced: '2026-08-12'
+  ga: '2026-08-12'
+  deprecated: null
+  retired: null
+specs:
+  context_window: null
+  max_output: null
+  modalities_in:
+  - text
+  modalities_out:
+  - text
+  knowledge_cutoff: null
+  params_b: null
+  pricing:
+    input_per_mtok: 2
+    output_per_mtok: 6
+benchmarks: []
+highlights: []
+sources:
+- https://x.ai/news/grok-4-6
+verified_at: '2026-09-26'

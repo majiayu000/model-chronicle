@@ -1,0 +1,37 @@
+id: glm-4-5-air
+name: GLM-4.5-Air
+vendor: zhipu
+family: glm-air
+tier: mid
+generation: '4.5'
+predecessor: null
+open_weights: true
+reasoning: true
+dates:
+  announced: '2025-07-28'
+  ga: '2025-07-28'
+  deprecated: null
+  retired: null
+specs:
+  context_window: null
+  max_output: null
+  modalities_in:
+  - text
+  modalities_out:
+  - text
+  knowledge_cutoff: null
+  params_b: 106
+  pricing:
+    input_per_mtok: null
+    output_per_mtok: null
+benchmarks: []
+highlights:
+- GLM-4.5 系列的轻量 MoE 型号
+sources:
+- https://z.ai/blog/glm-4.5
+verified_at: '2026-09-26'
+arch:
+  type: moe
+  total: 106
+  active: 12
+  source: https://z.ai/blog/glm-4.5

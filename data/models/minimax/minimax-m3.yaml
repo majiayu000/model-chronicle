@@ -1,0 +1,35 @@
+id: minimax-m3
+name: MiniMax M3
+vendor: minimax
+family: minimax-m
+tier: flagship
+generation: M3
+predecessor: minimax-m2-7
+open_weights: true
+reasoning: true
+dates:
+  announced: '2026-06-01'
+  ga: '2026-06-01'
+  deprecated: null
+  retired: null
+specs:
+  context_window: 1000000
+  max_output: null
+  modalities_in:
+  - text
+  - image
+  - video
+  modalities_out:
+  - text
+  knowledge_cutoff: null
+  params_b: null
+  pricing:
+    input_per_mtok: null
+    output_per_mtok: null
+benchmarks: []
+highlights:
+- 原生多模态、百万 token 上下文与可切换思考模式
+sources:
+- https://www.minimax.io/blog/minimax-m3
+- https://huggingface.co/MiniMaxAI/MiniMax-M3
+verified_at: '2026-09-26'

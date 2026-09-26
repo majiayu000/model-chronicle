@@ -1,0 +1,33 @@
+id: amazon-nova-lite
+name: Amazon Nova Lite
+vendor: amazon
+family: nova
+tier: small
+generation: Lite
+predecessor: null
+open_weights: false
+dates:
+  announced: '2024-12-02'
+  ga: '2024-12-02'
+  deprecated: null
+  retired: null
+specs:
+  context_window: 300000
+  max_output: null
+  modalities_in:
+  - text
+  - image
+  - video
+  modalities_out:
+  - text
+  knowledge_cutoff: null
+  params_b: null
+  pricing:
+    input_per_mtok: null
+    output_per_mtok: null
+benchmarks: []
+highlights:
+- 支持文本、图像和视频输入的轻量型号
+sources:
+- https://docs.aws.amazon.com/nova/latest/userguide/additional-resources.html
+verified_at: '2026-09-26'

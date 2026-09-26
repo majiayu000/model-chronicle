@@ -1,0 +1,32 @@
+id: grok-4-1-fast
+name: Grok 4.1 Fast
+vendor: xai
+family: grok-fast
+tier: mid
+generation: 4.1 Fast
+predecessor: grok-4-fast
+open_weights: false
+reasoning: true
+dates:
+  announced: '2025-11-19'
+  ga: '2025-11-19'
+  deprecated: null
+  retired: null
+specs:
+  context_window: 2000000
+  max_output: null
+  modalities_in:
+  - text
+  modalities_out:
+  - text
+  knowledge_cutoff: null
+  params_b: null
+  pricing:
+    input_per_mtok: null
+    output_per_mtok: null
+benchmarks: []
+highlights:
+- 面向工具调用和智能体搜索任务
+sources:
+- https://x.ai/news/grok-4-1-fast
+verified_at: '2026-09-26'

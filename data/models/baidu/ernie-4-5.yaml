@@ -1,0 +1,32 @@
+id: ernie-4-5
+name: ERNIE 4.5
+vendor: baidu
+family: ernie
+tier: flagship
+generation: '4.5'
+predecessor: null
+open_weights: false
+dates:
+  announced: 2025-03
+  ga: 2025-03
+  deprecated: null
+  retired: null
+specs:
+  context_window: null
+  max_output: null
+  modalities_in:
+  - text
+  - image
+  modalities_out:
+  - text
+  knowledge_cutoff: null
+  params_b: null
+  pricing:
+    input_per_mtok: null
+    output_per_mtok: null
+benchmarks: []
+highlights:
+- 文心系列首个多模态旗舰基础模型
+sources:
+- https://ir.baidu.com/news-releases/news-release-details/baidu-announces-first-quarter-2025-results
+verified_at: '2026-09-26'

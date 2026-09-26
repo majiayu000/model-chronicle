@@ -1,0 +1,32 @@
+id: grok-4-fast
+name: Grok 4 Fast
+vendor: xai
+family: grok-fast
+tier: mid
+generation: 4 Fast
+predecessor: null
+open_weights: false
+reasoning: true
+dates:
+  announced: '2025-09-19'
+  ga: '2025-09-19'
+  deprecated: null
+  retired: null
+specs:
+  context_window: 2000000
+  max_output: null
+  modalities_in:
+  - text
+  modalities_out:
+  - text
+  knowledge_cutoff: null
+  params_b: null
+  pricing:
+    input_per_mtok: null
+    output_per_mtok: null
+benchmarks: []
+highlights:
+- 统一推理与非推理模式，支持 2M 上下文
+sources:
+- https://x.ai/news/grok-4-fast
+verified_at: '2026-09-26'

@@ -1,0 +1,33 @@
+id: minimax-m2-7
+name: MiniMax M2.7
+vendor: minimax
+family: minimax-m
+tier: flagship
+generation: M2.7
+predecessor: minimax-m2-5
+open_weights: true
+reasoning: true
+dates:
+  announced: '2026-03-18'
+  ga: '2026-03-18'
+  deprecated: null
+  retired: null
+specs:
+  context_window: null
+  max_output: null
+  modalities_in:
+  - text
+  modalities_out:
+  - text
+  knowledge_cutoff: null
+  params_b: null
+  pricing:
+    input_per_mtok: null
+    output_per_mtok: null
+benchmarks: []
+highlights:
+- 面向复杂代码、专业办公与 Agent Teams 任务
+sources:
+- https://www.minimax.io/news/minimax-m27-en
+- https://huggingface.co/MiniMaxAI/MiniMax-M2.7
+verified_at: '2026-09-26'
