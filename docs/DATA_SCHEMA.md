@@ -36,6 +36,12 @@ specs:
   pricing:                     # 美元 / 百万 token，发布时官方 API 价格；未知 null
     input_per_mtok: null
     output_per_mtok: null
+# price_history:               # 可选；只记有日期和来源的标准文本 API 非缓存价
+#   - observed_at: 2025-02-24 # 官方来源的观测日期，不推断价格生效日
+#     input_per_mtok: 3
+#     output_per_mtok: 15
+#     source: https://...     # 必须同时列在 sources 中；按观测日期严格递增
+#     note: 标准文本 API 价格
 arch:                         # 可选；无可核实架构资料时省略
   type: dense                 # dense | moe
   source: https://...        # 必须同时列在 sources 中
@@ -57,6 +63,8 @@ sources:                       # 至少 1 个官方来源 URL（发布博客/文
   - https://www.anthropic.com/news/claude-3-7-sonnet
 verified_at: 2026-09-24
 ```
+
+`specs.pricing` 始终是发布价。`price_history` 是逐次核实的历史观测，不等于当前可购买价格；不同缓存、地区、长上下文、批处理或快照价格不可混为一条记录。资料缺失时留空，不从旧观测推断今天的价格。
 
 ## family 取值
 

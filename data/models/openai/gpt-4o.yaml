@@ -25,9 +25,22 @@ specs:
   pricing:
     input_per_mtok: 5
     output_per_mtok: 15
+price_history:
+  - observed_at: 2024-05-13
+    input_per_mtok: 5
+    output_per_mtok: 15
+    source: https://community.openai.com/t/announcing-gpt-4o-in-the-api/744700
+    note: 发布时标准文本 API 价格
+  - observed_at: 2024-10-01
+    input_per_mtok: 2.5
+    output_per_mtok: 10
+    source: https://openai.com/index/api-prompt-caching/
+    note: 官方表中 GPT-4o 2024-08-06 快照的非缓存文本价格；此日为来源发布日期
 benchmarks: []
 highlights: []
 sources:
+  - https://community.openai.com/t/announcing-gpt-4o-in-the-api/744700
   - https://openai.com/index/hello-gpt-4o/
+  - https://openai.com/index/api-prompt-caching/
   - https://developers.openai.com/api/docs/models/gpt-4o
 verified_at: 2026-09-25

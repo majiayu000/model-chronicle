@@ -21,10 +21,11 @@
     const models = MC.models.filter(pass);
     const open = id => e => { if (e && e.preventDefault) e.preventDefault(); set({ view: "detail", id, hover: null }); window.scrollTo(0, 0); };
     const tabs = () => MC.BENCH.map(b => ({ label: b, on: b === s.bench, n: models.filter(m => MC.bench(m, b) != null).length, pick: () => set({ bench: b }) }));
+    const groupTabs = () => MC.comparisonGroups(models, s.bench).map(([name, members]) => ({ name, count: members.length, on: name === MC.comparable(models, s.bench, s.groups?.[s.bench]).name, pick: () => set({ groups: { ...(s.groups || {}), [s.bench]: name } }) }));
     const out = { isCatchup: s.view === "catchup", isCost: s.view === "cost", isLife: s.view === "life" };
 
     if (out.isCatchup) {
-      const comparable = MC.comparable(models, s.bench);
+      const comparable = MC.comparable(models, s.bench, s.groups?.[s.bench]);
       const pts = comparable.models.map(m => ({ m, t: m.t, v: MC.bench(m, s.bench) })).sort((a, b) => a.t - b.t || b.v - a.v);
       const openPts = pts.filter(p => p.m.open_weights), fr = []; let best = -1;
       pts.filter(p => !p.m.open_weights).forEach(p => { if (p.v > best) { best = p.v; fr.push(p); } });
@@ -38,7 +39,7 @@
       const m = rows.filter(r => r.matched), latest = m.slice().sort((a, b) => b.oT - a.oT)[0], pend = rows.find(r => r.pending);
       const med = median(m.map(r => r.lag));
       const bestOpen = Math.max(-1, ...openPts.map(p => p.v));
-      out.cu = { tabs: tabs(), bench: s.bench, rows, xTicks, todayPct, count: rows.length, empty: rows.length === 0, comparisonGroup: comparable.name || "暂无同条件对照组",
+      out.cu = { tabs: tabs(), groups: groupTabs(), bench: s.bench, rows, xTicks, todayPct, count: rows.length, empty: rows.length === 0, comparisonGroup: comparable.name || "暂无同条件对照组",
         median: med == null ? "—" : med + " 天", medianSub: m.length + " 次追平闭源纪录",
         latest: latest ? latest.lag + " 天" : "—", latestSub: latest ? latest.openName + " 追平 " + latest.name : "暂无",
         pendingDays: pend ? pend.lag + " 天" : comparable.name ? "0" : "—", pendingSub: pend ? "自 " + pend.name + "（" + pend.score + "）起，开源最高 " + (bestOpen < 0 ? "—" : bestOpen) : comparable.name ? "开源已追平全部闭源纪录" : "缺少可比评测条件" };
@@ -46,7 +47,7 @@
 
     if (out.isCost) {
       const thr = (s.thr && s.thr[s.bench]) ?? DEF_THR[s.bench];
-      const comparable = MC.comparable(models, s.bench);
+      const comparable = MC.comparable(models, s.bench, s.groups?.[s.bench]);
       const scored = comparable.models;
       const pts = scored.filter(m => blend(m) != null).map(m => ({ m, t: m.t, v: MC.bench(m, s.bench), p: blend(m) })).sort((a, b) => a.t - b.t || a.p - b.p);
       const q = pts.filter(x => x.v >= thr), fr = []; let min = Infinity;
@@ -55,7 +56,7 @@
       const hSeg = fr.map((x, i) => { const t2 = fr[i + 1] ? fr[i + 1].t : TODAY; return { left: pct(x.t), top: logTop(x.p), w: pct(t2) - pct(x.t) }; });
       const vSeg = fr.slice(1).map((x, i) => ({ left: pct(x.t), top: logTop(fr[i].p), h: logTop(x.p) - logTop(fr[i].p) }));
       const first = fr[0], last = fr[fr.length - 1], drop = first && last ? first.p / last.p : null;
-      out.co = { tabs: tabs(), bench: s.bench, thr, min: 20, max: 95, comparisonGroup: comparable.name || "暂无同条件对照组", onThr: e => set({ thr: { ...(s.thr || {}), [s.bench]: +e.target.value } }),
+      out.co = { tabs: tabs(), groups: groupTabs(), bench: s.bench, thr, min: 20, max: 95, comparisonGroup: comparable.name || "暂无同条件对照组", onThr: e => set({ thr: { ...(s.thr || {}), [s.bench]: +e.target.value } }),
         points: pts.map(x => { const ok = x.v >= thr, f = frSet.has(x.m.id); return { left: pct(x.t), top: logTop(x.p), fill: ok ? x.m.color : "transparent", bd: ok ? x.m.color : "#33363c", size: f ? 13 : 9, z: f ? 3 : ok ? 2 : 1, label: f, name: x.m.name, price: fmt$(x.p), tip: x.m.name + " · " + x.v + " · " + fmt$(x.p), go: open(x.m.id) }; }),
         hSeg, vSeg, xTicks, todayPct, yTicks: [100, 10, 1, 0.1, 0.01].map(v => ({ label: "$" + v, top: logTop(v) })),
         count: pts.length, qCount: q.length, empty: q.length === 0,
@@ -68,8 +69,8 @@
 
     if (out.isLife) {
       const T = d => (d ? MC.toTime(d) : null);
-      const st = m => { const r = T(m.dates.retired), d = T(m.dates.deprecated); return r != null && r <= TODAY ? "retired" : d != null && d <= TODAY ? "deprecated" : "unknown"; };
-      const ST = { unknown: ["状态未核实", "#9a9ca3"], deprecated: ["弃用中", "#ff6b5b"], retired: ["已下线", "#62656d"] };
+      const st = m => { if (!m.dates.ga) return "unknown"; const r = T(m.dates.retired), d = T(m.dates.deprecated); return r != null && r <= TODAY ? "retired" : d != null && d <= TODAY ? "deprecated" : "unknown"; };
+      const ST = { unknown: ["状态未核实", "#9a9ca3"], deprecated: ["弃用中", "#ff6b5b"], retired: ["已下线", "#858892"] };
       const mode = s.lifeMode || "all";
       const counts = { all: models.length, unknown: 0, deprecated: 0, retired: 0 };
       models.forEach(m => counts[st(m)]++);
@@ -80,7 +81,7 @@
         const depStart = d != null && d <= TODAY ? d : null, liveEnd = depStart ?? end;
         rows.push({ group: v !== lastV, vendorLabel: MC.V[v].label, vendorCount: models.filter(x => x.vendor === v).length, color: m.color, name: m.name,
           stLabel: ST[k][0], stColor: ST[k][1],
-          left: pct(m.t), liveW: Math.max(.3, pct(liveEnd) - pct(m.t)), liveBg: k === "unknown" || k === "retired" ? "#62656d" : m.color,
+          left: pct(m.t), liveW: Math.max(.3, pct(liveEnd) - pct(m.t)), liveBg: k === "unknown" || k === "retired" ? "#858892" : m.color,
           hasDep: depStart != null, depLeft: pct(depStart || 0), depW: pct(end) - pct(depStart || 0),
           isRetired: k === "retired", endLeft: pct(end), hasSched: r != null && r > TODAY, schedLeft: todayPct, schedW: pct(r || 0) - todayPct, schedAt: pct(r || 0),
           go: open(m.id) });

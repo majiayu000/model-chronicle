@@ -54,13 +54,13 @@
       const rows = []; let lastV = null;
       MC.lines(models).forEach(l => {
         const pts = l.models.map(m => ({ m, px: x(m.t) }));
-        const segs = pts.slice(1).map((p, i) => { const w = p.px - pts[i].px; return { left: pts[i].px, w, mid: pts[i].px + w / 2, showGap: w >= 56, gap: MC.fmtGap(pts[i].m.date, p.m.date) }; });
+        const segs = pts.slice(1).map((p, i) => { const w = p.px - pts[i].px; return { left: pts[i].px, w, mid: pts[i].px + w / 2, showGap: w >= 56 && pts[i].m.dateKind === "ga" && p.m.dateKind === "ga", gap: MC.fmtGap(pts[i].m.date, p.m.date) }; });
         const last = pts[pts.length - 1], tp = x(today);
-        const pending = tp - last.px >= 56 ? { left: last.px, w: tp - last.px, mid: last.px + (tp - last.px) / 2, gap: MC.fmtGap(last.m.date, MC.today) } : null;
+        const pending = last.m.dateKind === "ga" && tp - last.px >= 56 ? { left: last.px, w: tp - last.px, mid: last.px + (tp - last.px) / 2, gap: MC.fmtGap(last.m.date, MC.today) } : null;
         const vGroup = l.vendor !== lastV;
         rows.push({ group: vGroup, vendorLabel: MC.V[l.vendor].label, vendorCount: models.filter(m => m.vendor === l.vendor).length, color: MC.V[l.vendor].color,
           family: l.family, tier: MC.TIER_LABEL[l.tier], n: l.models.length, segs, pending,
-          dots: pts.map(p => ({ px: p.px, gen: p.m.generation, id: p.m.id, open: open(p.m.id), moe: p.m.archType === "moe", dense: p.m.archType === "dense", unknown: !p.m.archType, reasoning: p.m.reasoning, hollow: !p.m.open_weights,
+          dots: pts.map(p => ({ px: p.px, gen: p.m.generation, id: p.m.id, open: open(p.m.id), announcedOnly: p.m.dateKind === "announced", moe: p.m.archType === "moe", dense: p.m.archType === "dense", unknown: !p.m.archType, reasoning: p.m.reasoning, hollow: !p.m.open_weights,
             enter: e => { const r = e.currentTarget.getBoundingClientRect(); set({ hover: { id: p.m.id, x: Math.min(r.left - 8, window.innerWidth - 300), y: r.bottom + 10 } }); }, leave: () => set({ hover: null }) })) });
         lastV = l.vendor;
       });
@@ -82,7 +82,8 @@
     // —— 能力趋势
     if (s.view === "trends") {
       const pts = models.filter(m => MC.bench(m, s.bench) != null).map(m => ({ m, t: m.t, v: MC.bench(m, s.bench) })).sort((a, b) => a.t - b.t || b.v - a.v);
-      const comparable = MC.comparable(models, s.bench);
+      const comparable = MC.comparable(models, s.bench, s.groups?.[s.bench]);
+      const groups = MC.comparisonGroups(models, s.bench).map(([name, members]) => ({ name, count: members.length, on: name === comparable.name, pick: () => set({ groups: { ...(s.groups || {}), [s.bench]: name } }) }));
       const comparableIds = new Set(comparable.models.map(m => m.id));
       const comparablePts = pts.filter(p => comparableIds.has(p.m.id));
       const step = list => { const f = []; let best = -1; list.forEach(p => { if (p.v > best) { best = p.v; f.push(p); } }); return f; };
@@ -91,7 +92,7 @@
       const endT = pts.length ? pts[pts.length - 1].t : T1;
       const fset = new Set(fAll.map(p => p.m.id)), oset = new Set(fOpen.map(p => p.m.id));
       const bestClosed = Math.max(-1, ...comparablePts.filter(p => !p.m.open_weights).map(p => p.v)), bestOpen = Math.max(-1, ...comparablePts.filter(p => p.m.open_weights).map(p => p.v));
-      out.trend = { bench: s.bench, tabs: MC.BENCH.map(b => ({ label: b, on: b === s.bench, n: models.filter(m => MC.bench(m, b) != null).length, pick: () => set({ bench: b }) })),
+      out.trend = { bench: s.bench, groups, hasGroups: groups.length > 0, tabs: MC.BENCH.map(b => ({ label: b, on: b === s.bench, n: models.filter(m => MC.bench(m, b) != null).length, pick: () => set({ bench: b }) })),
         points: pts.map(p => ({ left: pct(p.t), top: 100 - p.v, bottom: p.v, color: p.m.color, open: p.m.open_weights, name: p.m.name, score: p.v, date: p.m.date, frontier: fset.has(p.m.id), openFrontier: oset.has(p.m.id) && !fset.has(p.m.id), label: fset.has(p.m.id) || oset.has(p.m.id), go: open(p.m.id) })),
         hAll: segsOf(fAll, endT).filter(x => !x.v), vAll: segsOf(fAll, endT).filter(x => x.v), hOpen: segsOf(fOpen, endT).filter(x => !x.v), vOpen: segsOf(fOpen, endT).filter(x => x.v),
         yTicks: [0, 20, 40, 60, 80, 100].map(v => ({ v, top: 100 - v })), xTicks,
@@ -120,9 +121,18 @@
       specRows.forEach(r => { r.color = r.tone === "up" ? (opts.up || "#1d8a5f") : r.tone === "down" ? (opts.down || "#c2463d") : (opts.muted || "#7a7a74"); });
       const benchRows = m.benchmarks.map(b => { const prior = p ? MC.benchRecord(p, b.name) : null; const pb = prior && b.comparison_group && b.comparison_group === prior.comparison_group ? prior.score : null; return { name: b.name, score: b.score, w: b.score, prevW: pb == null ? 0 : pb, hasPrev: pb != null, prevScore: pb, delta: pb == null ? "" : (b.score >= pb ? "+" : "") + (b.score - pb).toFixed(1), color: pb == null ? (opts.muted || "#7a7a74") : b.score >= pb ? (opts.up || "#1d8a5f") : (opts.down || "#c2463d"), by: b.reported_by === "vendor" ? "厂商自报" : "第三方", evaluation: b.evaluation ? `${b.evaluation.benchmark_version} · ${b.evaluation.tools ? "用工具" : "不用工具"} · ${b.evaluation.reasoning_effort} · ${b.evaluation.harness}` : "评测条件未核实" }; });
       const diag = MC.archDiagram(m);
+      const priceHistory = m.price_history || [];
+      const priceMax = Math.max(1, ...priceHistory.flatMap(p => [p.input_per_mtok, p.output_per_mtok]));
+      const priceX = i => priceHistory.length === 1 ? 200 : 24 + i * 352 / (priceHistory.length - 1);
+      const priceY = value => 126 - value / priceMax * 102;
+      const pricePath = key => priceHistory.map((p, i) => `${i ? "L" : "M"}${priceX(i).toFixed(1)},${priceY(p[key]).toFixed(1)}`).join(" ");
       out.d = { m, diag, hasDiag: !!diag, noDiag: !diag, benchRows, hasBench: benchRows.length > 0, noBench: benchRows.length === 0, specRows, caps: m.capLabels, hasCaps: m.caps.length > 0,
-        facts: [["发布", m.date], ["架构", m.archLabel], ["参数", m.paramsLabel], ["上下文", m.ctxLabel], ["价格 入/出", m.specs.pricing.input_per_mtok == null ? "—" : "$" + m.specs.pricing.input_per_mtok + " / $" + m.specs.pricing.output_per_mtok]].map(([k, v]) => ({ k, v })),
-        prev: p ? { name: p.name, gap: MC.fmtGap(p.date, m.date), go: open(p.id) } : null, next: n ? { name: n.name, gap: MC.fmtGap(m.date, n.date), go: open(n.id) } : null,
+        priceHistory: priceHistory.map(p => ({ ...p, inputLabel: "$" + p.input_per_mtok, outputLabel: "$" + p.output_per_mtok })), hasPriceHistory: priceHistory.length > 0,
+        inputPath: pricePath("input_per_mtok"), outputPath: pricePath("output_per_mtok"),
+        priceDots: priceHistory.map((p, i) => ({ x: priceX(i), inputY: priceY(p.input_per_mtok), outputY: priceY(p.output_per_mtok) })),
+        facts: [[m.dateLabel, m.date], ["架构", m.archLabel], ["参数", m.paramsLabel], ["上下文", m.ctxLabel], ["发布价 入/出", m.specs.pricing.input_per_mtok == null ? "—" : "$" + m.specs.pricing.input_per_mtok + " / $" + m.specs.pricing.output_per_mtok]].map(([k, v]) => ({ k, v })),
+        prev: p ? { name: p.name, gap: p.dateKind === "ga" && m.dateKind === "ga" ? MC.fmtGap(p.date, m.date) : "日期口径不同，暂不计算", go: open(p.id) } : null,
+        next: n ? { name: n.name, gap: m.dateKind === "ga" && n.dateKind === "ga" ? MC.fmtGap(m.date, n.date) : "日期口径不同，暂不计算", go: open(n.id) } : null,
         noPrev: !p, noNext: !n, cmp: p ? "对比 " + p.name : "",
         life: [["announced", "宣布"], ["ga", "正式可用"], ["deprecated", "弃用"], ["retired", "下线"]].map(([k, label]) => ({ label, d: m.dates[k] || "—", done: !!m.dates[k] })),
         line: lineModels.map(x => ({ gen: x.generation, name: x.name, date: x.date, cur: x.id === m.id, go: open(x.id) })), lineLabel: m.family + " · " + m.tierLabel,

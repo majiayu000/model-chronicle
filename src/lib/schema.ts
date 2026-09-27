@@ -66,6 +66,13 @@ export const modelSchema = z
         output_per_mtok: z.number().nonnegative().nullable(),
       }),
     }),
+    price_history: z.array(z.object({
+      observed_at: partialDate,
+      input_per_mtok: z.number().nonnegative(),
+      output_per_mtok: z.number().nonnegative(),
+      source: z.url(),
+      note: z.string().max(120).optional(),
+    }).strict()).optional(),
     benchmarks: z.array(
       z.object({
         name: z.enum(BENCHMARKS),
@@ -100,6 +107,23 @@ export const modelSchema = z
   .refine((m) => !m.arch || m.sources.includes(m.arch.source), {
     message: "架构来源必须列在 sources 中",
     path: ["arch", "source"],
+  })
+  .refine((m) => (m.price_history ?? []).every((p, i, a) => i === 0 || p.observed_at > a[i - 1].observed_at), {
+    message: "价格观测日期必须严格递增",
+    path: ["price_history"],
+  })
+  .refine((m) => (m.price_history ?? []).every((p) => m.sources.includes(p.source)), {
+    message: "价格来源必须列在 sources 中",
+    path: ["price_history"],
+  })
+  .refine((m) => (m.price_history ?? []).every((p) => {
+    const release = m.dates.announced ?? m.dates.ga;
+    if (!release) return true;
+    const n = Math.min(release.length, p.observed_at.length);
+    return p.observed_at.slice(0, n) >= release.slice(0, n);
+  }), {
+    message: "价格观测不能早于模型宣布日期",
+    path: ["price_history"],
   });
 
 export type Model = z.infer<typeof modelSchema>;

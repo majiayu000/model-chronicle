@@ -23,6 +23,7 @@ async function boot() {
   await loadScript("graph-v2/vendor/react.production.min.js");
   await loadScript("graph-v2/vendor/react-dom.production.min.js");
   await loadScript("graph-v2/chronicle.js");
+  await loadScript("graph-v2/chronicle-route.js");
   await loadScript("graph-v2/chronicle-vm.js");
   await loadScript("graph-v2/chronicle-ext.js");
   await loadScript("graph-v2/chronicle-ext2.js");

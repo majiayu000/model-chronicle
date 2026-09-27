@@ -21,7 +21,7 @@
       const cell = (vals, better, fmt) => {
         const nums = vals.filter(v => v != null);
         const best = nums.length > 1 && better ? (better === "hi" ? Math.max(...nums) : Math.min(...nums)) : null;
-        return vals.map(v => ({ v: v == null ? "—" : fmt ? fmt(v) : v, best: best != null && v === best && nums.some(x => x !== best), fg: v == null ? "#62656d" : best != null && v === best && nums.some(x => x !== best) ? "#d4f53c" : "#ecebe6" }));
+        return vals.map(v => ({ v: v == null ? "—" : fmt ? fmt(v) : v, best: best != null && v === best && nums.some(x => x !== best), fg: v == null ? "#858892" : best != null && v === best && nums.some(x => x !== best) ? "#d4f53c" : "#ecebe6" }));
       };
       const row = (label, vals, better, fmt) => ({ label, cells: cell(vals, better, fmt) });
       const specs = [
@@ -34,16 +34,17 @@
         row("最大输出", ms.map(m => m.specs.max_output), "hi", MC.fmtTokens),
         row("输入发布价 / 百万 token", ms.map(m => m.specs.pricing.input_per_mtok), "lo", v => "$" + v),
         row("输出发布价 / 百万 token", ms.map(m => m.specs.pricing.output_per_mtok), "lo", v => "$" + v),
+        row("最近核实观测价 / 百万 token", ms.map(m => { const p = m.price_history?.at(-1); return p ? `$${p.input_per_mtok} / $${p.output_per_mtok} · ${p.observed_at}` : "—"; })),
         row("知识截止", ms.map(m => m.specs.knowledge_cutoff)),
         row("输入模态", ms.map(m => m.specs.modalities_in.join(" / "))),
         row("权重", ms.map(m => (m.open_weights ? "开放权重" : "闭源")))
       ];
       const bench = MC.BENCH.filter(b => ms.some(m => MC.bench(m, b) != null)).map(b => {
         const vals = ms.map(m => MC.bench(m, b));
-        const group = MC.comparable(ms, b), eligible = new Set(group.models.map(m => m.id));
+        const group = MC.comparable(ms, b, s.groups?.[b]), eligible = new Set(group.models.map(m => m.id));
         const c = cell(vals, null), ranked = cell(ms.map((m, i) => eligible.has(m.id) ? vals[i] : null), "hi");
         c.forEach((x, i) => { if (ranked[i].best) { x.best = true; x.fg = ranked[i].fg; } });
-        return { label: b, cells: c.map((x, i) => ({ ...x, w: vals[i] == null ? 0 : vals[i], has: vals[i] != null, bar: x.best ? "#d4f53c" : "#33363c" })) };
+        return { label: b, group: group.name || "暂无同条件对照组", groups: MC.comparisonGroups(ms, b).map(([name, members]) => ({ name, count: members.length, on: name === group.name, pick: () => set({ groups: { ...(s.groups || {}), [b]: name } }) })), cells: c.map((x, i) => ({ ...x, w: vals[i] == null ? 0 : vals[i], has: vals[i] != null, bar: x.best ? "#d4f53c" : "#33363c" })) };
       });
       const wins = ms.map((m, i) => bench.filter(r => r.cells[i].best).length);
       out.cp = {
