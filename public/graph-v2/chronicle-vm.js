@@ -29,6 +29,7 @@
       autoScale: true,
       window: "recent",
       history: [],
+      variants: [],
       archives: [],
       bench,
       hover: null,
@@ -80,6 +81,30 @@
       ).length,
       toggle: () => set({ vendors: tog(s.vendors, v) }),
     }));
+    const allVendors = s.vendors.length === MC.VENDORS.length;
+    const vendorFocus = {
+      value: allVendors
+        ? "all"
+        : s.vendors.length === 1
+          ? s.vendors[0]
+          : "custom",
+      custom: !allVendors && s.vendors.length !== 1,
+      customLabel: s.vendors.length
+        ? `已选 ${s.vendors.length} 家（多选）`
+        : "未选择厂商",
+      canReset: !allVendors,
+      options: vendorChips.map((chip, i) => ({
+        id: MC.VENDORS[i],
+        label: `${chip.label} (${chip.n})`,
+      })),
+      change: (e) => {
+        const vendor = e.target.value;
+        if (vendor === "all") set({ vendors: MC.VENDORS.slice(), hover: null });
+        else if (MC.VENDORS.includes(vendor))
+          set({ vendors: [vendor], hover: null });
+      },
+      reset: () => set({ vendors: MC.VENDORS.slice(), hover: null }),
+    };
     const tierChips = MC.TIERS.map((t) => ({
       label: MC.TIER_LABEL[t],
       on: s.tiers.includes(t),
@@ -94,6 +119,7 @@
     const out = {
       nav,
       vendorChips,
+      vendorFocus,
       tierChips,
       capChips,
       total: windowModels.length,
@@ -146,6 +172,7 @@
           px: mode === "all" ? 420 : 840,
           autoScale: true,
           history: [],
+          variants: [],
           archives: [],
           hover: null,
         });
@@ -260,55 +287,71 @@
             archive: false,
             merged: l.merged,
             family: l.family,
-            tier: MC.TIER_LABEL[l.tier],
+            tier: l.isVariants ? "同代规格" : MC.TIER_LABEL[l.tier],
+            isVariants: !!l.isVariants,
+            variants: visible.map((m) => ({ ...chip(m), tier: m.tierLabel })),
+            variantsOpen: (s.variants || []).includes(l.id),
+            variantsId: l.id,
+            variantLeft: pts[0].px,
+            variantDate:
+              visible[0].date === visible.at(-1).date
+                ? visible[0].date
+                : `${visible[0].date} — ${visible.at(-1).date}`,
+            variantsAction: `${l.family}：${(s.variants || []).includes(l.id) ? "收起" : "展开"} ${visible.length} 个规格`,
+            toggleVariants: () =>
+              set({ variants: tog(s.variants || [], l.id), hover: null }),
             n: visible.length,
             segs,
             pending,
-            height: 56 + Math.max(0, laneEnds.length - 1) * 44,
+            height: l.isVariants
+              ? 72
+              : 56 + Math.max(0, laneEnds.length - 1) * 44,
             hasHistory: range.mode !== "all" && earlier.length > 0,
             historyOpen,
             historyLabel: historyOpen
               ? "收起历史"
-              : `··· 前 ${earlier.length} 代`,
-            historyAction: `${MC.V[vendor].label} ${l.family} ${MC.TIER_LABEL[l.tier]}：${historyOpen ? "收起历史" : `展开前 ${earlier.length} 代`}`,
+              : `··· 前 ${earlier.length} ${l.isVariants ? "个规格" : "代"}`,
+            historyAction: `${MC.V[vendor].label} ${l.family} ${l.isVariants ? "" : MC.TIER_LABEL[l.tier]}：${historyOpen ? "收起历史" : `展开前 ${earlier.length} ${l.isVariants ? "个规格" : "代"}`}`,
             historyId: `history-${l.id}`,
             history: earlier.map(chip),
             toggleHistory: () =>
               set({ history: tog(s.history || [], l.id), hover: null }),
-            dots: pts.map((p) => ({
-              px: p.px,
-              top: p.top,
-              gen: l.merged ? p.m.name : p.m.generation,
-              id: p.m.id,
-              open: open(p.m.id),
-              announcedOnly: p.m.dateKind === "announced",
-              moe: p.m.archType === "moe",
-              dense: p.m.archType === "dense",
-              unknown: !p.m.archType,
-              reasoning: p.m.reasoning,
-              hollow: !p.m.open_weights,
-              enter: (e) => {
-                const r = e.currentTarget.getBoundingClientRect();
-                set({
-                  hover: {
-                    id: p.m.id,
-                    x: Math.max(
-                      8,
-                      Math.min(r.left - 8, window.innerWidth - 308),
-                    ),
-                    y: r.bottom + 10,
+            dots: l.isVariants
+              ? []
+              : pts.map((p) => ({
+                  px: p.px,
+                  top: p.top,
+                  gen: l.merged ? p.m.name : p.m.generation,
+                  id: p.m.id,
+                  open: open(p.m.id),
+                  announcedOnly: p.m.dateKind === "announced",
+                  moe: p.m.archType === "moe",
+                  dense: p.m.archType === "dense",
+                  unknown: !p.m.archType,
+                  reasoning: p.m.reasoning,
+                  hollow: !p.m.open_weights,
+                  enter: (e) => {
+                    const r = e.currentTarget.getBoundingClientRect();
+                    set({
+                      hover: {
+                        id: p.m.id,
+                        x: Math.max(
+                          8,
+                          Math.min(r.left - 8, window.innerWidth - 308),
+                        ),
+                        y: r.bottom + 10,
+                      },
+                    });
                   },
-                });
-              },
-              leave: () => set({ hover: null }),
-            })),
+                  leave: () => set({ hover: null }),
+                })),
           });
         }
         const archived = grouped.archived.filter(
           (row) => row.vendor === vendor,
         );
         if (archived.length) {
-          const count = archived.reduce((n, row) => n + row.lineCount, 0);
+          const count = archived.length;
           const archiveOpen = (s.archives || []).includes(vendor);
           vendorRows.push({
             key: `archive-${vendor}`,
@@ -318,7 +361,7 @@
             segs: [],
             archiveOpen,
             archiveId: `archive-${vendor}`,
-            archiveLabel: `${archiveOpen ? "▾" : "▸"} 窗口外产品线 ${count} 条`,
+            archiveLabel: `${archiveOpen ? "▾" : "▸"} 窗口外模型组 ${count} 组`,
             archiveModels: archived.reduce(
               (n, row) => n + row.models.length,
               0,
@@ -326,7 +369,7 @@
             archivedRows: archived.map((row) => ({
               key: row.id,
               family: row.family,
-              tier: MC.TIER_LABEL[row.tier],
+              tier: row.isVariants ? "同代规格" : MC.TIER_LABEL[row.tier],
               models: row.models.map(chip),
             })),
             toggleArchive: () =>
@@ -340,6 +383,9 @@
             vendorLabel: MC.V[vendor].label,
             color: MC.V[vendor].color,
             vendorCount: models.filter((m) => m.vendor === vendor).length,
+            canFocusVendor: s.vendors.length !== 1 || s.vendors[0] !== vendor,
+            focusLabel: `只看 ${MC.V[vendor].label}`,
+            focusVendor: () => set({ vendors: [vendor], hover: null }),
           }),
         );
       }

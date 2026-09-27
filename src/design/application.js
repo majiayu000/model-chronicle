@@ -12,7 +12,9 @@ class Component extends DCLogic {
           p.cmp !== undefined ||
           p.window !== undefined ||
           p.history !== undefined ||
-          p.archives !== undefined;
+          p.archives !== undefined ||
+          p.variants !== undefined ||
+          p.vendors !== undefined;
         window.history[major ? "pushState" : "replaceState"]({}, "", hash);
       }
     });
@@ -53,7 +55,7 @@ class Component extends DCLogic {
       }
       if (
         this.state.pal ||
-        /input|textarea/i.test((e.target && e.target.tagName) || "")
+        /input|textarea|select/i.test((e.target && e.target.tagName) || "")
       )
         return;
       if (e.key === "/") {
@@ -203,6 +205,32 @@ class Component extends DCLogic {
       muted: "#858892",
     });
     Object.assign(v, base, MC.ext(this.state, set), MC.ext2(this.state, set));
+    // Native option text avoids the template runtime's interpolation spans inside <option>.
+    const focus = v.vendorFocus;
+    v.vendorSelect = React.createElement(
+      "select",
+      {
+        id: "vendor-focus",
+        "aria-label": "只看某个厂商",
+        value: focus.value,
+        onChange: focus.change,
+      },
+      React.createElement("option", { value: "all" }, "全部厂商"),
+      focus.custom
+        ? React.createElement(
+            "option",
+            { value: "custom", disabled: true },
+            focus.customLabel,
+          )
+        : null,
+      ...focus.options.map((option) =>
+        React.createElement(
+          "option",
+          { key: option.id, value: option.id },
+          option.label,
+        ),
+      ),
+    );
     if (v.isCompare) v.showFilters = false;
     v.nav = v.nav.concat(
       [

@@ -6,7 +6,7 @@
 - `src/design/application.js`：页面状态、键盘事件、路由同步与展示层组合。由 `bootstrap.ts` 以原文注入 `data-dc-script`，交给运行时编译。
 - `public/graph-v2/chronicle.js`：模型适配、同条件基准规则。
 - `chronicle-vm.js`：时间轴、详情、趋势与架构视图。
-- `chronicle-timeline.js`：日历年窗口、窗口内/外分区和独立型号展示分组；不修改前后代关系。
+- `chronicle-timeline.js`：日历年窗口、窗口内/外分区、同代规格与独立型号展示分组；不修改前后代关系。
 - `chronicle-ext.js`：开源追赶、能力成本与生命周期。
 - `chronicle-ext2.js`：搜索和多模型对比。
 - `chronicle-route.js`：可分享链接的解析与序列化。

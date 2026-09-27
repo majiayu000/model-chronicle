@@ -165,6 +165,100 @@
             color: #858892;
             margin: 0;
           }
+          .vendor-focus {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-left: auto;
+            font-size: 12px;
+            color: #9a9ca3;
+            flex-wrap: wrap;
+          }
+          .vendor-select {
+            display: flex;
+          }
+          .vendor-focus select {
+            font: inherit;
+            color: #ecebe6;
+            background: #141518;
+            border: 1px solid #33363c;
+            border-radius: 6px;
+            padding: 7px 28px 7px 10px;
+            min-width: 170px;
+            cursor: pointer;
+            color-scheme: dark;
+          }
+          .vendor-focus button,
+          .vendor-only {
+            font: inherit;
+            font-size: 11px;
+            color: #d4f53c;
+            background: transparent;
+            border: 1px solid #33363c;
+            border-radius: 5px;
+            padding: 5px 8px;
+            cursor: pointer;
+            white-space: nowrap;
+          }
+          .vendor-only {
+            margin-left: auto;
+            padding: 3px 5px;
+            font-size: 10px;
+          }
+          .variant-toggle {
+            position: absolute;
+            top: 13px;
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            padding: 5px 9px;
+            background: #141518;
+            color: #ecebe6;
+            border: 1px solid;
+            border-radius: 7px;
+            font:
+              12px "Geist Mono",
+              monospace;
+            cursor: pointer;
+            white-space: nowrap;
+          }
+          .variant-toggle:before {
+            content: "▸";
+          }
+          .variant-toggle[aria-expanded="true"]:before {
+            content: "▾";
+          }
+          .variant-date {
+            position: absolute;
+            top: 47px;
+            color: #858892;
+            font:
+              10px "Geist Mono",
+              monospace;
+            white-space: nowrap;
+          }
+          .window-summary {
+            flex-basis: 100%;
+            margin-left: 0;
+          }
+          @media (max-width: 760px) {
+            .vendor-focus {
+              margin-left: 0;
+              flex-basis: 100%;
+            }
+            .vendor-select {
+              flex: 1;
+              min-width: 0;
+            }
+            .vendor-focus select {
+              width: 100%;
+              flex: 1;
+              min-width: 0;
+            }
+            .timeline-vendor-heading {
+              flex-wrap: wrap;
+            }
+          }
           .timeline-scroll {
             --timeline-label-width: 232px;
           }
@@ -565,7 +659,7 @@
                   text-wrap: pretty;
                 "
               >
-                聚焦最近一年的新发布，随时展开更早的历史。独立型号合并展示，继任关系保持原样。日期优先使用正式可用时间，缺失时标出宣布日期。
+                聚焦最近一年的新发布，随时展开更早的历史。同系列、同代规格合并展示，继任关系保持原样。日期优先使用正式可用时间，缺失时标出宣布日期。
               </p></sc-if
             >
             <sc-if value="{{ isTrends }}"
@@ -851,9 +945,17 @@
             </button>
           </div>
           <span class="window-dates">{{ tl.rangeLabel }}</span>
+          <div class="vendor-focus">
+            <label for="vendor-focus">厂商</label>
+            <span class="vendor-select">{{ vendorSelect }}</span>
+            <sc-if value="{{ vendorFocus.canReset }}"
+              ><button onClick="{{ vendorFocus.reset }}">
+                恢复全部
+              </button></sc-if
+            >
+          </div>
           <span class="window-summary"
-            >{{ tl.visibleCount }} 个模型 · {{ tl.lineCount }} 条产品线 → {{
-            tl.rowCount }} 行</span
+            >{{ tl.visibleCount }} 个模型 · {{ tl.rowCount }} 个展示组</span
           >
           <p>
             统计与热图使用窗口内、符合筛选的模型；展开历史不改变统计。全库 {{
@@ -972,6 +1074,7 @@
               >
                 <button
                   onClick="{{ c.toggle }}"
+                  aria-pressed="{{ c.on }}"
                   style="font:inherit;font-size:12px;background:{{ c.bg }};color:{{ c.fg }};border:1px solid {{ c.bd }};border-radius:6px;padding:3px 9px;cursor:pointer;display:inline-flex;align-items:center;gap:7px"
                 >
                   <span
@@ -1237,6 +1340,7 @@
                     "
                   >
                     <div
+                      class="timeline-vendor-heading"
                       style="
                         position: sticky;
                         left: 0;
@@ -1263,6 +1367,15 @@
                           color: #858892;
                         "
                         >{{ r.vendorCount }}</span
+                      >
+                      <sc-if value="{{ r.canFocusVendor }}"
+                        ><button
+                          class="vendor-only"
+                          aria-label="{{ r.focusLabel }}"
+                          onClick="{{ r.focusVendor }}"
+                        >
+                          只看这家
+                        </button></sc-if
                       >
                     </div>
                     <div
@@ -1347,6 +1460,23 @@
                             style="position:absolute;top:8px;transform:translateX(-50%);font-family:'Geist Mono',monospace;font-size:10px;color:#858892;white-space:nowrap;left:{{ r.pending.mid }}px"
                             >已 {{ r.pending.gap }}</span
                           ></sc-if
+                        >
+                      </sc-if>
+                      <sc-if value="{{ r.isVariants }}">
+                        <button
+                          class="variant-toggle"
+                          style="left:{{ r.variantLeft }}px;border-color:{{ r.color }}"
+                          aria-label="{{ r.variantsAction }}"
+                          aria-expanded="{{ r.variantsOpen }}"
+                          aria-controls="{{ r.variantsId }}"
+                          onClick="{{ r.toggleVariants }}"
+                        >
+                          {{ r.n }} 个规格
+                        </button>
+                        <span
+                          class="variant-date"
+                          style="left:{{ r.variantLeft }}px"
+                          >{{ r.variantDate }}</span
                         >
                       </sc-if>
                       <sc-for list="{{ r.dots }}" as="d">
@@ -1452,6 +1582,29 @@
                       </sc-for>
                     </div>
                   </div>
+                  <sc-if value="{{ r.variantsOpen }}"
+                    ><div
+                      class="timeline-history"
+                      id="{{ r.variantsId }}"
+                      role="region"
+                      aria-label="{{ r.family }} 规格"
+                    >
+                      <span class="timeline-history-title"
+                        >{{ r.family }} · 规格</span
+                      >
+                      <div class="history-models">
+                        <sc-for list="{{ r.variants }}" as="v"
+                          ><a
+                            class="history-model"
+                            href="#"
+                            onClick="{{ v.open }}"
+                            ><span>{{ v.name }} · {{ v.tier }}</span
+                            ><time>{{ v.date }} · {{ v.label }}</time></a
+                          ></sc-for
+                        >
+                      </div>
+                    </div></sc-if
+                  >
                   <sc-if value="{{ r.historyOpen }}">
                     <div
                       class="timeline-history"
@@ -1489,7 +1642,7 @@
                     ><div
                       id="{{ r.archiveId }}"
                       role="region"
-                      aria-label="{{ r.vendorLabel }} 窗口外产品线"
+                      aria-label="{{ r.vendorLabel }} 窗口外模型组"
                     >
                       <sc-for list="{{ r.archivedRows }}" as="a"
                         ><div class="timeline-history">
@@ -1523,7 +1676,7 @@
                   border-top: 1px solid #26282d;
                 "
               >
-                当前窗口与筛选下没有模型；可切换全部历史或展开窗口外产品线。
+                当前窗口与筛选下没有模型；可切换全部历史或展开窗口外模型组。
               </div></sc-if
             >
           </section>

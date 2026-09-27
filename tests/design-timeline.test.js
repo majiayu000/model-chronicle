@@ -5,13 +5,13 @@ import { describe, expect, it } from "vitest";
 const catalog = JSON.parse(readFileSync(new URL("../src/generated/models.json", import.meta.url), "utf8"));
 const base = catalog.find(m => m.id === "gpt-4o");
 function model(id, date, overrides = {}) {
-  return { ...structuredClone(base), id, name: id, predecessor: null,
+  return { ...structuredClone(base), id, name: id, generation: id, predecessor: null,
     dates: { announced: date, ga: date, deprecated: null, retired: null }, ...overrides };
 }
 function load(records = catalog) {
   const window = { __CHRONICLE_MODELS__: records, scrollTo() {} };
   const context = createContext({ window, URL, URLSearchParams,
-    React: { Component: class {}, createElement() {} }, DCLogic: class {} });
+    React: { Component: class {}, createElement(tag, props, ...children) { return { tag, props, children }; } }, DCLogic: class {} });
   for (const name of ["chronicle.js", "chronicle-timeline.js", "chronicle-route.js", "chronicle-vm.js", "chronicle-ext.js", "chronicle-ext2.js"]) {
     runInContext(readFileSync(new URL(`../public/graph-v2/${name}`, import.meta.url), "utf8"), context);
     window.MC.today = "2026-09-27";
@@ -97,14 +97,14 @@ describe("focused timeline", () => {
     const { view } = load();
     const recent = view();
     expect(recent).toMatchObject({ shown: 92, total: 92 });
-    expect(recent.tl).toMatchObject({ lineCount: 46, rowCount: 40, archiveCount: 44 });
-    const ids = recent.tl.rows.flatMap(r => r.isLine ? [...r.dots.map(d => d.id), ...r.history.map(h => h.id)] : r.archivedRows.flatMap(a => a.models.map(m => m.id)));
+    expect(recent.tl).toMatchObject({ lineCount: 46, archiveCount: 44 });
+    const ids = recent.tl.rows.flatMap(r => r.isLine ? [...(r.isVariants ? r.variants : r.dots).map(d => d.id), ...r.history.map(h => h.id)] : r.archivedRows.flatMap(a => a.models.map(m => m.id)));
     expect(new Set(ids).size).toBe(catalog.length);
     const all = view({ window: "all" });
     expect(all.tl.lineCount).toBe(90);
     expect(all.tl.archiveCount).toBe(0);
     expect(view({ window: "all", history: ["claude-3-opus"] }).tl.rows.every(r => !r.historyOpen)).toBe(true);
-    expect(all.tl.rows.flatMap(r => r.dots).map(d => d.id).sort()).toEqual(catalog.map(m => m.id).sort());
+    expect(all.tl.rows.flatMap(r => r.isVariants ? r.variants : r.dots).map(d => d.id).sort()).toEqual(catalog.map(m => m.id).sort());
   });
 
   it("updates cards, coverage and heatmap with window and filters but leaves other views and detail available", () => {
@@ -161,5 +161,79 @@ describe("timeline share state", () => {
     const { mc } = load();
     expect(mc.route.parse("#/timeline")).toMatchObject({ window: "recent", history: [], archives: [] });
     expect(mc.route.parse("#/timeline?window=invalid&history=missing,claude-3-opus,claude-3-opus,claude-opus-4&archives=anthropic,unknown,anthropic")).toMatchObject({ window: "recent", history: ["claude-3-opus"], archives: ["anthropic"] });
+  });
+});
+
+describe("generation variants and vendor focus", () => {
+  it("renders native select options as plain text with accessible names", () => {
+    const select = load().render({ vendors: ["google"] }).vendorSelect;
+    expect(select.tag).toBe("select");
+    expect(select.props.value).toBe("google");
+    expect(select.children.find(c => c?.props.value === "google").children).toEqual(["Google (14)"]);
+    expect(select.children.filter(Boolean).every(c => c.tag === "option" && typeof c.children[0] === "string")).toBe(true);
+  });
+  it("collapses all five Gemma 4 variants including 12B into one expandable row across tiers", () => {
+    const { view, changes } = load();
+    const google = view({ vendors: ["google"] });
+    const row = google.tl.rows.find(r => r.family === "Gemma 4");
+    const ids = catalog.filter(m => m.family === "gemma" && m.generation === "4").map(m => m.id).sort();
+    expect(row).toMatchObject({ isVariants: true, n: 5, height: 72, variantsOpen: false });
+    expect(row.variants.map(m => m.id).sort()).toEqual(ids);
+    expect(row.dots).toEqual([]); expect(row.segs).toEqual([]); expect(row.pending).toBeNull();
+    expect(row.variantDate).toBe("2026-04-02 — 2026-06-03");
+    const others = google.tl.rows.filter(r => r !== row).flatMap(r => [...r.dots, ...(r.variants || []), ...(r.history || [])]).map(m => m.id);
+    expect(others.some(id => ids.includes(id))).toBe(false);
+    row.toggleVariants();
+    expect(view({ vendors: ["google"], ...changes.at(-1) }).tl.rows.find(r => r.family === "Gemma 4").variantsOpen).toBe(true);
+    expect(view({ vendors: ["google"], tiers: ["small"] }).tl.rows.find(r => r.family === "Gemma 4").n).toBe(3);
+  });
+
+  it("groups parallel variants across tiers without combining vendors, families or sequential revisions", () => {
+    const records = [
+      model("small", "2026-01-01", { generation: "4", tier: "small" }),
+      model("large", "2026-02-01", { generation: "4" }),
+      model("other-vendor", "2026-01-01", { generation: "4", vendor: "google" }),
+      model("other-family", "2026-01-01", { generation: "4", family: "gpt-pro" }),
+    ];
+    const { mc } = load(records);
+    expect(mc.timeline.variantGroups().map(g => g.models.map(m => m.id).sort())).toEqual([["large", "small"]]);
+    const revised = load([model("original", "2025-01-01", { generation: "4" }), model("revision", "2026-01-01", { generation: "4", predecessor: "original" })]);
+    expect(revised.mc.timeline.variantGroups()).toEqual([]);
+  });
+
+  it("preserves variant expansion and single-vendor selection in shareable detail links", () => {
+    const { mc, view } = load();
+    const id = view().tl.rows.find(r => r.family === "Gemma 4").key;
+    const state = { ...mc.initState(), vendors: ["google"], variants: [id], view: "detail", id: "gemma-4-31b" };
+    expect(mc.route.parse(mc.route.serialize(state))).toMatchObject({ vendors: ["google"], variants: [id], id: "gemma-4-31b" });
+    expect(mc.route.parse("#/timeline?variants=unknown").variants).toEqual([]);
+    expect(mc.route.parse("#/timeline").variants).toEqual([]);
+  });
+
+  it("focuses a vendor from either entry point without resetting window, tier or capability filters", () => {
+    const { view, render, changes, mc } = load();
+    const state = { window: "all", tiers: ["small"], caps: ["open"] };
+    view(state).vendorFocus.change({ target: { value: "google" } });
+    expect(changes.at(-1)).toEqual({ vendors: ["google"], hover: null });
+    const focused = render({ ...state, ...changes.at(-1) });
+    expect(focused.vendorFocus.value).toBe("google");
+    expect(focused.statsModels.every(m => m.vendor === "google" && m.tier === "small" && m.open_weights)).toBe(true);
+    expect(focused.tl.rows.every(r => !r.canFocusVendor)).toBe(true);
+    view().tl.rows.find(r => r.vendorLabel === "OpenAI").focusVendor();
+    expect(changes.at(-1)).toEqual({ vendors: ["openai"], hover: null });
+    view(changes.at(-1)).vendorFocus.reset();
+    expect(changes.at(-1).vendors).toEqual(mc.VENDORS);
+  });
+
+  it("keeps the dropdown in sync with multi-select chips and provides recovery from an empty selection", () => {
+    const { view, changes } = load();
+    expect(view().vendorFocus.value).toBe("all");
+    expect(view({ vendors: ["google", "openai"] }).vendorFocus).toMatchObject({ value: "custom", custom: true, customLabel: "已选 2 家（多选）" });
+    expect(view({ vendors: [] }).vendorFocus).toMatchObject({ value: "custom", customLabel: "未选择厂商", canReset: true });
+    view({ vendors: ["google"] }).vendorChips.find(c => c.label === "OpenAI").toggle();
+    expect(view(changes.at(-1)).vendorFocus.custom).toBe(true);
+    const count = changes.length;
+    view().vendorFocus.change({ target: { value: "invalid" } });
+    expect(changes).toHaveLength(count);
   });
 });

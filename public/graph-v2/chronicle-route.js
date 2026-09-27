@@ -28,6 +28,11 @@
     state.window = q.get("window") === "all" ? "all" : "recent";
     state.autoScale = true;
     const roots = MC.lines(MC.models).map((line) => line.key.split("/").at(-1));
+    const variantIds = (MC.timeline?.variantGroups() || []).map(
+      (group) => group.id,
+    );
+    roots.push(...variantIds);
+    state.variants = [...new Set(keep(q.get("variants") || "", variantIds))];
     state.history = [...new Set(keep(q.get("history") || "", roots))];
     state.archives = [...new Set(keep(q.get("archives") || "", MC.VENDORS))];
     if (q.has("vendors")) state.vendors = keep(q.get("vendors"), MC.VENDORS);
@@ -82,6 +87,7 @@
       view === "detail" && MC.byId[s.id] ? `/detail/${s.id}` : `/${view}`;
     const q = new URLSearchParams();
     if (s.window === "all") q.set("window", "all");
+    if (s.variants?.length) q.set("variants", s.variants.join(","));
     if (s.history?.length) q.set("history", s.history.join(","));
     if (s.archives?.length) q.set("archives", s.archives.join(","));
     if (s.vendors && s.vendors.length !== MC.VENDORS.length)
