@@ -4,11 +4,12 @@
   "type": "module",
   "scripts": {
     "data": "bun scripts/build-data.ts",
+    "pages": "bun scripts/build-pages.ts",
     "audit:sources": "bun scripts/check-sources.ts",
-    "dev": "bun run data && vite",
-    "build": "bun run data && tsc --noEmit && vite build",
+    "dev": "bun run data && bun run pages && vite",
+    "build": "bun run data && bun run pages && tsc --noEmit && vite build",
     "typecheck": "tsc --noEmit",
-    "test": "vitest run"
+    "test": "bun run data && bun run pages && vitest run"
   },
   "dependencies": {
     "yaml": "^2.9.1",

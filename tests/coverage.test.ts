@@ -21,6 +21,7 @@ describe("published data coverage", () => {
     expect(modelSchema.safeParse({ ...model, price_history: [observation, observation] }).success).toBe(false);
     expect(modelSchema.safeParse({ ...model, price_history: [{ ...observation, source: "https://elsewhere.example/pricing" }] }).success).toBe(false);
     expect(modelSchema.safeParse({ ...model, price_history: [{ ...observation, observed_at: "2023-12-31" }] }).success).toBe(false);
+    expect(modelSchema.safeParse({ ...model, sources: ["javascript:alert(1)"] }).success).toBe(false);
   });
 
   it("keeps partially known evaluation conditions out of comparison groups", () => {

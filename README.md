@@ -6,8 +6,8 @@
 
 ```bash
 bun install
-bun run dev        # 校验 data/ 并启动开发服务器
-bun run build      # 校验数据 + 类型检查 + 生产构建
+bun run dev        # 校验数据、生成独立页面并启动开发服务器
+bun run build      # 校验数据 + 生成独立页面 + 类型检查 + 生产构建
 bun run test       # 单元测试
 bun run audit:sources --limit=10  # 抽查 10 个来源；完整检查省略 --limit
 ```
@@ -22,6 +22,7 @@ bun run audit:sources --limit=10  # 抽查 10 个来源；完整检查省略 --l
 首页使用 `Chronicle Graph v2` 导出稿。页面结构在 `index.html`，视图逻辑与运行时在 `public/graph-v2/`。`src/design/bootstrap.ts` 只将通过校验的 YAML 模型数据接入页面；未入库的模型不参与统计。导出稿指定的 React 18 已保存在 `public/graph-v2/vendor/`，避免运行时版本差异。
 
 构建时还会生成 `public/dataset/` 下的 JSON、CSV、字段覆盖和待复核清单，随网站一起发布。来源链接检查每周运行一次，生成可下载的 Actions 报告；不可访问只进入人工复核，不会自动改写 YAML。
+构建还会在 `public/model/` 生成每个模型的独立 HTML 页面、[模型索引](https://majiayu000.github.io/model-chronicle/model/)和[站点地图](https://majiayu000.github.io/model-chronicle/sitemap.xml)。这些目录是构建产物，不应手改；所有页面沿用 YAML 的缺失值和来源。
 
 ## 在线访问与部署
 

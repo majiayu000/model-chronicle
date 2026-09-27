@@ -138,7 +138,7 @@
         noPrev: !p, noNext: !n, cmp: p ? "对比 " + p.name : "",
         life: [["announced", "宣布"], ["ga", "正式可用"], ["deprecated", "弃用"], ["retired", "下线"]].map(([k, label]) => ({ label, d: m.dates[k] || "—", done: !!m.dates[k] })),
         line: lineModels.map(x => ({ gen: x.generation, name: x.name, date: x.date, cur: x.id === m.id, go: open(x.id) })), lineLabel: m.family + " · " + m.tierLabel,
-        sources: m.sources, hasSources: m.sources.length > 0, back: go("timeline") };
+        sources: m.sources, hasSources: m.sources.length > 0, staticUrl: `./model/${m.id}.html`, back: go("timeline") };
     }
     return out;
   }

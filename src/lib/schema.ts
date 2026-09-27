@@ -15,9 +15,10 @@ const month = z.preprocess(
   z.string().regex(/^\d{4}-\d{2}$/, "必须是 YYYY-MM"),
 );
 const modality = z.enum(["text", "image", "audio", "video", "pdf"]);
+const sourceUrl = z.url().refine((value) => ["http:", "https:"].includes(new URL(value).protocol), "来源必须是 HTTP 或 HTTPS 链接");
 const architecture = z.object({
   type: z.enum(["dense", "moe"]),
-  source: z.url(),
+  source: sourceUrl,
   total: z.number().positive().optional(),
   active: z.number().positive().optional(),
   experts: z.number().int().positive().optional(),
@@ -70,7 +71,7 @@ export const modelSchema = z
       observed_at: partialDate,
       input_per_mtok: z.number().nonnegative(),
       output_per_mtok: z.number().nonnegative(),
-      source: z.url(),
+      source: sourceUrl,
       note: z.string().max(120).optional(),
     }).strict()).optional(),
     benchmarks: z.array(
@@ -78,7 +79,7 @@ export const modelSchema = z
         name: z.enum(BENCHMARKS),
         score: z.number().min(0).max(100),
         reported_by: z.enum(["vendor", "third_party"]),
-        source: z.url(),
+        source: sourceUrl,
         evaluation: z.object({
           benchmark_version: z.string().min(1).optional(),
           tools: z.boolean().optional(),
@@ -92,7 +93,7 @@ export const modelSchema = z
       }),
     ),
     highlights: z.array(z.string()).max(4),
-    sources: z.array(z.url()).min(1),
+    sources: z.array(sourceUrl).min(1),
     verified_at: partialDate,
   })
   .strict()

@@ -2,5 +2,7 @@ node_modules
 dist
 src/generated
 public/dataset
+public/model
+public/sitemap.xml
 .DS_Store
 outputs/
