@@ -80,13 +80,13 @@ export const modelSchema = z
         reported_by: z.enum(["vendor", "third_party"]),
         source: z.url(),
         evaluation: z.object({
-          benchmark_version: z.string().min(1),
-          tools: z.boolean(),
-          reasoning_effort: z.string().min(1),
-          harness: z.string().min(1),
+          benchmark_version: z.string().min(1).optional(),
+          tools: z.boolean().optional(),
+          reasoning_effort: z.string().min(1).optional(),
+          harness: z.string().min(1).optional(),
         }).strict().optional(),
         comparison_group: z.string().min(1).optional(),
-      }).refine((b) => !b.comparison_group || !!b.evaluation, {
+      }).refine((b) => !b.comparison_group || !!(b.evaluation?.benchmark_version && b.evaluation.tools !== undefined && b.evaluation.reasoning_effort && b.evaluation.harness), {
         message: "comparison_group 需要完整 evaluation 条件",
         path: ["comparison_group"],
       }),

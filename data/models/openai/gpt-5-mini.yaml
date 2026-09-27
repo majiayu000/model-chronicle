@@ -34,10 +34,18 @@ benchmarks:
     score: 82.3
     reported_by: vendor
     source: https://openai.com/index/introducing-gpt-5-for-developers/
+    evaluation:
+      benchmark_version: GPQA Diamond
+      tools: false
+      reasoning_effort: high
   - name: AIME 2025
     score: 91.1
     reported_by: vendor
     source: https://openai.com/index/introducing-gpt-5-for-developers/
+    evaluation:
+      benchmark_version: AIME 2025
+      tools: false
+      reasoning_effort: high
 highlights: []
 sources:
   - https://openai.com/index/introducing-gpt-5-for-developers/

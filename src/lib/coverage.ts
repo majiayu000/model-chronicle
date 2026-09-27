@@ -20,6 +20,7 @@ export function coverage(models: Model[], today: string) {
     ga: count((m) => !!m.dates.ga),
     pricing: count((m) => m.specs.pricing.input_per_mtok !== null && m.specs.pricing.output_per_mtok !== null),
     benchmark: count((m) => m.benchmarks.length > 0),
+    evaluation: count((m) => m.benchmarks.some((b) => !!b.evaluation)),
     comparable: count((m) => m.benchmarks.some((b) => b.comparison_group && b.evaluation)),
     architecture: count((m) => !!m.arch),
     lifecycle: count((m) => !!m.dates.deprecated || !!m.dates.retired),

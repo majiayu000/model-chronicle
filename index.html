@@ -100,7 +100,7 @@
       <span style="margin-left:auto;color:#9a9ca3">展开 ▾</span>
     </summary>
     <div style="padding:0 16px 16px;display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;font-size:12px">
-      <span>基准分数 <b>{{ coverage.benchmark }}</b>/{{ total }}</span><span>架构资料 <b>{{ coverage.architecture }}</b>/{{ total }}</span><span>官方生命周期 <b>{{ coverage.lifecycle }}</b>/{{ total }}</span><span>超过 90 天未复核 <b>{{ coverage.stale }}</b></span>
+      <span>基准分数 <b>{{ coverage.benchmark }}</b>/{{ total }}</span><span>已记录评测条件 <b>{{ coverage.evaluation }}</b>/{{ total }}</span><span>架构资料 <b>{{ coverage.architecture }}</b>/{{ total }}</span><span>官方生命周期 <b>{{ coverage.lifecycle }}</b>/{{ total }}</span><span>超过 90 天未复核 <b>{{ coverage.stale }}</b></span>
     </div>
     <div style="border-top:1px solid #26282d;padding:10px 16px;font-size:12px;color:#9a9ca3;display:flex;gap:16px;flex-wrap:wrap">缺失字段表示尚无足够依据，不代表数值为零。
       <a href="./dataset/review-queue.json" download>待复核清单</a><a href="./dataset/models.csv" download>CSV 数据</a><a href="./dataset/models.json" download>JSON 数据</a>
@@ -761,7 +761,7 @@ class Component extends DCLogic {
     const showHero = this.props.showHero ?? true;
     const showGaps = this.props.showGaps ?? true;
     const base = { clock: this.clockEl() };
-    if (!this.state.ready || !window.MC || !window.MC.vm) return { ...base, mode: "LOADING", total: "…", shown: "…", priceCount: "…", benchmarkCount: "…", vendorCount: "…", coverage: { ga: "…", pricing: "…", benchmark: "…", comparable: "…", architecture: "…", lifecycle: "…", stale: "…" }, span: "", heat: [], nav: [], vendorChips: [], tierChips: [], capChips: [], showFilters: true, isTimeline: true, hero: showHero, filterGap: showHero ? 0 : 24 };
+    if (!this.state.ready || !window.MC || !window.MC.vm) return { ...base, mode: "LOADING", total: "…", shown: "…", priceCount: "…", benchmarkCount: "…", vendorCount: "…", coverage: { ga: "…", pricing: "…", benchmark: "…", evaluation: "…", comparable: "…", architecture: "…", lifecycle: "…", stale: "…" }, span: "", heat: [], nav: [], vendorChips: [], tierChips: [], capChips: [], showFilters: true, isTimeline: true, hero: showHero, filterGap: showHero ? 0 : 24 };
     const MC = window.MC, set = p => this.update(p);
     const v = MC.vm(this.state, set, { up: "#7ee081", down: "#ff6b5b", muted: "#858892" });
     Object.assign(v, base, MC.ext(this.state, set), MC.ext2(this.state, set));
@@ -777,6 +777,7 @@ class Component extends DCLogic {
       ga: MC.models.filter(m => !!m.dates.ga).length,
       pricing: v.priceCount,
       benchmark: v.benchmarkCount,
+      evaluation: MC.models.filter(m => m.benchmarks.some(b => !!b.evaluation)).length,
       comparable: MC.models.filter(m => m.benchmarks.some(b => b.comparison_group && b.evaluation)).length,
       architecture: MC.models.filter(m => !!m.arch).length,
       lifecycle: MC.models.filter(m => !!m.dates.deprecated || !!m.dates.retired).length,

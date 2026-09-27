@@ -51,12 +51,12 @@ benchmarks:                    # 只允许下方“基准白名单”里的 name
     score: 62.3                # 百分比数值
     reported_by: vendor        # vendor | third_party
     source: https://...
-    # evaluation:                # 可选；下列四项均有来源时才填写
+    # evaluation:                # 可选；只填来源明确说明的项目，允许部分已知
     #   benchmark_version: "..." # 试题集/版本
     #   tools: false             # 是否允许外部工具
     #   reasoning_effort: "..."  # 推理设置
     #   harness: "..."           # 评测框架与运行方式
-    # comparison_group: "..."    # 可选；人工核实同一基准、同一评测条件后赋予相同组名
+    # comparison_group: "..."    # 只有上述四项均已核实且相同时才能赋予相同组名
 highlights:                    # 1~4 条中文短句，描述该模型相对前代的关键变化，必须能在 sources 中找到依据
   - 首个混合推理模型，可切换扩展思考
 sources:                       # 至少 1 个官方来源 URL（发布博客/文档/模型卡）
@@ -107,4 +107,4 @@ verified_at: 2026-09-24
 3. `predecessor` 是人工判断的“同档位上一代”，不是按名字推断。
 4. 预览发布与正式可用分开记录：`announced` 填发布或预览日，`ga` 仅在来源明确可公开使用时填写。
 5. `verified_at` 表示本条已填写事实的核对时间；`null` 仍表示未知，不能被页面用示意值替代。
-6. 未填写 `comparison_group` 的基准分数仅作为来源观测点展示，不参与最高分、开源追赶、能力成本或前代分差计算。组名必须对应完整 `evaluation`，同组四项设置必须一致；不能仅因基准名称相同就归入同组。
+6. `evaluation` 可以只记录已知条件；未填写 `comparison_group` 的分数仍仅作为来源观测点展示，不参与最高分、开源追赶、能力成本或前代分差计算。组名必须对应完整 `evaluation`，同组四项设置必须一致；不能仅因基准名称相同或同一张表就归入同组。

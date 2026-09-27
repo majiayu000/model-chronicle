@@ -22,4 +22,12 @@ describe("published data coverage", () => {
     expect(modelSchema.safeParse({ ...model, price_history: [{ ...observation, source: "https://elsewhere.example/pricing" }] }).success).toBe(false);
     expect(modelSchema.safeParse({ ...model, price_history: [{ ...observation, observed_at: "2023-12-31" }] }).success).toBe(false);
   });
+
+  it("keeps partially known evaluation conditions out of comparison groups", () => {
+    const model = makeModel();
+    const benchmark = { name: "GPQA Diamond", score: 70, reported_by: "vendor", source: model.sources[0], evaluation: { benchmark_version: "GPQA Diamond", tools: false, reasoning_effort: "high" } };
+    expect(modelSchema.safeParse({ ...model, benchmarks: [benchmark] }).success).toBe(true);
+    expect(modelSchema.safeParse({ ...model, benchmarks: [{ ...benchmark, comparison_group: "same-table" }] }).success).toBe(false);
+    expect(modelSchema.safeParse({ ...model, benchmarks: [{ ...benchmark, comparison_group: "same-table", evaluation: { ...benchmark.evaluation, harness: "documented harness" } }] }).success).toBe(true);
+  });
 });

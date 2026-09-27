@@ -39,6 +39,7 @@
 | 输入和输出价格均有值 | 59 |
 | 有多次有来源价格观测 | 1 |
 | 至少一项白名单基准 | 45 |
+| 至少一项评测条件有记录 | 5 |
 | 至少一项同条件基准 | 2 |
 | 有架构资料 | 56 |
 | 有关键变化短句 | 83 |
@@ -47,6 +48,8 @@
 `null` 和空数组表示未获得足以填写的资料，不能按零解释。价格按 Schema 记录发布时标准 API 文本 token 价；多地区、长上下文、缓存和促销价无法用现有两个价格字段完整表达。基准分数保留来源的报告者类型。已核实的对照组只有 Claude Opus 4 与 Sonnet 4 的 SWE-bench Verified（500 道题、相同工具脚手架、无扩展思考；见 [Anthropic 发布文及附录](https://www.anthropic.com/news/claude-4)）；其余记录仍只展示原始观测点，不参与跨模型比较。
 
 GPT-5 mini 的 SWE-bench Verified，以及 GPT-5 nano 的 SWE-bench Verified、GPQA Diamond 和 AIME 2025 分数已按 [OpenAI 发布表](https://openai.com/index/introducing-gpt-5-for-developers/) 补入。该表的 SWE-bench Verified 使用 477/500 道题，与上述 Claude 4 的 500 道题结果不属于同一对照组。
+
+同一发布表明确标注 GPT-5、GPT-5 mini、GPT-5 nano 的 AIME 2025 与 GPQA Diamond 为 high 推理强度、无工具，因此这 3 个型号的上述 6 条分数补记了已知评测条件。来源未完整说明评测框架，故仍不赋予 `comparison_group`，可比模型数保持 2。
 
 ## 可核实性与剩余边界
 

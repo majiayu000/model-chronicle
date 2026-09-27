@@ -18,9 +18,9 @@ async function worker() {
     let result = "unavailable";
     try {
       let response = await fetch(url, { method: "HEAD", signal: AbortSignal.timeout(8000), redirect: "follow" });
-      if (response.status === 405) response = await fetch(url, { method: "GET", signal: AbortSignal.timeout(8000), redirect: "follow" });
+      if ([403, 405].includes(response.status)) response = await fetch(url, { method: "GET", signal: AbortSignal.timeout(8000), redirect: "follow" });
       status = response.status;
-      result = response.ok ? "reachable" : [404, 410].includes(status) ? "review_link" : "unavailable";
+      result = response.ok ? "reachable" : [404, 410].includes(status) ? "review_link" : [401, 403, 429].includes(status) ? "blocked" : "unavailable";
       await response.body?.cancel();
     } catch { /* Timeouts and network denials require a human check. */ }
     results.push({ url, model_ids, status, result });
@@ -29,7 +29,7 @@ async function worker() {
 
 await Promise.all(Array.from({ length: Math.min(8, entries.length) }, () => worker()));
 results.sort((a, b) => a.url.localeCompare(b.url));
-const report = { checked_at: new Date().toISOString(), total: results.length, reachable: results.filter((r) => r.result === "reachable").length, review_link: results.filter((r) => r.result === "review_link").length, unavailable: results.filter((r) => r.result === "unavailable").length, results };
+const report = { checked_at: new Date().toISOString(), total: results.length, reachable: results.filter((r) => r.result === "reachable").length, review_link: results.filter((r) => r.result === "review_link").length, blocked: results.filter((r) => r.result === "blocked").length, unavailable: results.filter((r) => r.result === "unavailable").length, results };
 mkdirSync(join(root, "outputs"), { recursive: true });
 writeFileSync(join(root, "outputs/source-audit.json"), JSON.stringify(report, null, 2));
-console.log(`来源检查 ${report.total} 条：可达 ${report.reachable}、需人工复核 ${report.review_link}、访问不确定 ${report.unavailable}。报告：outputs/source-audit.json`);
+console.log(`来源检查 ${report.total} 条：可达 ${report.reachable}、404/410 待复核 ${report.review_link}、站点拒绝/限流 ${report.blocked}、网络不确定 ${report.unavailable}。报告：outputs/source-audit.json`);
