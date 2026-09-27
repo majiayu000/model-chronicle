@@ -1,6 +1,8 @@
 import models from "../generated/models.json";
 import application from "./application.js?raw";
 
+declare const __CHRONICLE_RUNTIME_VERSION__: string;
+
 declare global {
   interface Window {
     __CHRONICLE_MODELS__: typeof models;
@@ -14,7 +16,7 @@ if (logic) logic.textContent = application;
 function loadScript(path: string): Promise<void> {
   return new Promise((resolve, reject) => {
     const script = document.createElement("script");
-    script.src = `${import.meta.env.BASE_URL}${path}`;
+    script.src = `${import.meta.env.BASE_URL}${path}?v=${__CHRONICLE_RUNTIME_VERSION__}`;
     script.onload = () => resolve();
     script.onerror = () => reject(new Error(`无法加载界面脚本：${path}`));
     document.head.appendChild(script);
@@ -27,6 +29,7 @@ async function boot() {
   await loadScript("graph-v2/vendor/react-dom.production.min.js");
   await loadScript("graph-v2/chronicle.js");
   await loadScript("graph-v2/chronicle-timeline.js");
+  await loadScript("graph-v2/chronicle-visibility.js");
   await loadScript("graph-v2/chronicle-route.js");
   await loadScript("graph-v2/chronicle-vm.js");
   await loadScript("graph-v2/chronicle-ext.js");

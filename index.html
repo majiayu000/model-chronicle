@@ -259,6 +259,223 @@
               flex-wrap: wrap;
             }
           }
+          .hide-model {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            flex: none;
+            width: 28px;
+            height: 28px;
+            border: 1px solid transparent;
+            border-radius: 5px;
+            color: #858892;
+            background: transparent;
+            padding: 5px;
+            cursor: pointer;
+          }
+          .hide-model:hover,
+          .hide-model:focus-visible {
+            background: #26282d;
+            border-color: #44474f;
+            color: #ecebe6;
+          }
+          .hidden-manager-toggle {
+            font: inherit;
+            font-size: 12px;
+            padding: 7px 10px;
+            border: 1px solid #33363c;
+            border-radius: 6px;
+            background: #141518;
+            color: #d4f53c;
+            cursor: pointer;
+          }
+          .hidden-panel,
+          .hide-notice {
+            flex-basis: 100%;
+            padding: 12px 14px;
+            background: #141518;
+            border: 1px solid #33363c;
+            border-radius: 8px;
+            font-size: 12px;
+          }
+          .hide-notice {
+            position: fixed;
+            bottom: 48px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: min(520px, calc(100vw - 32px));
+            z-index: 60;
+            box-shadow: 0 8px 24px #0006;
+          }
+          .hidden-panel-header,
+          .hidden-model-row,
+          .hide-notice {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+          }
+          .hidden-model-list {
+            max-height: 320px;
+            overflow: auto;
+          }
+          .hidden-model-row {
+            padding: 8px 0;
+            border-top: 1px solid #26282d;
+          }
+          .hidden-model-row small {
+            color: #858892;
+            margin-left: 8px;
+          }
+          .hidden-panel button,
+          .hide-notice button {
+            font: inherit;
+            color: #d4f53c;
+            border: 1px solid #33363c;
+            background: transparent;
+            border-radius: 5px;
+            padding: 5px 8px;
+            cursor: pointer;
+            white-space: nowrap;
+          }
+          .hidden-panel-header {
+            margin-bottom: 8px;
+          }
+          .timeline-series-row {
+            display: flex;
+            min-width: max-content;
+          }
+          .series-label {
+            position: sticky;
+            left: 0;
+            z-index: 3;
+            width: var(--timeline-label-width);
+            flex: none;
+            padding: 12px;
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+            background: #141518;
+            border-right: 1px solid #26282d;
+            font-size: 12px;
+          }
+          .series-meta {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            min-width: 0;
+            align-items: flex-start;
+            overflow-wrap: anywhere;
+          }
+          .series-meta small {
+            color: #858892;
+          }
+          .series-axis {
+            position: relative;
+            flex: none;
+            margin-right: 96px;
+          }
+          .series-grid {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            border-left: 1px solid #1f2125;
+          }
+          .series-now {
+            border-color: rgba(212, 245, 60, 0.35);
+          }
+          .version-node {
+            position: absolute;
+            width: 100px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+          }
+          .version-open {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 5px 8px;
+            font:
+              12px "Geist Mono",
+              monospace;
+            background: #141518;
+            color: #ecebe6;
+            border: 1px solid;
+            border-radius: 6px;
+            cursor: pointer;
+            min-height: 30px;
+            max-width: calc(100% - 32px);
+          }
+          .version-open span {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+          }
+          .version-open small {
+            color: #858892;
+            font-size: 10px;
+          }
+          .version-open[aria-expanded="true"] {
+            background: #26282d;
+          }
+          .version-node time {
+            position: absolute;
+            top: 38px;
+            left: 32px;
+            font:
+              10px "Geist Mono",
+              monospace;
+            color: #858892;
+            white-space: nowrap;
+          }
+          .model-item {
+            display: flex;
+            align-items: center;
+            gap: 3px;
+            min-width: 0;
+            max-width: 100%;
+          }
+          .model-item .history-model {
+            min-width: 0;
+            overflow-wrap: anywhere;
+          }
+          @media (pointer: coarse) {
+            .hide-model {
+              width: 44px;
+              height: 44px;
+            }
+            .version-node {
+              gap: 0;
+            }
+            .version-node time {
+              top: 48px;
+              left: 44px;
+            }
+            .version-open {
+              min-height: 44px;
+              max-width: calc(100% - 44px);
+            }
+            .model-item {
+              padding: 2px 0;
+            }
+          }
+          @media (max-width: 760px) {
+            .model-item {
+              width: 100%;
+            }
+            .model-item .history-model {
+              flex: 1;
+            }
+            .series-meta .line-history-toggle {
+              white-space: normal;
+              text-align: left;
+            }
+            .series-label {
+              flex-wrap: nowrap !important;
+              padding: 10px 6px !important;
+            }
+          }
           .timeline-scroll {
             --timeline-label-width: 232px;
           }
@@ -659,7 +876,7 @@
                   text-wrap: pretty;
                 "
               >
-                聚焦最近一年的新发布，随时展开更早的历史。同系列、同代规格合并展示，继任关系保持原样。日期优先使用正式可用时间，缺失时标出宣布日期。
+                聚焦最近一年的新发布，随时展开更早的历史。每个系列占一行，按版本展开具体型号。可隐藏暂时不想看的型号，随时恢复。日期优先使用正式可用时间，缺失时标出宣布日期。
               </p></sc-if
             >
             <sc-if value="{{ isTrends }}"
@@ -954,13 +1171,71 @@
               </button></sc-if
             >
           </div>
+          <button
+            type="button"
+            class="hidden-manager-toggle"
+            data-hidden-manager
+            aria-expanded="{{ visibility.managerOpen }}"
+            aria-controls="hidden-model-panel"
+            onClick="{{ visibility.toggleManager }}"
+          >
+            已隐藏 {{ visibility.count }}
+          </button>
           <span class="window-summary"
-            >{{ tl.visibleCount }} 个模型 · {{ tl.rowCount }} 个展示组</span
+            >显示 {{ tl.visibleCount }} / {{ visibility.eligible }} 个型号 · {{
+            tl.rowCount }} 个系列 · 范围内隐藏 {{ visibility.inScope }} 个</span
           >
           <p>
-            统计与热图使用窗口内、符合筛选的模型；展开历史不改变统计。全库 {{
+            统计与热图使用当前可见型号；隐藏只影响本机时间轴。全库 {{
             catalogTotal }} 个模型均可搜索、查看和下载。
           </p>
+          <sc-if value="{{ visibility.managerOpen }}"
+            ><div
+              class="hidden-panel"
+              id="hidden-model-panel"
+              role="region"
+              aria-label="已隐藏模型"
+            >
+              <div class="hidden-panel-header">
+                <strong>已隐藏模型</strong
+                ><button type="button" onClick="{{ visibility.restoreAll }}">
+                  全部恢复
+                </button>
+              </div>
+              <sc-if value="{{ visibility.empty }}"><p>暂无隐藏模型</p></sc-if>
+              <div class="hidden-model-list">
+                <sc-for list="{{ visibility.rows }}" as="h"
+                  ><div class="hidden-model-row">
+                    <span>{{ h.name }} <small>{{ h.vendor }}</small></span
+                    ><button
+                      type="button"
+                      aria-label="{{ h.restoreLabel }}"
+                      onClick="{{ h.restore }}"
+                    >
+                      恢复
+                    </button>
+                  </div></sc-for
+                >
+              </div>
+            </div></sc-if
+          >
+          <sc-if value="{{ visibility.hasNotice }}"
+            ><div class="hide-notice" role="status">
+              <span>{{ visibility.notice }}</span
+              ><button
+                type="button"
+                data-hide-undo
+                onClick="{{ visibility.undo }}"
+              >
+                撤销
+              </button>
+            </div></sc-if
+          >
+          <sc-if value="{{ visibility.storageFailed }}"
+            ><p role="status">
+              浏览器未能保存显示设置，本次隐藏仍生效；刷新后可能恢复。
+            </p></sc-if
+          >
         </section>
       </sc-if>
 
@@ -1175,73 +1450,9 @@
                   >{{ tl.pxPerYear }}</span
                 ></label
               >
-              <div
-                style="
-                  display: flex;
-                  gap: 16px;
-                  align-items: center;
-                  flex-wrap: wrap;
-                "
+              <span style="color: #9a9ca3; font-size: 12px"
+                >系列 → 版本 → 型号 · 时间位置表示发布记录，不代表继任关系</span
               >
-                <span style="display: flex; align-items: center; gap: 6px"
-                  ><span
-                    style="
-                      width: 10px;
-                      height: 10px;
-                      border-radius: 50%;
-                      background: #9a9ca3;
-                    "
-                  ></span
-                  >Dense</span
-                >
-                <span style="display: flex; align-items: center; gap: 6px"
-                  ><span
-                    style="
-                      width: 9px;
-                      height: 9px;
-                      transform: rotate(45deg);
-                      background: #9a9ca3;
-                    "
-                  ></span
-                  >MoE</span
-                >
-                <span style="display: flex; align-items: center; gap: 6px"
-                  ><span
-                    style="
-                      width: 10px;
-                      height: 10px;
-                      border-radius: 50%;
-                      border: 2px solid #9a9ca3;
-                    "
-                  ></span
-                  >未公开</span
-                >
-                <span style="display: flex; align-items: center; gap: 6px"
-                  ><span
-                    style="
-                      width: 10px;
-                      height: 10px;
-                      border-radius: 50%;
-                      background: #9a9ca3;
-                      box-shadow:
-                        0 0 0 2px #141518,
-                        0 0 0 3px #9a9ca3;
-                    "
-                  ></span
-                  >推理</span
-                >
-                <span style="display: flex; align-items: center; gap: 6px"
-                  ><span
-                    style="
-                      width: 12px;
-                      height: 12px;
-                      border: 1px dashed #9a9ca3;
-                      border-radius: 50%;
-                    "
-                  ></span
-                  >仅有宣布日期</span
-                >
-              </div>
               <div
                 style="
                   display: flex;
@@ -1384,250 +1595,202 @@
                   </div>
                 </sc-if>
                 <sc-if value="{{ r.isLine }}">
-                  <div
-                    style="display: flex; min-width: max-content"
-                    style-hover="background:#18191d"
-                  >
-                    <div
-                      class="timeline-row-label"
-                      style="
-                        position: sticky;
-                        left: 0;
-                        z-index: 3;
-                        width: var(--timeline-label-width);
-                        flex: none;
-                        padding: 0 16px 0 32px;
-                        display: flex;
-                        align-items: center;
-                        gap: 8px;
-                        background: #141518;
-                        border-right: 1px solid #26282d;
-                        font-size: 12px;
-                      "
-                    >
-                      <span title="{{ r.family }}">{{ r.family }}</span
-                      ><span style="color: #858892">{{ r.tier }}</span
-                      ><span
-                        style="
-                          margin-left: auto;
-                          font-family: &quot;Geist Mono&quot;, monospace;
-                          color: #858892;
-                          font-size: 11px;
-                        "
-                        >{{ r.n }}</span
+                  <div class="timeline-series-row" data-series="{{ r.key }}">
+                    <div class="timeline-row-label series-label">
+                      <button
+                        type="button"
+                        class="hide-model"
+                        aria-label="{{ r.hideLabel }}"
+                        title="{{ r.hideLabel }}"
+                        onClick="{{ r.hide }}"
                       >
-                      <sc-if value="{{ r.hasHistory }}"
-                        ><button
-                          class="line-history-toggle"
-                          aria-label="{{ r.historyAction }}"
-                          title="{{ r.historyAction }}"
-                          aria-expanded="{{ r.historyOpen }}"
-                          aria-controls="{{ r.historyId }}"
-                          onClick="{{ r.toggleHistory }}"
+                        <svg
+                          width="14"
+                          height="14"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="1.5"
+                          aria-hidden="true"
                         >
-                          {{ r.historyLabel }}
-                        </button></sc-if
-                      >
+                          <path
+                            d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7S2 12 2 12Z"
+                          ></path>
+                          <circle cx="12" cy="12" r="3"></circle>
+                          <path d="m3 3 18 18"></path>
+                        </svg>
+                      </button>
+                      <div class="series-meta">
+                        <span>{{ r.family }}</span
+                        ><small>{{ r.n }} 个型号</small
+                        ><sc-if value="{{ r.hasHistory }}"
+                          ><button
+                            class="line-history-toggle"
+                            aria-label="{{ r.historyAction }}"
+                            aria-expanded="{{ r.historyOpen }}"
+                            aria-controls="{{ r.historyId }}"
+                            onClick="{{ r.toggleHistory }}"
+                          >
+                            {{ r.historyLabel }}
+                          </button></sc-if
+                        >
+                      </div>
                     </div>
                     <div
-                      style="position:relative;flex:none;margin-right:48px;height:{{ r.height }}px;width:{{ tl.width }}px"
+                      class="series-axis"
+                      style="height:{{ r.height }}px;width:{{ tl.width }}px"
                     >
                       <sc-for list="{{ tl.years }}" as="y"
                         ><span
-                          style="position:absolute;top:0;bottom:0;border-left:1px solid #1f2125;left:{{ y.px }}px"
+                          class="series-grid"
+                          style="left:{{ y.px }}px"
                         ></span
                       ></sc-for>
                       <span
-                        style="position:absolute;top:0;bottom:0;border-left:1px solid rgba(212,245,60,.35);left:{{ tl.todayPx }}px"
+                        class="series-grid series-now"
+                        style="left:{{ tl.todayPx }}px"
                       ></span>
-                      <sc-for list="{{ r.segs }}" as="s">
-                        <span
-                          style="position:absolute;top:27px;height:2px;border-radius:1px;left:{{ s.left }}px;width:{{ s.w }}px;background:{{ r.line }}"
-                        ></span>
-                        <sc-if value="{{ s.showGap }}"
-                          ><span
-                            style="position:absolute;top:8px;transform:translateX(-50%);font-family:'Geist Mono',monospace;font-size:10px;color:#9a9ca3;white-space:nowrap;left:{{ s.mid }}px"
-                            >{{ s.gap }}</span
-                          ></sc-if
+                      <sc-for list="{{ r.versions }}" as="v"
+                        ><div
+                          class="version-node"
+                          style="left:{{ v.px }}px;top:{{ v.top }}px;width:{{ v.width }}px"
                         >
-                      </sc-for>
-                      <sc-if value="{{ r.pending }}">
-                        <span
-                          style="position:absolute;top:27px;height:0;border-top:2px dotted;left:{{ r.pending.left }}px;width:{{ r.pending.w }}px;border-color:{{ r.line }}"
-                        ></span>
-                        <sc-if value="{{ r.pendingGap }}"
-                          ><span
-                            style="position:absolute;top:8px;transform:translateX(-50%);font-family:'Geist Mono',monospace;font-size:10px;color:#858892;white-space:nowrap;left:{{ r.pending.mid }}px"
-                            >已 {{ r.pending.gap }}</span
-                          ></sc-if
-                        >
-                      </sc-if>
-                      <sc-if value="{{ r.isVariants }}">
-                        <button
-                          class="variant-toggle"
-                          style="left:{{ r.variantLeft }}px;border-color:{{ r.color }}"
-                          aria-label="{{ r.variantsAction }}"
-                          aria-expanded="{{ r.variantsOpen }}"
-                          aria-controls="{{ r.variantsId }}"
-                          onClick="{{ r.toggleVariants }}"
-                        >
-                          {{ r.n }} 个规格
-                        </button>
-                        <span
-                          class="variant-date"
-                          style="left:{{ r.variantLeft }}px"
-                          >{{ r.variantDate }}</span
-                        >
-                      </sc-if>
-                      <sc-for list="{{ r.dots }}" as="d">
-                        <a
-                          href="#"
-                          onClick="{{ d.open }}"
-                          onMouseEnter="{{ d.enter }}"
-                          onMouseLeave="{{ d.leave }}"
-                          title="{{ d.tip }}"
-                          aria-label="{{ d.tip }}"
-                          style="position:absolute;top:{{ d.top }}px;width:14px;height:14px;margin-left:-7px;text-decoration:none;z-index:1;left:{{ d.px }}px"
-                          style-hover="transform:scale(1.3)"
-                        >
-                          <sc-if value="{{ d.dense }}"
-                            ><span
-                              style="position:absolute;inset:0;border-radius:50%;background:{{ r.color }};box-shadow:{{ d.ring }}"
-                            ></span
-                          ></sc-if>
-                          <sc-if value="{{ d.moe }}"
-                            ><span
-                              style="position:absolute;inset:1px;transform:rotate(45deg);background:{{ r.color }};box-shadow:{{ d.ring }}"
-                            ></span
-                          ></sc-if>
-                          <sc-if value="{{ d.unknown }}"
-                            ><span
-                              style="position:absolute;inset:0;border-radius:50%;background:#141518;border:2px solid {{ r.color }};box-shadow:{{ d.ring }}"
-                            ></span
-                          ></sc-if>
-                          <sc-if value="{{ d.announcedOnly }}"
-                            ><span
-                              style="
-                                position: absolute;
-                                inset: -4px;
-                                border-radius: 50%;
-                                border: 1px dashed #ecebe6;
-                              "
-                            ></span
-                          ></sc-if>
-                          <sc-if value="{{ r.merged }}"
-                            ><span class="independent-label"
-                              >{{ d.gen }}</span
-                            ></sc-if
+                          <button
+                            type="button"
+                            class="hide-model"
+                            aria-label="{{ v.hideLabel }}"
+                            title="{{ v.hideLabel }}"
+                            onClick="{{ v.hide }}"
                           >
-                          <sc-if value="{{ d.showGen }}"
-                            ><span
-                              style="
-                                position: absolute;
-                                top: 18px;
-                                left: 50%;
-                                transform: translateX(-50%);
-                                font-family: &quot;Geist Mono&quot;, monospace;
-                                font-size: 10px;
-                                white-space: nowrap;
-                                color: #ecebe6;
-                              "
-                              >{{ d.gen }}</span
-                            ></sc-if
+                            <svg
+                              width="14"
+                              height="14"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              stroke="currentColor"
+                              stroke-width="1.5"
+                              aria-hidden="true"
+                            >
+                              <path
+                                d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7S2 12 2 12Z"
+                              ></path>
+                              <circle cx="12" cy="12" r="3"></circle>
+                              <path d="m3 3 18 18"></path>
+                            </svg></button
+                          ><button
+                            type="button"
+                            class="version-open"
+                            style="border-color:{{ r.color }}"
+                            aria-label="{{ v.action }}"
+                            aria-expanded="{{ v.expanded }}"
+                            aria-controls="{{ v.key }}"
+                            title="{{ v.name }} · {{ v.dateRange }}"
+                            onClick="{{ v.toggle }}"
                           >
-                          <sc-if value="{{ d.showGenUp }}"
-                            ><span
-                              style="
-                                position: absolute;
-                                top: -17px;
-                                left: 50%;
-                                transform: translateX(-50%);
-                                font-family: &quot;Geist Mono&quot;, monospace;
-                                font-size: 10px;
-                                white-space: nowrap;
-                                color: #ecebe6;
-                              "
-                              >{{ d.gen }}</span
-                            ></sc-if
-                          >
-                          <sc-if value="{{ d.showGenL }}"
-                            ><span
-                              style="
-                                position: absolute;
-                                top: 18px;
-                                right: calc(50% + 3px);
-                                font-family: &quot;Geist Mono&quot;, monospace;
-                                font-size: 10px;
-                                white-space: nowrap;
-                                color: #ecebe6;
-                              "
-                              >{{ d.gen }}</span
-                            ></sc-if
-                          >
-                          <sc-if value="{{ d.showGenUpL }}"
-                            ><span
-                              style="
-                                position: absolute;
-                                top: -17px;
-                                right: calc(50% + 3px);
-                                font-family: &quot;Geist Mono&quot;, monospace;
-                                font-size: 10px;
-                                white-space: nowrap;
-                                color: #ecebe6;
-                              "
-                              >{{ d.gen }}</span
-                            ></sc-if
-                          >
-                        </a>
-                      </sc-for>
+                            <span>{{ v.label }}</span
+                            ><small>{{ v.n }}</small></button
+                          ><time>{{ v.date }}</time>
+                        </div></sc-for
+                      >
                     </div>
                   </div>
-                  <sc-if value="{{ r.variantsOpen }}"
-                    ><div
-                      class="timeline-history"
-                      id="{{ r.variantsId }}"
-                      role="region"
-                      aria-label="{{ r.family }} 规格"
-                    >
-                      <span class="timeline-history-title"
-                        >{{ r.family }} · 规格</span
+                  <sc-for list="{{ r.versions }}" as="v"
+                    ><sc-if value="{{ v.expanded }}"
+                      ><div
+                        class="timeline-history"
+                        id="{{ v.key }}"
+                        role="region"
+                        aria-label="{{ v.name }} 型号"
                       >
-                      <div class="history-models">
-                        <sc-for list="{{ r.variants }}" as="v"
-                          ><a
-                            class="history-model"
-                            href="#"
-                            onClick="{{ v.open }}"
-                            ><span>{{ v.name }} · {{ v.tier }}</span
-                            ><time>{{ v.date }} · {{ v.label }}</time></a
-                          ></sc-for
+                        <span class="timeline-history-title"
+                          >{{ v.name }}<br />{{ v.n }} / {{ v.eligible }}
+                          个型号可见</span
                         >
-                      </div>
-                    </div></sc-if
+                        <div class="history-models">
+                          <sc-for list="{{ v.models }}" as="m"
+                            ><div class="model-item">
+                              <button
+                                type="button"
+                                class="hide-model"
+                                aria-label="{{ m.hideLabel }}"
+                                title="{{ m.hideLabel }}"
+                                onClick="{{ m.hide }}"
+                              >
+                                <svg
+                                  width="14"
+                                  height="14"
+                                  viewBox="0 0 24 24"
+                                  fill="none"
+                                  stroke="currentColor"
+                                  stroke-width="1.5"
+                                  aria-hidden="true"
+                                >
+                                  <path
+                                    d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7S2 12 2 12Z"
+                                  ></path>
+                                  <circle cx="12" cy="12" r="3"></circle>
+                                  <path d="m3 3 18 18"></path>
+                                </svg></button
+                              ><a
+                                class="history-model"
+                                href="#"
+                                onClick="{{ m.open }}"
+                                ><span>{{ m.name }} · {{ m.tier }}</span
+                                ><time>{{ m.date }} · {{ m.label }}</time></a
+                              >
+                            </div></sc-for
+                          >
+                        </div>
+                      </div></sc-if
+                    ></sc-for
                   >
-                  <sc-if value="{{ r.historyOpen }}">
-                    <div
+                  <sc-if value="{{ r.historyOpen }}"
+                    ><div
                       class="timeline-history"
                       id="{{ r.historyId }}"
                       role="region"
                       aria-label="{{ r.family }} 窗口前历史"
                     >
                       <span class="timeline-history-title"
-                        >{{ r.family }} · 窗口前历史</span
+                        >{{ r.family }} · 早期型号</span
                       >
                       <div class="history-models">
-                        <sc-for list="{{ r.history }}" as="h"
-                          ><a
-                            class="history-model"
-                            href="#"
-                            onClick="{{ h.open }}"
-                            ><span>{{ h.name }}</span
-                            ><time>{{ h.date }} · {{ h.label }}</time></a
-                          ></sc-for
+                        <sc-for list="{{ r.history }}" as="m"
+                          ><div class="model-item">
+                            <button
+                              type="button"
+                              class="hide-model"
+                              aria-label="{{ m.hideLabel }}"
+                              title="{{ m.hideLabel }}"
+                              onClick="{{ m.hide }}"
+                            >
+                              <svg
+                                width="14"
+                                height="14"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="1.5"
+                                aria-hidden="true"
+                              >
+                                <path
+                                  d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7S2 12 2 12Z"
+                                ></path>
+                                <circle cx="12" cy="12" r="3"></circle>
+                                <path d="m3 3 18 18"></path>
+                              </svg></button
+                            ><a
+                              class="history-model"
+                              href="#"
+                              onClick="{{ m.open }}"
+                              ><span>{{ m.name }} · {{ m.tier }}</span
+                              ><time>{{ m.date }} · {{ m.label }}</time></a
+                            >
+                          </div></sc-for
                         >
                       </div>
-                    </div>
-                  </sc-if>
+                    </div></sc-if
+                  >
                 </sc-if>
                 <sc-if value="{{ r.archive }}">
                   <button
@@ -1642,22 +1805,68 @@
                     ><div
                       id="{{ r.archiveId }}"
                       role="region"
-                      aria-label="{{ r.vendorLabel }} 窗口外模型组"
+                      aria-label="{{ r.vendorLabel }} 窗口外系列"
                     >
                       <sc-for list="{{ r.archivedRows }}" as="a"
                         ><div class="timeline-history">
-                          <span class="timeline-history-title"
-                            >{{ a.family }} · {{ a.tier }}</span
-                          >
+                          <div class="timeline-history-title">
+                            <button
+                              type="button"
+                              class="hide-model"
+                              aria-label="{{ a.hideLabel }}"
+                              title="{{ a.hideLabel }}"
+                              onClick="{{ a.hide }}"
+                            >
+                              <svg
+                                width="14"
+                                height="14"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="1.5"
+                                aria-hidden="true"
+                              >
+                                <path
+                                  d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7S2 12 2 12Z"
+                                ></path>
+                                <circle cx="12" cy="12" r="3"></circle>
+                                <path d="m3 3 18 18"></path>
+                              </svg></button
+                            >{{ a.family }}
+                          </div>
                           <div class="history-models">
-                            <sc-for list="{{ a.models }}" as="h"
-                              ><a
-                                class="history-model"
-                                href="#"
-                                onClick="{{ h.open }}"
-                                ><span>{{ h.name }}</span
-                                ><time>{{ h.date }} · {{ h.label }}</time></a
-                              ></sc-for
+                            <sc-for list="{{ a.models }}" as="m"
+                              ><div class="model-item">
+                                <button
+                                  type="button"
+                                  class="hide-model"
+                                  aria-label="{{ m.hideLabel }}"
+                                  title="{{ m.hideLabel }}"
+                                  onClick="{{ m.hide }}"
+                                >
+                                  <svg
+                                    width="14"
+                                    height="14"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    stroke-width="1.5"
+                                    aria-hidden="true"
+                                  >
+                                    <path
+                                      d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7S2 12 2 12Z"
+                                    ></path>
+                                    <circle cx="12" cy="12" r="3"></circle>
+                                    <path d="m3 3 18 18"></path>
+                                  </svg></button
+                                ><a
+                                  class="history-model"
+                                  href="#"
+                                  onClick="{{ m.open }}"
+                                  ><span>{{ m.name }} · {{ m.tier }}</span
+                                  ><time>{{ m.date }} · {{ m.label }}</time></a
+                                >
+                              </div></sc-for
                             >
                           </div>
                         </div></sc-for
@@ -1676,118 +1885,10 @@
                   border-top: 1px solid #26282d;
                 "
               >
-                当前窗口与筛选下没有模型；可切换全部历史或展开窗口外模型组。
+                当前范围没有可见型号；可切换全部历史、展开窗口外系列，或从“已隐藏”恢复。
               </div></sc-if
             >
           </section>
-          <sc-if value="{{ hover }}">
-            <div
-              style="position:fixed;z-index:40;width:300px;background:#ecebe6;color:#0e0f11;border-radius:10px;box-shadow:0 20px 40px -8px rgba(0,0,0,.6);pointer-events:none;overflow:hidden;left:{{ hover.x }}px;top:{{ hover.y }}px"
-            >
-              <div
-                style="
-                  padding: 12px 14px 10px;
-                  display: flex;
-                  flex-direction: column;
-                  gap: 3px;
-                "
-              >
-                <div
-                  style="
-                    display: flex;
-                    align-items: center;
-                    gap: 7px;
-                    font-size: 11px;
-                    color: #55575e;
-                  "
-                >
-                  <span
-                    style="width:7px;height:7px;border-radius:2px;background:{{ hover.m.color }}"
-                  ></span
-                  >{{ hover.m.vendorLabel }} · {{ hover.m.tierLabel }}<span
-                    style="
-                      margin-left: auto;
-                      font-family: &quot;Geist Mono&quot;, monospace;
-                    "
-                    >{{ hover.m.date }}</span
-                  >
-                </div>
-                <div style="font-size: 16px; font-weight: 700">
-                  {{ hover.m.name }}
-                </div>
-              </div>
-              <div
-                style="
-                  padding: 8px 14px;
-                  display: grid;
-                  grid-template-columns: auto 1fr;
-                  gap: 3px 14px;
-                  font-size: 12px;
-                  border-top: 1px solid #d6d4cd;
-                "
-              >
-                <span style="color: #55575e">架构</span
-                ><span>{{ hover.m.archLabel }}</span>
-                <span style="color: #55575e">参数</span
-                ><span style="font-family: &quot;Geist Mono&quot;, monospace"
-                  >{{ hover.m.paramsLabel }}</span
-                >
-                <span style="color: #55575e">上下文</span
-                ><span style="font-family: &quot;Geist Mono&quot;, monospace"
-                  >{{ hover.m.ctxLabel }}</span
-                >
-              </div>
-              <sc-if value="{{ hover.hasCaps }}"
-                ><div
-                  style="
-                    padding: 0 14px 10px;
-                    display: flex;
-                    gap: 4px;
-                    flex-wrap: wrap;
-                  "
-                >
-                  <sc-for list="{{ hover.caps }}" as="c"
-                    ><span
-                      style="
-                        background: #0e0f11;
-                        color: #d4f53c;
-                        border-radius: 4px;
-                        padding: 0 6px;
-                        font-size: 11px;
-                        line-height: 18px;
-                      "
-                      >{{ c }}</span
-                    ></sc-for
-                  >
-                </div></sc-if
-              >
-              <sc-if value="{{ hover.hasBench }}"
-                ><div
-                  style="
-                    display: flex;
-                    flex-direction: column;
-                    gap: 2px;
-                    border-top: 1px solid #d6d4cd;
-                    padding: 8px 14px 10px;
-                  "
-                >
-                  <sc-for list="{{ hover.bench }}" as="b"
-                    ><div style="display: flex; font-size: 12px">
-                      <span style="color: #55575e">{{ b.name }}</span
-                      ><span
-                        style="
-                          margin-left: auto;
-                          font-family: &quot;Geist Mono&quot;, monospace;
-                          font-weight: 600;
-                        "
-                        >{{ b.score }}</span
-                      >
-                    </div></sc-for
-                  >
-                </div></sc-if
-              >
-            </div>
-          </sc-if>
         </sc-if>
 
         <sc-if value="{{ isTrends }}">

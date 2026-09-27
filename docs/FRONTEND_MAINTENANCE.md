@@ -6,7 +6,8 @@
 - `src/design/application.js`：页面状态、键盘事件、路由同步与展示层组合。由 `bootstrap.ts` 以原文注入 `data-dc-script`，交给运行时编译。
 - `public/graph-v2/chronicle.js`：模型适配、同条件基准规则。
 - `chronicle-vm.js`：时间轴、详情、趋势与架构视图。
-- `chronicle-timeline.js`：日历年窗口、窗口内/外分区、同代规格与独立型号展示分组；不修改前后代关系。
+- `chronicle-timeline.js`：日历年窗口、系列与版本分组、旧链接迁移；不修改前后代关系。
+- `chronicle-visibility.js`：个人隐藏 ID 的规范化、本地存储、隐藏与恢复；不修改数据或分享链接。
 - `chronicle-ext.js`：开源追赶、能力成本与生命周期。
 - `chronicle-ext2.js`：搜索和多模型对比。
 - `chronicle-route.js`：可分享链接的解析与序列化。
@@ -23,3 +24,5 @@
 运行 `bun run build`、`bun run test:unit`、`bun run format:check`。单独跑测试可用 `bun run test`，它会先生成所需数据与静态页；CI 在 build 后使用 test:unit，避免重复生成。
 
 浏览器检查首页、搜索、对比、详情直达与刷新，以及手机宽度。价格图分别检查多条、单条与无观测数据；控制台区分页面错误、外部字体网络失败和浏览器扩展日志。不要仅凭 HTTP 200 判断界面通过。
+
+本地隐藏验证应在结束后通过“全部恢复”清理测试偏好。脚本内容指纹由 Vite 构建生成并用于 bootstrap 的版本查询参数，浏览器更新时不会混用缓存中的旧模块。

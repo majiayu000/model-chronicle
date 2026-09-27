@@ -1,7 +1,28 @@
 class Component extends DCLogic {
   state = { ready: false };
   update(p) {
-    this.setState(p, () => {
+    const patch = { ...p };
+    if (Object.hasOwn(patch, "hiddenModels")) {
+      patch.hiddenModels = window.MC.visibility.normalize(patch.hiddenModels);
+      try {
+        patch.hiddenPersistent = window.MC.visibility.save(
+          window.localStorage,
+          patch.hiddenModels,
+        );
+      } catch {
+        patch.hiddenPersistent = false;
+      }
+    }
+    this.setState(patch, () => {
+      if (Object.hasOwn(patch, "hiddenModels")) {
+        document
+          .querySelector(
+            patch.hideUndo?.length
+              ? "[data-hide-undo]"
+              : "[data-hidden-manager]",
+          )
+          ?.focus();
+      }
       const MC = window.MC;
       if (!MC?.route) return;
       const hash = MC.route.serialize(this.state);
@@ -20,6 +41,12 @@ class Component extends DCLogic {
     });
   }
   componentDidMount() {
+    let preference;
+    try {
+      preference = window.MC.visibility.load(window.localStorage);
+    } catch {
+      preference = { ids: [], persistent: false };
+    }
     const tick = () =>
       window.MC &&
       window.MC.vm &&
@@ -30,6 +57,8 @@ class Component extends DCLogic {
         ? this.setState({
             ...window.MC.initState(),
             ...window.MC.route.parse(window.location.hash),
+            hiddenModels: preference.ids,
+            hiddenPersistent: preference.persistent,
             ready: true,
           })
         : setTimeout(tick, 30);
@@ -162,7 +191,6 @@ class Component extends DCLogic {
   }
   renderVals() {
     const showHero = this.props.showHero ?? true;
-    const showGaps = this.props.showGaps ?? true;
     const base = { clock: this.clockEl() };
     if (!this.state.ready || !window.MC || !window.MC.vm)
       return {
@@ -253,8 +281,6 @@ class Component extends DCLogic {
       FA = "#858892",
       LN = "#26282d",
       ACC = "#d4f53c";
-    const a = (hex, al) =>
-      typeof hex === "string" && /^#[0-9a-f]{6}$/i.test(hex) ? hex + al : hex;
     v.mode =
       {
         timeline: "TIMELINE",
@@ -327,65 +353,6 @@ class Component extends DCLogic {
       c.bd = c.on ? ACC : LN;
       c.bg = c.on ? ACC : "transparent";
     });
-    if (v.tl) {
-      v.tl.pxPerYear = v.tl.pxPerYear ?? this.state.px;
-      v.tl.rows.forEach((r) => {
-        r.line = a(r.color, "88");
-        r.pendingGap = showGaps;
-        let lo = -1e9,
-          up = -1e9;
-        const ups = [];
-        r.dots.forEach((d) => {
-          const near = Math.abs(d.px - v.tl.todayPx) < 16;
-          const labelWidth = Math.max(
-            28,
-            Math.min(150, String(d.gen).length * 6),
-          );
-          const left = near ? d.px - 10 - labelWidth : d.px - labelWidth / 2;
-          const right = near ? d.px - 10 : d.px + labelWidth / 2;
-          d.showGen = left >= lo + 8;
-          d.showGenUp = false;
-          if (d.showGen) lo = right;
-          else if (left >= up + 8) {
-            d.showGenUp = true;
-            up = right;
-            ups.push(d.px);
-          }
-          d.showGenL = near && d.showGen;
-          d.showGenUpL = near && d.showGenUp;
-          if (near) {
-            d.showGen = false;
-            d.showGenUp = false;
-          }
-          if (r.merged) {
-            d.showGen = false;
-            d.showGenUp = false;
-            d.showGenL = false;
-            d.showGenUpL = false;
-          }
-          d.ring = d.reasoning
-            ? "0 0 0 2px #141518,0 0 0 3px " + r.color
-            : "none";
-          d.tip =
-            (MC.byId[d.id]?.name || d.id) +
-            " · " +
-            (d.announcedOnly ? "仅宣布" : "正式可用") +
-            " " +
-            (MC.byId[d.id]?.date || "");
-        });
-        let lastMid = -1e9;
-        r.segs.forEach((s) => {
-          s.showGap =
-            s.showGap &&
-            showGaps &&
-            s.mid - lastMid >= 64 &&
-            !ups.some((p) => Math.abs(p - s.mid) < 40);
-          if (s.showGap) lastMid = s.mid;
-        });
-        if (r.pending && ups.some((p) => Math.abs(p - r.pending.mid) < 40))
-          r.pendingGap = false;
-      });
-    }
     if (v.trend) {
       v.trend.tabs.forEach((t) => {
         t.bg = t.on ? TX : "transparent";

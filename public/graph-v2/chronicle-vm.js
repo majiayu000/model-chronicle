@@ -46,11 +46,58 @@
       s.tiers.includes(m.tier) &&
       s.caps.every((c) => (c === "open" ? m.open_weights : m.caps.includes(c)));
     const range = MC.timeline.windowRange(s.window);
+    const hidden = MC.visibility.normalize(s.hiddenModels);
+    const hiddenSet = new Set(hidden);
+    const availableModels =
+      s.view === "timeline"
+        ? MC.models.filter((m) => !hiddenSet.has(m.id))
+        : MC.models;
     const windowModels =
       s.view === "timeline"
-        ? MC.models.filter((m) => MC.timeline.inWindow(m, range))
-        : MC.models;
+        ? availableModels.filter((m) => MC.timeline.inWindow(m, range))
+        : availableModels;
     const models = windowModels.filter(pass);
+    const eligible = MC.models.filter(
+      (m) => pass(m) && MC.timeline.inWindow(m, range),
+    );
+    const hide = (ids, label) => {
+      const result = MC.visibility.hide(hidden, ids);
+      if (result.added.length)
+        set({
+          hiddenModels: result.ids,
+          hideUndo: result.added,
+          hideNotice: `已隐藏 ${label}（${result.added.length} 个型号）`,
+          hover: null,
+        });
+    };
+    const restore = (ids) =>
+      set({
+        hiddenModels: MC.visibility.restore(hidden, ids),
+        hideUndo: [],
+        hideNotice: "",
+        hover: null,
+      });
+    const visibility = {
+      count: hidden.length,
+      inScope: eligible.filter((m) => hiddenSet.has(m.id)).length,
+      eligible: eligible.length,
+      managerOpen: !!s.hiddenManager,
+      empty: !hidden.length,
+      toggleManager: () => set({ hiddenManager: !s.hiddenManager }),
+      rows: MC.models
+        .filter((m) => hiddenSet.has(m.id))
+        .map((m) => ({
+          name: m.name,
+          vendor: m.vendorLabel,
+          restoreLabel: `恢复 ${m.name}`,
+          restore: () => restore([m.id]),
+        })),
+      restoreAll: () => restore(hidden),
+      hasNotice: !!s.hideNotice,
+      notice: s.hideNotice || "",
+      undo: () => restore(s.hideUndo || []),
+      storageFailed: s.hiddenPersistent === false,
+    };
     const go = (view, id) => (e) => {
       if (e && e.preventDefault) e.preventDefault();
       set({ view, id: id || null, hover: null });
@@ -120,6 +167,7 @@
       nav,
       vendorChips,
       vendorFocus,
+      visibility,
       tierChips,
       capChips,
       total: windowModels.length,
@@ -157,7 +205,7 @@
         start = range.mode === "all" ? T0 : range.start,
         end = today + YEAR / 12;
       const x = (t) => 24 + ((t - start) / YEAR) * P;
-      const fullModels = MC.models.filter(pass);
+      const fullModels = availableModels.filter(pass);
       const grouped = MC.timeline.partition(fullModels, range);
       const chip = (m) => ({
         id: m.id,
@@ -165,6 +213,9 @@
         date: m.date,
         label: m.dateLabel,
         open: open(m.id),
+        tier: m.tierLabel,
+        hideLabel: `隐藏 ${m.name}`,
+        hide: () => hide([m.id], m.name),
       });
       const changeWindow = (mode) => () =>
         set({
@@ -223,154 +274,119 @@
         }
       }
       const rows = [];
+      const catalogVersions = new Map(
+        MC.timeline.catalog.flatMap((row) =>
+          row.versions.map((v) => [v.id, v]),
+        ),
+      );
+      const catalogRows = new Map(
+        MC.timeline.catalog.map((row) => [row.id, row]),
+      );
+      const toVersion = (v) => {
+        const visible = v.models.filter((m) => MC.timeline.inWindow(m, range));
+        if (!visible.length) return null;
+        const original = catalogVersions.get(v.id);
+        const anchors = original.models.filter(
+          (m) => pass(m) && MC.timeline.inWindow(m, range),
+        );
+        const dates = anchors.map((m) => m.date).sort();
+        return {
+          key: v.id,
+          label: v.label,
+          name: v.name,
+          px: Math.max(24, x(anchors[0].t)),
+          n: visible.length,
+          eligible: anchors.length,
+          date: dates[0],
+          dateRange:
+            dates[0] === dates.at(-1)
+              ? dates[0]
+              : `${dates[0]} — ${dates.at(-1)}`,
+          expanded: (s.variants || []).includes(v.id),
+          action: `${v.name}：${(s.variants || []).includes(v.id) ? "收起" : "展开"} ${visible.length} 个型号`,
+          toggle: () =>
+            set({ variants: tog(s.variants || [], v.id), hover: null }),
+          models: visible.map(chip),
+          hideLabel: `隐藏 ${v.name} 的全部型号`,
+          hide: () =>
+            hide(
+              original.models.map((m) => m.id),
+              v.name,
+            ),
+        };
+      };
       for (const vendor of MC.VENDORS.filter((v) => s.vendors.includes(v))) {
         const vendorRows = [];
-        for (const l of grouped.rows.filter((row) => row.vendor === vendor)) {
-          const visible = l.models.filter((m) =>
-            MC.timeline.inWindow(m, range),
-          );
+        for (const row of grouped.rows.filter((row) => row.vendor === vendor)) {
+          const versions = row.versions.map(toVersion).filter(Boolean);
+          const laneEnds = [];
+          for (const v of versions) {
+            let lane = laneEnds.findIndex((end) => end + 12 <= v.px);
+            if (lane < 0) lane = laneEnds.length;
+            v.width = Math.min(188, Math.max(100, 64 + v.label.length * 7));
+            laneEnds[lane] = v.px + v.width;
+            v.top = 12 + lane * 74;
+          }
           const earlier =
             range.mode === "all"
               ? []
-              : l.models.filter(
+              : row.models.filter(
                   (m) => MC.timeline.dateBounds(m.date)[1] < range.start,
                 );
-          const laneEnds = [];
-          const pts = visible.map((m) => {
-            const px = Math.max(24, x(m.t));
-            const labelWidth = Math.min(170, Math.max(64, m.name.length * 7));
-            let lane = 0;
-            if (l.merged) {
-              lane = laneEnds.findIndex((end) => end + 16 < px);
-              if (lane < 0) lane = laneEnds.length;
-              laneEnds[lane] = px + labelWidth;
-            }
-            return { m, px, top: 21 + lane * 44 };
-          });
-          const segs = l.merged
-            ? []
-            : pts.slice(1).flatMap((p, i) => {
-                if (p.m.prev?.id !== pts[i].m.id) return [];
-                const w = p.px - pts[i].px;
-                return [
-                  {
-                    left: pts[i].px,
-                    w,
-                    mid: pts[i].px + w / 2,
-                    showGap:
-                      w >= 56 &&
-                      pts[i].m.dateKind === "ga" &&
-                      p.m.dateKind === "ga",
-                    gap: MC.fmtGap(pts[i].m.date, p.m.date),
-                  },
-                ];
-              });
-          const last = pts.at(-1),
-            tp = x(today);
-          const pending =
-            !l.merged &&
-            !last.m.next &&
-            last.m.dateKind === "ga" &&
-            tp - last.px >= 56
-              ? {
-                  left: last.px,
-                  w: tp - last.px,
-                  mid: last.px + (tp - last.px) / 2,
-                  gap: MC.fmtGap(last.m.date, MC.today),
-                }
-              : null;
           const historyOpen =
-            earlier.length > 0 && (s.history || []).includes(l.id);
+            earlier.length > 0 && (s.history || []).includes(row.id);
           vendorRows.push({
-            key: l.id,
+            key: row.id,
             isLine: true,
             archive: false,
-            merged: l.merged,
-            family: l.family,
-            tier: l.isVariants ? "同代规格" : MC.TIER_LABEL[l.tier],
-            isVariants: !!l.isVariants,
-            variants: visible.map((m) => ({ ...chip(m), tier: m.tierLabel })),
-            variantsOpen: (s.variants || []).includes(l.id),
-            variantsId: l.id,
-            variantLeft: pts[0].px,
-            variantDate:
-              visible[0].date === visible.at(-1).date
-                ? visible[0].date
-                : `${visible[0].date} — ${visible.at(-1).date}`,
-            variantsAction: `${l.family}：${(s.variants || []).includes(l.id) ? "收起" : "展开"} ${visible.length} 个规格`,
-            toggleVariants: () =>
-              set({ variants: tog(s.variants || [], l.id), hover: null }),
-            n: visible.length,
-            segs,
-            pending,
-            height: l.isVariants
-              ? 72
-              : 56 + Math.max(0, laneEnds.length - 1) * 44,
-            hasHistory: range.mode !== "all" && earlier.length > 0,
+            family: row.family,
+            n: versions.reduce((n, v) => n + v.n, 0),
+            versions,
+            height: Math.max(82, laneEnds.length * 74 + 8),
+            hideLabel: `隐藏 ${row.family} 系列的全部型号`,
+            hide: () =>
+              hide(
+                catalogRows.get(row.id).models.map((m) => m.id),
+                `${row.family} 系列`,
+              ),
+            hasHistory: earlier.length > 0,
             historyOpen,
+            history: earlier.map(chip),
+            historyId: `history-${row.id}`,
             historyLabel: historyOpen
               ? "收起历史"
-              : `··· 前 ${earlier.length} ${l.isVariants ? "个规格" : "代"}`,
-            historyAction: `${MC.V[vendor].label} ${l.family} ${l.isVariants ? "" : MC.TIER_LABEL[l.tier]}：${historyOpen ? "收起历史" : `展开前 ${earlier.length} ${l.isVariants ? "个规格" : "代"}`}`,
-            historyId: `history-${l.id}`,
-            history: earlier.map(chip),
+              : `··· 早期 ${earlier.length} 个型号`,
+            historyAction: `${MC.V[vendor].label} ${row.family}：${historyOpen ? "收起历史" : `展开早期 ${earlier.length} 个型号`}`,
             toggleHistory: () =>
-              set({ history: tog(s.history || [], l.id), hover: null }),
-            dots: l.isVariants
-              ? []
-              : pts.map((p) => ({
-                  px: p.px,
-                  top: p.top,
-                  gen: l.merged ? p.m.name : p.m.generation,
-                  id: p.m.id,
-                  open: open(p.m.id),
-                  announcedOnly: p.m.dateKind === "announced",
-                  moe: p.m.archType === "moe",
-                  dense: p.m.archType === "dense",
-                  unknown: !p.m.archType,
-                  reasoning: p.m.reasoning,
-                  hollow: !p.m.open_weights,
-                  enter: (e) => {
-                    const r = e.currentTarget.getBoundingClientRect();
-                    set({
-                      hover: {
-                        id: p.m.id,
-                        x: Math.max(
-                          8,
-                          Math.min(r.left - 8, window.innerWidth - 308),
-                        ),
-                        y: r.bottom + 10,
-                      },
-                    });
-                  },
-                  leave: () => set({ hover: null }),
-                })),
+              set({ history: tog(s.history || [], row.id), hover: null }),
           });
         }
         const archived = grouped.archived.filter(
           (row) => row.vendor === vendor,
         );
         if (archived.length) {
-          const count = archived.length;
           const archiveOpen = (s.archives || []).includes(vendor);
           vendorRows.push({
             key: `archive-${vendor}`,
             isLine: false,
             archive: true,
-            dots: [],
-            segs: [],
             archiveOpen,
             archiveId: `archive-${vendor}`,
-            archiveLabel: `${archiveOpen ? "▾" : "▸"} 窗口外模型组 ${count} 组`,
             archiveModels: archived.reduce(
               (n, row) => n + row.models.length,
               0,
             ),
+            archiveLabel: `${archiveOpen ? "▾" : "▸"} 窗口外系列 ${archived.length} 条`,
             archivedRows: archived.map((row) => ({
               key: row.id,
               family: row.family,
-              tier: row.isVariants ? "同代规格" : MC.TIER_LABEL[row.tier],
               models: row.models.map(chip),
+              hideLabel: `隐藏 ${row.family} 系列的全部型号`,
+              hide: () =>
+                hide(
+                  catalogRows.get(row.id).models.map((m) => m.id),
+                  `${row.family} 系列`,
+                ),
             })),
             toggleArchive: () =>
               set({ archives: tog(s.archives || [], vendor), hover: null }),
@@ -389,7 +405,6 @@
           }),
         );
       }
-      const h = s.hover && MC.byId[s.hover.id];
       out.tl = {
         width: x(end),
         years,
@@ -405,25 +420,14 @@
         showRecent: changeWindow("recent"),
         showAll: changeWindow("all"),
         rowCount: grouped.rows.length,
-        lineCount: grouped.lineCount,
-        archiveCount: grouped.archivedLineCount,
+        archiveCount: grouped.archived.length,
         visibleCount: models.length,
         pxPerYear: P,
         onZoom: (e) => set({ px: +e.target.value, autoScale: false }),
         panLeft: pan(-1),
         panRight: pan(1),
       };
-      out.hover = h
-        ? {
-            m: h,
-            x: s.hover.x,
-            y: s.hover.y,
-            caps: h.capLabels,
-            bench: h.benchmarks.slice(0, 3),
-            hasBench: h.benchmarks.length > 0,
-            hasCaps: h.caps.length > 0,
-          }
-        : null;
+      out.hover = null;
 
       // —— 年表（纵向矩阵）
       const cols = MC.VENDORS.filter((v) => s.vendors.includes(v));

@@ -1,8 +1,20 @@
 import { defineConfig } from "vite";
+import { createHash } from "node:crypto";
+import { readdirSync, readFileSync } from "node:fs";
 import { siteUrl, escapeHtml, socialMeta } from "./scripts/site-config.ts";
+
+// Keep the exported runtime modules from mixing versions in a returning visitor's cache.
+const runtimeHash = createHash("sha256");
+for (const directory of ["./public/graph-v2/", "./public/graph-v2/vendor/"]) {
+  for (const file of readdirSync(new URL(directory, import.meta.url)).filter(name => name.endsWith(".js")).sort()) {
+    runtimeHash.update(file).update(readFileSync(new URL(directory + file, import.meta.url)));
+  }
+}
+const runtimeVersion = runtimeHash.digest("hex").slice(0, 16);
 
 export default defineConfig({
   base: "./",
+  define: { __CHRONICLE_RUNTIME_VERSION__: JSON.stringify(runtimeVersion) },
   plugins: [{
     name: "site-metadata",
     transformIndexHtml(html) {
