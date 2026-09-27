@@ -144,6 +144,83 @@ class Component extends DCLogic {
     }
     return React.createElement(this._Clock);
   }
+  linksEl(row, width) {
+    const h = React.createElement;
+    const touch = window.matchMedia?.("(pointer: coarse)")?.matches;
+    const inset = touch ? 44 : 32,
+      center = touch ? 22 : 15;
+    const arrow = `arrow-${row.key}`;
+    return h(
+      "svg",
+      {
+        className: "series-link-svg",
+        width,
+        height: row.height,
+        role: "img",
+        "aria-label": `${row.family} 已记录的继任关系`,
+      },
+      h(
+        "defs",
+        null,
+        h(
+          "marker",
+          {
+            id: arrow,
+            viewBox: "0 0 8 8",
+            refX: 7,
+            refY: 4,
+            markerWidth: 5,
+            markerHeight: 5,
+            orient: "auto",
+            markerUnits: "strokeWidth",
+          },
+          h("path", { d: "M0 0L8 4L0 8Z", fill: row.color }),
+        ),
+      ),
+      ...row.links.map((link) => {
+        const x1 = link.source.px + link.source.width,
+          y1 = link.source.top + center;
+        const x2 = link.target.px + inset,
+          y2 = link.target.top + center;
+        const bend = Math.max(18, Math.min(64, Math.abs(x2 - x1) / 2));
+        const d = `M${x1},${y1} C${x1 + bend},${y1} ${x2 - bend},${y2} ${x2},${y2}`;
+        const showGap = link.gap && y1 === y2 && x2 - x1 >= 80;
+        return h(
+          "g",
+          { key: link.key },
+          h("title", null, link.title),
+          h("path", {
+            d,
+            className: "series-link",
+            fill: "none",
+            stroke: row.color,
+            strokeWidth: 2,
+            markerEnd: `url(#${arrow})`,
+            "data-relations": link.pairs.length,
+          }),
+          h("path", {
+            d,
+            className: "series-link-hit",
+            fill: "none",
+            stroke: "transparent",
+            strokeWidth: 12,
+          }),
+          showGap
+            ? h(
+                "text",
+                {
+                  x: (x1 + x2) / 2,
+                  y: y1 - 9,
+                  textAnchor: "middle",
+                  className: "series-link-gap",
+                },
+                link.gap,
+              )
+            : null,
+        );
+      }),
+    );
+  }
   heatmap(models, today, range) {
     const cnt = {};
     models.forEach((m) => {
@@ -233,6 +310,11 @@ class Component extends DCLogic {
       muted: "#858892",
     });
     Object.assign(v, base, MC.ext(this.state, set), MC.ext2(this.state, set));
+    if (v.tl)
+      for (const row of v.tl.rows) {
+        if (row.isLine && row.links.length)
+          row.linksEl = this.linksEl(row, v.tl.width);
+      }
     // Native option text avoids the template runtime's interpolation spans inside <option>.
     const focus = v.vendorFocus;
     v.vendorSelect = React.createElement(

@@ -342,6 +342,7 @@
             family: row.family,
             n: versions.reduce((n, v) => n + v.n, 0),
             versions,
+            links: MC.timeline.versionLinks(versions),
             height: Math.max(82, laneEnds.length * 74 + 8),
             hideLabel: `隐藏 ${row.family} 系列的全部型号`,
             hide: () =>

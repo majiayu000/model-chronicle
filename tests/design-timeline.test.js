@@ -43,6 +43,7 @@ describe("series and version timeline", () => {
     expect(gpt.versions.find(v => v.label === "5.4").models.map(m => m.id).sort()).toEqual(["gpt-5-4", "gpt-5-4-mini", "gpt-5-4-nano", "gpt-5-4-pro"]);
     expect(gpt.versions.find(v => v.label === "6").models).toHaveLength(3);
     expect(gpt.n).toBe(17);
+    expect(gpt.links.length).toBeGreaterThan(0);
     expect(gpt).not.toHaveProperty("segs");
     expect(gpt).not.toHaveProperty("pending");
   });
@@ -83,6 +84,63 @@ describe("series and version timeline", () => {
     const versions = view({ vendors: ["openai"] }).tl.rows.find(r => r.family === "GPT").versions;
     for (const a of versions) for (const b of versions) if (a !== b && a.top === b.top) expect(a.px + a.width + 12 <= b.px || b.px + b.width + 12 <= a.px).toBe(true);
     expect(versions.find(v => v.label === "5.3").px).toBeLessThan(versions.find(v => v.label === "5.4").px);
+  });
+});
+
+describe("recorded successor connections", () => {
+  it("restores the real GPT paths, including branches that skip a version", () => {
+    const { view, mc } = load();
+    const row = view({ vendors: ["openai"] }).tl.rows[0];
+    const pairs = row.links.flatMap(link => link.pairs);
+    expect(pairs.map(pair => [pair.from, pair.to])).toEqual(expect.arrayContaining([
+      ["gpt-5-1", "gpt-5-2"], ["gpt-5-2", "gpt-5-4"],
+      ["gpt-5-3-instant", "gpt-5-5-instant"], ["gpt-5-4-mini", "gpt-5-6-luna"],
+      ["gpt-5-6-sol", "gpt-6-astra"],
+    ]));
+    for (const pair of pairs) expect(mc.byId[pair.to].predecessor).toBe(pair.from);
+    const first = row.links.find(link => link.source.label === "5.1" && link.target.label === "5.2");
+    expect(first.gap).toBe("29 天");
+    const last = row.links.find(link => link.source.label === "5.6" && link.target.label === "6");
+    expect(last.pairs).toHaveLength(3);
+    expect(last.title).toContain("GPT-5.6 Sol → GPT-6 Astra");
+    expect(last.gap).toBeNull();
+  });
+
+  it("does not bridge hidden, filtered or out-of-window intermediate models", () => {
+    const records = [model("first", "2025-10-01"),
+      model("middle", "2026-01-01", { predecessor: "first", specs: { ...base.specs, modalities_in: ["text"] } }),
+      model("last", "2026-05-01", { predecessor: "middle" })];
+    const { view } = load(records);
+    expect(view().tl.rows[0].links).toHaveLength(2);
+    expect(view({ hiddenModels: ["middle"] }).tl.rows[0].links).toEqual([]);
+    expect(view({ caps: ["vision"] }).tl.rows[0].links).toEqual([]);
+    const { view: recent } = load([model("old", "2024-01-01"), model("new", "2026-01-01", { predecessor: "old" })]);
+    expect(recent().tl.rows[0].links).toEqual([]);
+    expect(recent({ window: "all" }).tl.rows[0].links).toHaveLength(1);
+  });
+
+  it("retains only supported model pairs when some specifications of a version are hidden", () => {
+    const { view } = load();
+    const row = view({ vendors: ["openai"], hiddenModels: ["gpt-6-astra"] }).tl.rows[0];
+    const last = row.links.find(link => link.target.label === "6");
+    expect(last.pairs).toHaveLength(2);
+    expect(last.pairs.some(pair => pair.to === "gpt-6-astra")).toBe(false);
+    expect(view({ vendors: ["google"] }).tl.rows.find(r => r.family === "Gemma").links).toEqual([]);
+  });
+
+  it("renders valid SVG curves across staggered lanes with model-level explanations", () => {
+    const { render } = load();
+    const row = render({ vendors: ["openai"] }).tl.rows[0];
+    expect(row.linksEl.tag).toBe("svg");
+    const groups = row.linksEl.children.filter(child => child.tag === "g");
+    expect(groups).toHaveLength(row.links.length);
+    expect(row.links.some(link => link.source.top !== link.target.top)).toBe(true);
+    for (const group of groups) {
+      const path = group.children.find(child => child?.props?.className === "series-link");
+      expect(path.props.d).toMatch(/^M[\d., -]+ C[\d., -]+$/);
+      expect(path.props.d).not.toMatch(/NaN|undefined|\{\{/);
+      expect(group.children.find(child => child.tag === "title").children[0]).toContain("→");
+    }
   });
 });
 

@@ -390,6 +390,29 @@
             display: flex;
             align-items: center;
             gap: 4px;
+            z-index: 1;
+          }
+          .series-links {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+          }
+          .series-link-svg {
+            display: block;
+            overflow: visible;
+            pointer-events: none;
+          }
+          .series-link {
+            opacity: 0.8;
+          }
+          .series-link-hit {
+            pointer-events: stroke;
+          }
+          .series-link-gap {
+            font:
+              10px "Geist Mono",
+              monospace;
+            fill: #9a9ca3;
           }
           .version-open {
             display: flex;
@@ -406,6 +429,7 @@
             cursor: pointer;
             min-height: 30px;
             max-width: calc(100% - 32px);
+            width: calc(100% - 32px);
           }
           .version-open span {
             overflow: hidden;
@@ -455,6 +479,7 @@
             .version-open {
               min-height: 44px;
               max-width: calc(100% - 44px);
+              width: calc(100% - 44px);
             }
             .model-item {
               padding: 2px 0;
@@ -1451,7 +1476,7 @@
                 ></label
               >
               <span style="color: #9a9ca3; font-size: 12px"
-                >系列 → 版本 → 型号 · 时间位置表示发布记录，不代表继任关系</span
+                >实线表示已记录的型号继任关系；悬停连线查看具体型号与间隔</span
               >
               <div
                 style="
@@ -1650,6 +1675,11 @@
                         class="series-grid series-now"
                         style="left:{{ tl.todayPx }}px"
                       ></span>
+                      <sc-if value="{{ r.links.length }}"
+                        ><span class="series-links"
+                          >{{ r.linksEl }}</span
+                        ></sc-if
+                      >
                       <sc-for list="{{ r.versions }}" as="v"
                         ><div
                           class="version-node"

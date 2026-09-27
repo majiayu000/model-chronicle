@@ -180,6 +180,47 @@
       ),
     ];
   }
+  function versionLinks(versions) {
+    const visible = new Map();
+    for (const version of versions) {
+      for (const model of version.models) visible.set(model.id, version);
+    }
+    const links = new Map();
+    for (const target of versions) {
+      for (const item of target.models) {
+        const model = MC.byId[item.id];
+        const predecessor = model?.predecessor && MC.byId[model.predecessor];
+        const source = predecessor && visible.get(predecessor.id);
+        // Both actual endpoints must be visible. Never bridge a hidden or filtered model.
+        if (!source || source.key === target.key) continue;
+        const key = JSON.stringify([source.key, target.key]);
+        if (!links.has(key)) links.set(key, { key, source, target, pairs: [] });
+        links.get(key).pairs.push({
+          from: predecessor.id,
+          to: model.id,
+          label: `${predecessor.name} → ${model.name}`,
+          gap:
+            predecessor.dateKind === "ga" && model.dateKind === "ga"
+              ? MC.fmtGap(predecessor.date, model.date)
+              : null,
+        });
+      }
+    }
+    return [...links.values()].map((link) => {
+      const gaps = new Set(link.pairs.map((pair) => pair.gap));
+      return {
+        ...link,
+        title: link.pairs
+          .map(
+            (pair) =>
+              pair.label +
+              (pair.gap ? ` · ${pair.gap}` : " · 日期口径不同，不计算间隔"),
+          )
+          .join("\n"),
+        gap: gaps.size === 1 ? link.pairs[0].gap : null,
+      };
+    });
+  }
   MC.timeline = {
     windowRange,
     dateBounds,
@@ -190,5 +231,6 @@
     partition,
     normalizeVersionIds,
     normalizeHistoryIds,
+    versionLinks,
   };
 })();
