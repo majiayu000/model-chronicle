@@ -32,4 +32,6 @@ bun run audit:sources --limit=10  # 抽查 10 个来源；完整检查省略 --l
 
 支持 ⌘K / Ctrl+K 搜索、最多四个模型并排对比，以及 1–7 切换视图。视图、模型、筛选和对比选择可复制链接分享。对比中的基准高亮只使用已核实的同条件对照组，并可切换已核实的组；价格图使用发布时定价，模型详情中的有来源历史观测单独展示。
 
-第三方运行文件及其许可边界见 [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md)。仓库自行编写的代码与数据的再利用授权尚待仓库所有者选择。
+## 许可
+
+本项目原创代码与文档采用 [MIT 许可](LICENSE)；整理的模型记录及其 JSON/CSV 导出采用 [CC BY 4.0 数据许可](data/LICENSE.md)。再利用数据时请署名 Model Chronicle（majiayu000）、链接原项目及许可，并注明修改。第三方运行文件保留各自权利，边界见 [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md)。

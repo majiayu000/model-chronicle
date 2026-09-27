@@ -13,6 +13,7 @@ describe("static model pages", () => {
     expect((index.match(/href="\.\/[a-z0-9-]+\.html"/g) ?? []).length).toBe(data.length);
     expect((sitemap.match(/<loc>https:\/\/majiayu000\.github\.io\/model-chronicle\/model\/[a-z0-9-]+\.html<\/loc>/g) ?? []).length).toBe(data.length);
     for (const model of data) expect(existsSync(join(modelDir, `${model.id}.html`))).toBe(true);
+    expect(readFileSync(join(root, "public/dataset/LICENSE.md"), "utf8")).toContain("CC BY 4.0");
   });
 
   it("distinguishes announced-only dates and keeps historical prices sourced", () => {

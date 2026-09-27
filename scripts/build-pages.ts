@@ -16,7 +16,7 @@ function layout(title: string, description: string, canonical: string, body: str
   return `<!doctype html>
 <html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>${escape(title)}</title><meta name="description" content="${escape(description)}"><link rel="canonical" href="${escape(canonical)}"><link rel="stylesheet" href="./site.css"></head>
-<body><header><a class="brand" href="../">▦ <span>model-chronicle</span></a><nav><a href="./">模型索引</a><a href="../">交互时间轴</a></nav></header><main>${body}</main><footer>模型编年史 · 只展示已有来源的数据；未核实不等于零。 <a href="../dataset/models.csv">下载 CSV</a></footer></body></html>`;
+<body><header><a class="brand" href="../">▦ <span>model-chronicle</span></a><nav><a href="./">模型索引</a><a href="../">交互时间轴</a></nav></header><main>${body}</main><footer>模型编年史 · 只展示已有来源的数据；未核实不等于零。 <a href="../dataset/models.csv">下载 CSV</a> · <a href="../dataset/LICENSE.md">数据许可</a></footer></body></html>`;
 }
 
 function page(model: Model) {

@@ -1,4 +1,4 @@
-import { readdirSync, readFileSync, writeFileSync, mkdirSync, existsSync } from "node:fs";
+import { readdirSync, readFileSync, writeFileSync, mkdirSync, existsSync, copyFileSync } from "node:fs";
 import { join, basename } from "node:path";
 import { parse } from "yaml";
 import { validateModels } from "../src/lib/validate.ts";
@@ -42,6 +42,7 @@ if (errors.length > 0) {
 
 mkdirSync(OUT_DIR, { recursive: true });
 mkdirSync(DATASET_DIR, { recursive: true });
+copyFileSync(join(ROOT, "data/LICENSE.md"), join(DATASET_DIR, "LICENSE.md"));
 const data = models.map((m) => m.model);
 writeFileSync(
   join(OUT_DIR, "models.json"),

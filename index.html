@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="有来源的大模型发布时间线、规格、价格观测与同条件基准对照。">
 <link rel="canonical" href="https://majiayu000.github.io/model-chronicle/">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"Dataset","name":"模型编年史","description":"带来源的大模型发布时间、规格、发布价与基准观测数据集；缺失字段不代表零。","url":"https://majiayu000.github.io/model-chronicle/","distribution":[{"@type":"DataDownload","encodingFormat":"application/json","contentUrl":"https://majiayu000.github.io/model-chronicle/dataset/models.json"},{"@type":"DataDownload","encodingFormat":"text/csv","contentUrl":"https://majiayu000.github.io/model-chronicle/dataset/models.csv"}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Dataset","name":"模型编年史","description":"带来源的大模型发布时间、规格、发布价与基准观测数据集；缺失字段不代表零。","url":"https://majiayu000.github.io/model-chronicle/","creator":{"@type":"Organization","name":"Model Chronicle（majiayu000）"},"license":"https://creativecommons.org/licenses/by/4.0/","distribution":[{"@type":"DataDownload","encodingFormat":"application/json","contentUrl":"https://majiayu000.github.io/model-chronicle/dataset/models.json"},{"@type":"DataDownload","encodingFormat":"text/csv","contentUrl":"https://majiayu000.github.io/model-chronicle/dataset/models.csv"}]}</script>
 <style>x-dc{display:none}</style>
 <script type="module" src="/src/design/bootstrap.ts"></script>
 </head>
@@ -103,7 +103,7 @@
       <span>基准分数 <b>{{ coverage.benchmark }}</b>/{{ total }}</span><span>已记录评测条件 <b>{{ coverage.evaluation }}</b>/{{ total }}</span><span>架构资料 <b>{{ coverage.architecture }}</b>/{{ total }}</span><span>官方生命周期 <b>{{ coverage.lifecycle }}</b>/{{ total }}</span><span>超过 90 天未复核 <b>{{ coverage.stale }}</b></span>
     </div>
     <div style="border-top:1px solid #26282d;padding:10px 16px;font-size:12px;color:#9a9ca3;display:flex;gap:16px;flex-wrap:wrap">缺失字段表示尚无足够依据，不代表数值为零。
-      <a href="./model/">模型索引</a><a href="./dataset/review-queue.json" download>待复核清单</a><a href="./dataset/models.csv" download>CSV 数据</a><a href="./dataset/models.json" download>JSON 数据</a>
+      <a href="./model/">模型索引</a><a href="./dataset/review-queue.json" download>待复核清单</a><a href="./dataset/models.csv" download>CSV 数据</a><a href="./dataset/models.json" download>JSON 数据</a><a href="https://github.com/majiayu000/model-chronicle/blob/main/data/LICENSE.md">数据许可</a>
     </div>
   </details>
 </section>
