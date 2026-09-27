@@ -3,6 +3,7 @@ import { join, basename } from "node:path";
 import { parse } from "yaml";
 import { validateModels } from "../src/lib/validate.ts";
 import { coverage, reviewReasons } from "../src/lib/coverage.ts";
+import { modelsCsv, sortModels } from "../src/lib/export.ts";
 
 const ROOT = join(import.meta.dirname, "..");
 const MODELS_DIR = join(ROOT, "data/models");
@@ -13,9 +14,11 @@ function loadRaw(): { file: string; data: unknown }[] {
   if (!existsSync(MODELS_DIR)) throw new Error(`缺少数据目录 ${MODELS_DIR}`);
   return readdirSync(MODELS_DIR, { withFileTypes: true })
     .filter((d) => d.isDirectory())
+    .sort((a, b) => a.name < b.name ? -1 : a.name > b.name ? 1 : 0)
     .flatMap((d) =>
       readdirSync(join(MODELS_DIR, d.name))
         .filter((f) => f.endsWith(".yaml"))
+        .sort()
         .map((f) => {
           const file = join("data/models", d.name, f);
           return { file, data: parse(readFileSync(join(ROOT, file), "utf8")) };
@@ -43,16 +46,13 @@ if (errors.length > 0) {
 mkdirSync(OUT_DIR, { recursive: true });
 mkdirSync(DATASET_DIR, { recursive: true });
 copyFileSync(join(ROOT, "data/LICENSE.md"), join(DATASET_DIR, "LICENSE.md"));
-const data = models.map((m) => m.model);
+const data = sortModels(models.map((m) => m.model));
 writeFileSync(
   join(OUT_DIR, "models.json"),
   JSON.stringify(data, null, 2),
 );
 writeFileSync(join(DATASET_DIR, "models.json"), JSON.stringify(data, null, 2));
-const quote = (value: unknown) => `"${String(value ?? "").replaceAll('"', '""')}"`;
-const columns = ["id", "name", "vendor", "family", "tier", "announced", "ga", "input_per_mtok", "output_per_mtok", "verified_at", "sources"];
-const csv = [columns.join(","), ...data.map((m) => [m.id, m.name, m.vendor, m.family, m.tier, m.dates.announced, m.dates.ga, m.specs.pricing.input_per_mtok, m.specs.pricing.output_per_mtok, m.verified_at, m.sources.join(" | ")].map(quote).join(","))].join("\n") + "\n";
-writeFileSync(join(DATASET_DIR, "models.csv"), csv);
+writeFileSync(join(DATASET_DIR, "models.csv"), modelsCsv(data));
 const today = new Date().toISOString().slice(0, 10);
 writeFileSync(join(DATASET_DIR, "coverage.json"), JSON.stringify(coverage(data, today), null, 2));
 const reviewQueue = data.map((m) => ({ id: m.id, verified_at: m.verified_at, reasons: reviewReasons(m, today), sources: m.sources })).filter((m) => m.reasons.length);

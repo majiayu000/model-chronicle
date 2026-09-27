@@ -20,7 +20,7 @@ specs:
     - image
   modalities_out:
     - text
-  knowledge_cutoff: null
+  knowledge_cutoff: 2024-06
   params_b: null
   pricing:
     input_per_mtok: null

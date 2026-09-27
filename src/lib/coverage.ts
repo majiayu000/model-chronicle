@@ -25,6 +25,8 @@ export function coverage(models: Model[], today: string) {
     architecture: count((m) => !!m.arch),
     lifecycle: count((m) => !!m.dates.deprecated || !!m.dates.retired),
     priceHistory: count((m) => (m.price_history?.length ?? 0) > 1),
+    knowledgeCutoff: count((m) => m.specs.knowledge_cutoff !== null),
+    maxOutput: count((m) => m.specs.max_output !== null),
     stale: count((m) => reviewReasons(m, today).includes("stale")),
   };
 }

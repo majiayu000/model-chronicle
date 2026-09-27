@@ -108,3 +108,11 @@ verified_at: 2026-09-24
 4. 预览发布与正式可用分开记录：`announced` 填发布或预览日，`ga` 仅在来源明确可公开使用时填写。
 5. `verified_at` 表示本条已填写事实的核对时间；`null` 仍表示未知，不能被页面用示意值替代。
 6. `evaluation` 可以只记录已知条件；未填写 `comparison_group` 的分数仍仅作为来源观测点展示，不参与最高分、开源追赶、能力成本或前代分差计算。组名必须对应完整 `evaluation`，同组四项设置必须一致；不能仅因基准名称相同或同一张表就归入同组。
+
+生命周期日期采用厂商 API 的确切公告口径。不得将 ChatGPT 等消费产品下架、单个日期快照停用或最早可能下线日直接推广为整个型号的 API 下线日期。实验型号即使没有 GA 日期，也可以有明确的弃用/下线记录。
+
+## CSV 导出
+
+JSON 与 CSV 均按模型 `id` 的固定字符顺序导出，不依赖文件系统顺序。CSV 保留原先的前 11 列，扩为 27 列：新增 generation、predecessor、open_weights、reasoning、deprecated、retired、context_window、max_output、knowledge_cutoff、params_b、modalities_in、modalities_out、architecture、benchmarks、price_history、highlights。
+
+空单元格表示 null 或未提供；数字 0 与布尔 false 保留。模态、架构、基准（含评测条件与来源）、价格历史和关键变化使用单元格内 JSON；sources 延续 ` | ` 分隔。采用双引号包裹并转义逗号、引号和换行，读取时应使用 CSV 解析器。价格列仍为发布价，价格历史不能覆盖它。

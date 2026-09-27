@@ -10,8 +10,8 @@ reasoning: true
 dates:
   announced: 2025-11-18
   ga: 2025-11-18
-  deprecated: null
-  retired: null
+  deprecated: 2026-02-26
+  retired: 2026-03-09
 specs:
   context_window: 1048576
   max_output: 65536
@@ -41,4 +41,5 @@ highlights: []
 sources:
   - https://blog.google/products-and-platforms/products/gemini/gemini-3/
   - https://ai.google.dev/gemini-api/docs/models/gemini-3-pro-preview
+  - https://ai.google.dev/gemini-api/docs/changelog
 verified_at: 2026-09-25

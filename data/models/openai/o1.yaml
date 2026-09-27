@@ -10,8 +10,8 @@ reasoning: true
 dates:
   announced: 2024-12-05
   ga: 2024-12-05
-  deprecated: null
-  retired: null
+  deprecated: 2026-04-22
+  retired: 2026-10-23
 specs:
   context_window: 200000
   max_output: 100000
@@ -20,7 +20,7 @@ specs:
     - image
   modalities_out:
     - text
-  knowledge_cutoff: null
+  knowledge_cutoff: 2023-10
   params_b: null
   pricing:
     input_per_mtok: 15
@@ -30,4 +30,5 @@ highlights: []
 sources:
   - https://openai.com/index/o1-and-new-tools-for-developers/
   - https://developers.openai.com/api/docs/models/o1
+  - https://developers.openai.com/api/docs/deprecations
 verified_at: 2026-09-25

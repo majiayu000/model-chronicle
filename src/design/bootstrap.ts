@@ -1,4 +1,5 @@
 import models from "../generated/models.json";
+import application from "./application.js?raw";
 
 declare global {
   interface Window {
@@ -7,6 +8,8 @@ declare global {
 }
 
 window.__CHRONICLE_MODELS__ = models;
+const logic = document.querySelector("script[data-dc-script]");
+if (logic) logic.textContent = application;
 
 function loadScript(path: string): Promise<void> {
   return new Promise((resolve, reject) => {
@@ -23,10 +26,12 @@ async function boot() {
   await loadScript("graph-v2/vendor/react.production.min.js");
   await loadScript("graph-v2/vendor/react-dom.production.min.js");
   await loadScript("graph-v2/chronicle.js");
+  await loadScript("graph-v2/chronicle-timeline.js");
   await loadScript("graph-v2/chronicle-route.js");
   await loadScript("graph-v2/chronicle-vm.js");
   await loadScript("graph-v2/chronicle-ext.js");
   await loadScript("graph-v2/chronicle-ext2.js");
+  await loadScript("graph-v2/price-chart.js");
   await loadScript("graph-v2/support.js");
 }
 

@@ -10,7 +10,7 @@ dates:
   announced: 2024-02-15
   ga: 2024-05-23
   deprecated: null
-  retired: null
+  retired: 2025-09-29
 specs:
   context_window: 1000000
   max_output: null

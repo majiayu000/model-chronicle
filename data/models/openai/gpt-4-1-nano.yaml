@@ -9,8 +9,8 @@ open_weights: false
 dates:
   announced: 2025-04-14
   ga: 2025-04-14
-  deprecated: null
-  retired: null
+  deprecated: 2026-04-22
+  retired: 2026-10-23
 specs:
   context_window: 1047576
   max_output: 32768
@@ -19,7 +19,7 @@ specs:
     - image
   modalities_out:
     - text
-  knowledge_cutoff: null
+  knowledge_cutoff: 2024-06
   params_b: null
   pricing:
     input_per_mtok: 0.1
@@ -29,4 +29,5 @@ highlights: []
 sources:
   - https://openai.com/index/gpt-4-1/
   - https://developers.openai.com/api/docs/models/gpt-4.1-nano
+  - https://developers.openai.com/api/docs/deprecations
 verified_at: 2026-09-25

@@ -9,8 +9,8 @@ open_weights: false
 dates:
   announced: 2023-03-01
   ga: 2023-03-01
-  deprecated: null
-  retired: null
+  deprecated: 2026-04-22
+  retired: 2026-10-23
 specs:
   context_window: null
   max_output: null
@@ -28,4 +28,5 @@ highlights: []
 sources:
   - https://openai.com/index/introducing-chatgpt-and-whisper-apis/
   - https://developers.openai.com/api/docs/models/gpt-3.5-turbo
+  - https://developers.openai.com/api/docs/deprecations
 verified_at: 2026-09-25

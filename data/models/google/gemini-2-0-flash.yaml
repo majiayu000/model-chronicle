@@ -9,8 +9,8 @@ open_weights: false
 dates:
   announced: 2024-12-11
   ga: 2025-02-05
-  deprecated: null
-  retired: null
+  deprecated: 2026-02-18
+  retired: 2026-06-01
 specs:
   context_window: 1048576
   max_output: 8192
@@ -24,12 +24,14 @@ specs:
   knowledge_cutoff: null
   params_b: null
   pricing:
-    input_per_mtok: null
-    output_per_mtok: null
+    input_per_mtok: 0.1
+    output_per_mtok: 0.4
 benchmarks: []
 highlights: []
 sources:
   - https://blog.google/innovation-and-ai/models-and-research/google-deepmind/google-gemini-ai-update-december-2024/
   - https://blog.google/innovation-and-ai/models-and-research/google-deepmind/gemini-model-updates-february-2025/
   - https://ai.google.dev/gemini-api/docs/models/gemini-2.0-flash
+  - https://ai.google.dev/gemini-api/docs/changelog
+  - https://developers.googleblog.com/en/gemini-2-family-expands/
 verified_at: 2026-09-25

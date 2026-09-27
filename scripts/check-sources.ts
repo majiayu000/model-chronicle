@@ -1,6 +1,7 @@
 import { mkdirSync, writeFileSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 import type { Model } from "../src/lib/schema";
+import { checkSource } from "../src/lib/source-check";
 
 const root = join(import.meta.dirname, "..");
 const models = JSON.parse(readFileSync(join(root, "src/generated/models.json"), "utf8")) as Model[];
@@ -14,15 +15,7 @@ let next = 0;
 async function worker() {
   while (next < entries.length) {
     const [url, model_ids] = entries[next++];
-    let status: number | null = null;
-    let result = "unavailable";
-    try {
-      let response = await fetch(url, { method: "HEAD", signal: AbortSignal.timeout(8000), redirect: "follow" });
-      if ([403, 405].includes(response.status)) response = await fetch(url, { method: "GET", signal: AbortSignal.timeout(8000), redirect: "follow" });
-      status = response.status;
-      result = response.ok ? "reachable" : [404, 410].includes(status) ? "review_link" : [401, 403, 429].includes(status) ? "blocked" : "unavailable";
-      await response.body?.cancel();
-    } catch { /* Timeouts and network denials require a human check. */ }
+    const { status, result } = await checkSource(url);
     results.push({ url, model_ids, status, result });
   }
 }

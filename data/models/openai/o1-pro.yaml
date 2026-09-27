@@ -9,8 +9,8 @@ open_weights: false
 dates:
   announced: 2024-12-05
   ga: 2024-12-05
-  deprecated: null
-  retired: null
+  deprecated: 2026-04-22
+  retired: 2026-10-23
 specs:
   context_window: 200000
   max_output: 100000
@@ -29,5 +29,6 @@ highlights: []
 sources:
   - https://openai.com/index/introducing-chatgpt-pro/
   - https://developers.openai.com/api/docs/models/o1-pro
+  - https://developers.openai.com/api/docs/deprecations
 verified_at: 2026-09-25
 reasoning: true

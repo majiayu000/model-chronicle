@@ -10,8 +10,8 @@ reasoning: true
 dates:
   announced: 2024-09-12
   ga: 2024-09-12
-  deprecated: null
-  retired: null
+  deprecated: 2025-04-28
+  retired: 2025-07-28
 specs:
   context_window: 128000
   max_output: 32768
@@ -19,7 +19,7 @@ specs:
     - text
   modalities_out:
     - text
-  knowledge_cutoff: null
+  knowledge_cutoff: 2023-10
   params_b: null
   pricing:
     input_per_mtok: 15
@@ -29,4 +29,5 @@ highlights: []
 sources:
   - https://openai.com/index/introducing-openai-o1-preview/
   - https://developers.openai.com/api/docs/models/o1-preview
+  - https://developers.openai.com/api/docs/deprecations
 verified_at: 2026-09-25

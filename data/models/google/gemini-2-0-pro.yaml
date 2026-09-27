@@ -9,8 +9,8 @@ open_weights: false
 dates:
   announced: 2025-02-05
   ga: null
-  deprecated: null
-  retired: null
+  deprecated: 2025-11-04
+  retired: 2025-12-09
 specs:
   context_window: 2000000
   max_output: null
@@ -27,4 +27,5 @@ benchmarks: []
 highlights: []
 sources:
   - https://blog.google/innovation-and-ai/models-and-research/google-deepmind/gemini-model-updates-february-2025/
+  - https://ai.google.dev/gemini-api/docs/changelog
 verified_at: 2026-09-25

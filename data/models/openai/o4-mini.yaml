@@ -10,8 +10,8 @@ reasoning: true
 dates:
   announced: 2025-04-16
   ga: 2025-04-16
-  deprecated: null
-  retired: null
+  deprecated: 2026-04-22
+  retired: 2026-10-23
 specs:
   context_window: 200000
   max_output: 100000
@@ -20,7 +20,7 @@ specs:
     - image
   modalities_out:
     - text
-  knowledge_cutoff: null
+  knowledge_cutoff: 2024-06
   params_b: null
   pricing:
     input_per_mtok: 1.1
@@ -30,4 +30,5 @@ highlights: []
 sources:
   - https://openai.com/index/introducing-o3-and-o4-mini/
   - https://developers.openai.com/api/docs/models/o4-mini
+  - https://developers.openai.com/api/docs/deprecations
 verified_at: 2026-09-25

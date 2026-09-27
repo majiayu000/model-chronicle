@@ -9,8 +9,8 @@ open_weights: false
 dates:
   announced: 2025-02-27
   ga: 2025-02-27
-  deprecated: null
-  retired: null
+  deprecated: 2025-04-14
+  retired: 2025-07-14
 specs:
   context_window: 128000
   max_output: 16384
@@ -29,4 +29,5 @@ highlights: []
 sources:
   - https://openai.com/index/introducing-gpt-4-5/
   - https://developers.openai.com/api/docs/models/gpt-4.5-preview
+  - https://developers.openai.com/api/docs/deprecations
 verified_at: 2026-09-25

@@ -4,5 +4,6 @@ src/generated
 public/dataset
 public/model
 public/sitemap.xml
+public/robots.txt
 .DS_Store
 outputs/

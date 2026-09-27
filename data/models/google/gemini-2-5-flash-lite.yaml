@@ -8,7 +8,7 @@ predecessor: gemini-2-0-flash-lite
 open_weights: false
 dates:
   announced: 2025-06-17
-  ga: null
+  ga: 2025-07-22
   deprecated: null
   retired: null
 specs:
@@ -21,14 +21,15 @@ specs:
     - audio
   modalities_out:
     - text
-  knowledge_cutoff: null
+  knowledge_cutoff: 2025-01
   params_b: null
   pricing:
-    input_per_mtok: null
-    output_per_mtok: null
+    input_per_mtok: 0.1
+    output_per_mtok: 0.4
 benchmarks: []
 highlights: []
 sources:
   - https://blog.google/products-and-platforms/products/gemini/gemini-2-5-model-family-expands/
   - https://ai.google.dev/gemini-api/docs/models/gemini-2.5-flash-lite
+  - https://developers.googleblog.com/en/gemini-25-flash-lite-is-now-stable-and-generally-available/
 verified_at: 2026-09-25
