@@ -290,6 +290,12 @@
           (m) => pass(m) && MC.timeline.inWindow(m, range),
         );
         const dates = anchors.map((m) => m.date).sort();
+        const multiple = visible.length > 1;
+        const architectures = new Set(visible.map((m) => m.archType));
+        const architecture =
+          architectures.size === 1 ? visible[0].archType : null;
+        const reasoning = visible.every((m) => m.reasoning);
+        const announcedOnly = visible.every((m) => m.dateKind === "announced");
         return {
           key: v.id,
           label: v.label,
@@ -302,16 +308,30 @@
             dates[0] === dates.at(-1)
               ? dates[0]
               : `${dates[0]} — ${dates.at(-1)}`,
-          expanded: (s.variants || []).includes(v.id),
-          action: `${v.name}：${(s.variants || []).includes(v.id) ? "收起" : "展开"} ${visible.length} 个型号`,
-          toggle: () =>
-            set({ variants: tog(s.variants || [], v.id), hover: null }),
+          multiple,
+          dense: architecture === "dense",
+          moe: architecture === "moe",
+          unknown: !architecture,
+          reasoning,
+          announcedOnly,
+          markerHint: `${v.name} · ${dates.join(" / ")} · ${architecture || "架构未公开或不一致"}${reasoning ? " · 推理" : ""}`,
+          expanded: multiple && (s.variants || []).includes(v.id),
+          expansionState: multiple ? (s.variants || []).includes(v.id) : null,
+          expansionTarget: multiple ? v.id : null,
+          action: multiple
+            ? `${v.name}：${(s.variants || []).includes(v.id) ? "收起" : "展开"} ${visible.length} 个型号`
+            : `查看 ${visible[0].name} 详情`,
+          toggle: multiple
+            ? () => set({ variants: tog(s.variants || [], v.id), hover: null })
+            : open(visible[0].id),
           models: visible.map(chip),
-          hideLabel: `隐藏 ${v.name} 的全部型号`,
+          hideLabel: multiple
+            ? `隐藏 ${v.name} 的全部型号`
+            : `隐藏 ${visible[0].name}`,
           hide: () =>
             hide(
-              original.models.map((m) => m.id),
-              v.name,
+              multiple ? original.models.map((m) => m.id) : [visible[0].id],
+              multiple ? v.name : visible[0].name,
             ),
         };
       };
@@ -319,13 +339,55 @@
         const vendorRows = [];
         for (const row of grouped.rows.filter((row) => row.vendor === vendor)) {
           const versions = row.versions.map(toVersion).filter(Boolean);
-          const laneEnds = [];
+          const touch = window.matchMedia?.("(pointer: coarse)")?.matches;
+          const control = touch ? 44 : 24,
+            step = control + 8,
+            baseline = touch ? 64 : 48;
+          const labelEnds = [];
+          // Partition pointer targets between nearby dates without moving their glyphs.
+          const positions = [...new Set(versions.map((v) => v.px))].sort(
+            (a, b) => a - b,
+          );
+          positions.forEach((px, i) => {
+            const members = versions.filter((v) => v.px === px);
+            const left = Math.max(
+              px - 10,
+              i ? (positions[i - 1] + px) / 2 : px - 10,
+            );
+            const right = Math.min(
+              px + 10,
+              i + 1 < positions.length ? (positions[i + 1] + px) / 2 : px + 10,
+            );
+            members.forEach((v, j) => {
+              v.hitWidth = (right - left) / members.length;
+              v.hitLeft = left - px + j * v.hitWidth;
+              v.hitOffset = -v.hitLeft;
+              v.glyphLeft = -v.hitLeft - 7;
+              v.rimLeft = -v.hitLeft - 14;
+            });
+          });
           for (const v of versions) {
-            let lane = laneEnds.findIndex((end) => end + 12 <= v.px);
-            if (lane < 0) lane = laneEnds.length;
-            v.width = Math.min(188, Math.max(100, 64 + v.label.length * 7));
-            laneEnds[lane] = v.px + v.width;
-            v.top = 12 + lane * 74;
+            // Only labels alternate; every marker and the main successor line stay on one baseline.
+            const nameWidth = Math.min(
+              150,
+              Math.max(20, v.label.length * 6 + (v.multiple ? 18 : 0)),
+            );
+            const labelLeft = Math.max(-nameWidth / 2, control + 4 - v.px);
+            const left = v.px + labelLeft - control,
+              right = v.px + labelLeft + nameWidth;
+            let lane = labelEnds.findIndex((end) => end + 8 <= left);
+            if (lane < 0) lane = labelEnds.length;
+            labelEnds[lane] = right;
+            v.top = baseline;
+            v.labelLane = lane;
+            v.labelTop =
+              lane === 1 ? -(control + 14) : 18 + Math.max(0, lane - 1) * step;
+            v.labelLeft = labelLeft;
+            v.labelWidth = nameWidth;
+            v.hideLeft = labelLeft - control;
+            v.ring = v.reasoning
+              ? `0 0 0 2px #141518,0 0 0 3px ${MC.V[vendor].color}`
+              : "none";
           }
           const earlier =
             range.mode === "all"
@@ -343,7 +405,12 @@
             n: versions.reduce((n, v) => n + v.n, 0),
             versions,
             links: MC.timeline.versionLinks(versions),
-            height: Math.max(82, laneEnds.length * 74 + 8),
+            height:
+              baseline +
+              18 +
+              Math.max(0, labelEnds.length - 2) * step +
+              control +
+              10,
             hideLabel: `隐藏 ${row.family} 系列的全部型号`,
             hide: () =>
               hide(

@@ -146,10 +146,6 @@ class Component extends DCLogic {
   }
   linksEl(row, width) {
     const h = React.createElement;
-    const touch = window.matchMedia?.("(pointer: coarse)")?.matches;
-    const inset = touch ? 44 : 32,
-      center = touch ? 22 : 15;
-    const arrow = `arrow-${row.key}`;
     return h(
       "svg",
       {
@@ -159,32 +155,17 @@ class Component extends DCLogic {
         role: "img",
         "aria-label": `${row.family} 已记录的继任关系`,
       },
-      h(
-        "defs",
-        null,
-        h(
-          "marker",
-          {
-            id: arrow,
-            viewBox: "0 0 8 8",
-            refX: 7,
-            refY: 4,
-            markerWidth: 5,
-            markerHeight: 5,
-            orient: "auto",
-            markerUnits: "strokeWidth",
-          },
-          h("path", { d: "M0 0L8 4L0 8Z", fill: row.color }),
-        ),
-      ),
       ...row.links.map((link) => {
-        const x1 = link.source.px + link.source.width,
-          y1 = link.source.top + center;
-        const x2 = link.target.px + inset,
-          y2 = link.target.top + center;
-        const bend = Math.max(18, Math.min(64, Math.abs(x2 - x1) / 2));
-        const d = `M${x1},${y1} C${x1 + bend},${y1} ${x2 - bend},${y2} ${x2},${y2}`;
-        const showGap = link.gap && y1 === y2 && x2 - x1 >= 80;
+        const x1 = link.source.px + 8,
+          x2 = link.target.px - 8,
+          y = link.source.top;
+        const sourceIndex = row.versions.indexOf(link.source),
+          targetIndex = row.versions.indexOf(link.target);
+        const branch = Math.abs(targetIndex - sourceIndex) > 1;
+        const d = branch
+          ? `M${x1},${y} Q${(x1 + x2) / 2},${y - 36} ${x2},${y}`
+          : `M${x1},${y} H${x2}`;
+        const showGap = link.gap && !branch && x2 - x1 >= 64;
         return h(
           "g",
           { key: link.key },
@@ -195,7 +176,6 @@ class Component extends DCLogic {
             fill: "none",
             stroke: row.color,
             strokeWidth: 2,
-            markerEnd: `url(#${arrow})`,
             "data-relations": link.pairs.length,
           }),
           h("path", {
@@ -210,7 +190,7 @@ class Component extends DCLogic {
                 "text",
                 {
                   x: (x1 + x2) / 2,
-                  y: y1 - 9,
+                  y: y - 9,
                   textAnchor: "middle",
                   className: "series-link-gap",
                 },

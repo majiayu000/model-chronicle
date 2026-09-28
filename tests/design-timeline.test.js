@@ -79,15 +79,31 @@ describe("series and version timeline", () => {
     expect(v.dateRange).toBe("2026-04-02 — 2026-06-03");
     expect(view({ vendors: ["google"], tiers: ["small"] }).tl.rows.find(r => r.family === "Gemma").versions[0].models).toHaveLength(3);
   });
-  it("separates near-simultaneous version controls without shifting their time coordinates", () => {
+  it("keeps every marker on one baseline and only alternates close labels", () => {
     const { view, window } = load(); window.innerWidth = 390;
     const versions = view({ vendors: ["openai"] }).tl.rows.find(r => r.family === "GPT").versions;
-    for (const a of versions) for (const b of versions) if (a !== b && a.top === b.top) expect(a.px + a.width + 12 <= b.px || b.px + b.width + 12 <= a.px).toBe(true);
+    expect(new Set(versions.map(v => v.top)).size).toBe(1);
+    for (const a of versions) for (const b of versions) if (a !== b && a.labelLane === b.labelLane) {
+      const leftA = a.px + a.hideLeft, rightA = a.px + a.labelLeft + a.labelWidth;
+      const leftB = b.px + b.hideLeft, rightB = b.px + b.labelLeft + b.labelWidth;
+      expect(rightA + 8 <= leftB || rightB + 8 <= leftA).toBe(true);
+    }
     expect(versions.find(v => v.label === "5.3").px).toBeLessThan(versions.find(v => v.label === "5.4").px);
+    const a = versions.find(v => v.label === "5.3"), b = versions.find(v => v.label === "5.4");
+    expect(a.px + a.hitLeft + a.hitWidth).toBeLessThanOrEqual(b.px + b.hitLeft);
+    for (const v of versions) expect(v.hitLeft + v.glyphLeft + 7).toBe(0);
   });
 });
 
 describe("recorded successor connections", () => {
+  it("keeps the entire Opus chain horizontal without staggering 4.8", () => {
+    const { render } = load();
+    const row = render({ vendors: ["anthropic"] }).tl.rows.find(r => r.family === "Opus");
+    expect(row.versions.map(v => v.top)).toEqual(Array(6).fill(48));
+    const paths = row.linksEl.children.filter(c => c.tag === "g").map(g => g.children.find(c => c?.props?.className === "series-link").props.d);
+    expect(paths).toHaveLength(5);
+    expect(paths.every(d => /^M[\d.]+,48 H[\d.]+$/.test(d))).toBe(true);
+  });
   it("restores the real GPT paths, including branches that skip a version", () => {
     const { view, mc } = load();
     const row = view({ vendors: ["openai"] }).tl.rows[0];
@@ -128,19 +144,54 @@ describe("recorded successor connections", () => {
     expect(view({ vendors: ["google"] }).tl.rows.find(r => r.family === "Gemma").links).toEqual([]);
   });
 
-  it("renders valid SVG curves across staggered lanes with model-level explanations", () => {
+  it("renders horizontal successor lines and uses arcs only for real skip-version branches", () => {
     const { render } = load();
     const row = render({ vendors: ["openai"] }).tl.rows[0];
     expect(row.linksEl.tag).toBe("svg");
     const groups = row.linksEl.children.filter(child => child.tag === "g");
     expect(groups).toHaveLength(row.links.length);
-    expect(row.links.some(link => link.source.top !== link.target.top)).toBe(true);
+    expect(row.links.every(link => link.source.top === link.target.top)).toBe(true);
     for (const group of groups) {
       const path = group.children.find(child => child?.props?.className === "series-link");
-      expect(path.props.d).toMatch(/^M[\d., -]+ C[\d., -]+$/);
+      expect(path.props.d).toMatch(/^M[\d., -]+ [HQ][\d., -]+$/);
       expect(path.props.d).not.toMatch(/NaN|undefined|\{\{/);
       expect(group.children.find(child => child.tag === "title").children[0]).toContain("→");
     }
+  });
+});
+
+describe("original model glyphs", () => {
+  it("restores Dense circles, MoE diamonds, unknown outlines and reasoning rings from recorded fields", () => {
+    const { view } = load([
+      model("dense", "2026-01-01", { arch: { type: "dense", source: base.sources[0] } }),
+      model("moe", "2026-02-01", { arch: { type: "moe", source: base.sources[0] }, reasoning: true }),
+      model("unknown", "2026-03-01", { arch: null, reasoning: true }),
+      model("preview", "2026-04-01", { dates: { announced: "2026-04-01", ga: null, deprecated: null, retired: null } }),
+    ]);
+    const versions = view().tl.rows[0].versions;
+    expect(versions[0]).toMatchObject({ dense: true, moe: false, unknown: false });
+    expect(versions[1]).toMatchObject({ dense: false, moe: true, reasoning: true });
+    expect(versions[2]).toMatchObject({ unknown: true, reasoning: true });
+    expect(versions[1].ring).not.toBe("none");
+    expect(versions[3].announcedOnly).toBe(true);
+  });
+  it("opens single models directly and reserves expansion for actual multiple-model versions", () => {
+    const { view, changes } = load();
+    const opus = view({ vendors: ["anthropic"] }).tl.rows.find(r => r.family === "Opus").versions.find(v => v.label === "4.8");
+    expect(opus.multiple).toBe(false);
+    opus.toggle({ preventDefault() {} });
+    expect(changes.at(-1)).toMatchObject({ view: "detail", id: "claude-opus-4-8" });
+    expect(view({ vendors: ["anthropic"], variants: [opus.key] }).tl.rows.find(r => r.family === "Opus").versions.find(v => v.key === opus.key).expanded).toBe(false);
+    const gpt = view({ vendors: ["openai"] }).tl.rows[0].versions.find(v => v.label === "6");
+    expect(gpt.multiple).toBe(true); gpt.toggle();
+    expect(changes.at(-1)).toMatchObject({ variants: [gpt.key] });
+  });
+  it("does not present a mixed-architecture version as a verified MoE or Dense model", () => {
+    const { view } = load([
+      model("one", "2026-01-01", { generation: "1", arch: { type: "dense", source: base.sources[0] } }),
+      model("two", "2026-01-01", { generation: "1", arch: { type: "moe", source: base.sources[0] } }),
+    ]);
+    expect(view().tl.rows[0].versions[0]).toMatchObject({ multiple: true, unknown: true, moe: false, dense: false });
   });
 });
 
