@@ -300,12 +300,29 @@
           }
           .hide-notice {
             position: fixed;
-            bottom: 48px;
+            bottom: 100px;
             left: 50%;
             transform: translateX(-50%);
             width: min(520px, calc(100vw - 32px));
             z-index: 60;
             box-shadow: 0 8px 24px #0006;
+          }
+          .hidden-recovery-dock {
+            position: fixed;
+            right: 16px;
+            bottom: 48px;
+            z-index: 65;
+            box-shadow: 0 4px 20px #0008;
+          }
+          .hidden-panel {
+            position: fixed;
+            right: 16px;
+            bottom: 100px;
+            width: min(420px, calc(100vw - 32px));
+            max-height: calc(100dvh - 180px);
+            overflow: auto;
+            z-index: 70;
+            box-shadow: 0 8px 32px #0009;
           }
           .hidden-panel-header,
           .hidden-model-row,
@@ -1286,6 +1303,18 @@
           >
             已隐藏 {{ visibility.count }}
           </button>
+          <sc-if value="{{ visibility.count }}">
+            <button
+              type="button"
+              class="hidden-manager-toggle hidden-recovery-dock"
+              data-hidden-recovery
+              aria-expanded="{{ visibility.managerOpen }}"
+              aria-controls="hidden-model-panel"
+              onClick="{{ visibility.toggleManager }}"
+            >
+              恢复隐藏模型（{{ visibility.count }}）
+            </button>
+          </sc-if>
           <span class="window-summary"
             >显示 {{ tl.visibleCount }} / {{ visibility.eligible }} 个型号 · {{
             tl.rowCount }} 个系列 · 范围内隐藏 {{ visibility.inScope }} 个</span
@@ -1302,8 +1331,21 @@
               aria-label="已隐藏模型"
             >
               <div class="hidden-panel-header">
-                <strong>已隐藏模型</strong
-                ><button type="button" onClick="{{ visibility.restoreAll }}">
+                <strong>已隐藏模型</strong>
+                <button
+                  type="button"
+                  data-hidden-close
+                  aria-label="关闭已隐藏模型"
+                  onClick="{{ visibility.toggleManager }}"
+                >
+                  关闭
+                </button>
+              </div>
+              <p>
+                恢复后仍按当前厂商、时间和能力筛选显示；早期型号可在“全部历史”查看。
+              </p>
+              <div class="hidden-panel-header">
+                <button type="button" onClick="{{ visibility.restoreAll }}">
                   全部恢复
                 </button>
               </div>
@@ -1324,7 +1366,7 @@
               </div>
             </div></sc-if
           >
-          <sc-if value="{{ visibility.hasNotice }}"
+          <sc-if value="{{ visibility.hasNotice && !visibility.managerOpen }}"
             ><div class="hide-notice" role="status">
               <span>{{ visibility.notice }}</span
               ><button
@@ -2030,7 +2072,16 @@
                   border-top: 1px solid #26282d;
                 "
               >
-                当前范围没有可见型号；可切换全部历史、展开窗口外系列，或从“已隐藏”恢复。
+                <p>当前范围没有可见型号；可切换全部历史、展开窗口外系列。</p>
+                <sc-if value="{{ visibility.count }}"
+                  ><button
+                    type="button"
+                    class="hidden-manager-toggle"
+                    onClick="{{ visibility.toggleManager }}"
+                  >
+                    选择隐藏模型并恢复
+                  </button></sc-if
+                >
               </div></sc-if
             >
           </section>

@@ -14,14 +14,17 @@ class Component extends DCLogic {
       }
     }
     this.setState(patch, () => {
-      if (Object.hasOwn(patch, "hiddenModels")) {
-        document
-          .querySelector(
-            patch.hideUndo?.length
-              ? "[data-hide-undo]"
-              : "[data-hidden-manager]",
-          )
-          ?.focus();
+      if (
+        Object.hasOwn(patch, "hiddenModels") ||
+        Object.hasOwn(patch, "hiddenManager")
+      ) {
+        const target = this.state.hiddenManager
+          ? document.querySelector("[data-hidden-close]")
+          : patch.hideUndo?.length
+            ? document.querySelector("[data-hide-undo]")
+            : document.querySelector("[data-hidden-recovery]") ||
+              document.querySelector("[data-hidden-manager]");
+        target?.focus({ preventScroll: true });
       }
       const MC = window.MC;
       if (!MC?.route) return;
@@ -80,6 +83,10 @@ class Component extends DCLogic {
       }
       if (e.key === "Escape" && this.state.pal) {
         this.update({ pal: false });
+        return;
+      }
+      if (e.key === "Escape" && this.state.hiddenManager) {
+        this.update({ hiddenManager: false });
         return;
       }
       if (

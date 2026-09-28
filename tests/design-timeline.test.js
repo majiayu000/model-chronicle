@@ -14,7 +14,8 @@ function load(records = catalog, initialStorage) {
   const window = { __CHRONICLE_MODELS__: records, scrollTo() {}, localStorage: storage,
     location: { hash: "#/timeline" }, addEventListener() {}, removeEventListener() {} };
   window.history = { pushState: (_a, _b, hash) => window.location.hash = hash, replaceState: (_a, _b, hash) => window.location.hash = hash };
-  const context = createContext({ window, URL, URLSearchParams, document: { querySelector: () => ({ focus() {} }) },
+  const focused = [];
+  const context = createContext({ window, URL, URLSearchParams, document: { querySelector: selector => ({ focus(options) { focused.push({ selector, options }); } }) },
     React: { Component: class {}, createElement(tag, props, ...children) { return { tag, props, children }; } },
     DCLogic: class { setState(p, callback) { this.state = { ...this.state, ...p }; callback?.(); } } });
   for (const name of ["chronicle.js", "chronicle-timeline.js", "chronicle-visibility.js", "chronicle-route.js", "chronicle-vm.js", "chronicle-ext.js", "chronicle-ext2.js"]) {
@@ -29,7 +30,7 @@ function load(records = catalog, initialStorage) {
     result.state = { ...mc.initState(), ready: true, ...state };
     return result;
   }
-  return { mc, window, view, app, render: state => app(state).renderVals(), changes, storage };
+  return { mc, window, view, app, render: state => app(state).renderVals(), changes, storage, focused };
 }
 const liveIds = v => v.tl.rows.filter(r => r.isLine).flatMap(r => r.versions.flatMap(v => v.models.map(m => m.id)));
 
@@ -318,5 +319,23 @@ describe("shared display state", () => {
     const result = mc.route.parse("#/timeline?variants=variants-google%252Fgemma%252F4&history=claude-3-opus");
     expect(result.variants).toEqual(["version-google%2Fgemma%2F4"]);
     expect(result.history).toEqual(["series-anthropic-opus"]);
+  });
+});
+
+ describe("hidden model recovery panel", () => {
+  it("can reopen persisted hidden models, restore one and return focus without scrolling", () => {
+    const { app, storage, mc, focused } = load();
+    mc.visibility.save(storage, ["claude-opus-4-8"]);
+    const instance = app(); instance.componentDidMount();
+    instance.renderVals().visibility.toggleManager();
+    expect(instance.state.hiddenManager).toBe(true);
+    expect(focused.at(-1)).toEqual({ selector: "[data-hidden-close]", options: { preventScroll: true } });
+    const row = instance.renderVals().visibility.rows.find(r => r.name === "Claude Opus 4.8");
+    row.restore();
+    expect(liveIds(instance.renderVals())).toContain("claude-opus-4-8");
+    expect(mc.visibility.load(storage).ids).toEqual([]);
+    instance._key({ key: "Escape" });
+    expect(instance.state.hiddenManager).toBe(false);
+    expect(focused.at(-1).options.preventScroll).toBe(true);
   });
 });
