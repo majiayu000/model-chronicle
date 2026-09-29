@@ -1,0 +1,31 @@
+id: olmo-3-7b-base
+name: Olmo 3 7B Base
+vendor: allenai
+family: olmo
+tier: small
+generation: 3 Base
+predecessor: null
+open_weights: true
+dates:
+  announced: '2025-11-20'
+  ga: '2025-11-20'
+  deprecated: null
+  retired: null
+specs:
+  context_window: null
+  max_output: null
+  modalities_in:
+  - text
+  modalities_out:
+  - text
+  knowledge_cutoff: null
+  params_b: 7
+  pricing:
+    input_per_mtok: null
+    output_per_mtok: null
+benchmarks: []
+highlights:
+- 公开完整训练流程的 Olmo 3 基座模型
+sources:
+- https://allenai.org/blog/olmo3
+verified_at: '2026-09-30'

@@ -1,0 +1,31 @@
+id: lfm-2-350m
+name: LFM2-350M
+vendor: liquid
+family: lfm
+tier: small
+generation: '2'
+predecessor: null
+open_weights: true
+dates:
+  announced: '2025-07-10'
+  ga: '2025-07-10'
+  deprecated: null
+  retired: null
+specs:
+  context_window: null
+  max_output: null
+  modalities_in:
+  - text
+  modalities_out:
+  - text
+  knowledge_cutoff: null
+  params_b: 0.35
+  pricing:
+    input_per_mtok: null
+    output_per_mtok: null
+benchmarks: []
+highlights:
+- 面向端侧部署，采用短卷积与注意力混合架构
+sources:
+- https://www.liquid.ai/blog/liquid-foundation-models-v2-our-second-series-of-generative-ai-models
+verified_at: '2026-09-30'

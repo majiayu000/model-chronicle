@@ -1,0 +1,31 @@
+id: falcon-3-1b-instruct
+name: Falcon3-1B-Instruct
+vendor: tii
+family: falcon
+tier: small
+generation: '3'
+predecessor: null
+open_weights: true
+dates:
+  announced: '2024-12-17'
+  ga: '2024-12-17'
+  deprecated: null
+  retired: null
+specs:
+  context_window: null
+  max_output: null
+  modalities_in:
+  - text
+  modalities_out:
+  - text
+  knowledge_cutoff: null
+  params_b: 1
+  pricing:
+    input_per_mtok: null
+    output_per_mtok: null
+benchmarks: []
+highlights:
+- 开放权重指令模型，覆盖英语、法语、西班牙语和葡萄牙语
+sources:
+- https://www.tii.ae/news/falcon-3-uaes-technology-innovation-institute-launches-worlds-most-powerful-small-ai-models
+verified_at: '2026-09-30'

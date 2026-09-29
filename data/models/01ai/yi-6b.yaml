@@ -1,0 +1,31 @@
+id: yi-6b
+name: Yi-6B
+vendor: 01ai
+family: yi
+tier: small
+generation: 1 Base
+predecessor: null
+open_weights: true
+dates:
+  announced: '2023-11-02'
+  ga: '2023-11-02'
+  deprecated: null
+  retired: null
+specs:
+  context_window: 4096
+  max_output: null
+  modalities_in:
+  - text
+  modalities_out:
+  - text
+  knowledge_cutoff: null
+  params_b: 6
+  pricing:
+    input_per_mtok: null
+    output_per_mtok: null
+benchmarks: []
+highlights:
+- 中英双语开放权重基座模型
+sources:
+- https://github.com/01-ai/Yi
+verified_at: '2026-09-30'

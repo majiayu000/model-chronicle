@@ -1,0 +1,31 @@
+id: jamba
+name: Jamba
+vendor: ai21
+family: jamba
+tier: mid
+generation: '1'
+predecessor: null
+open_weights: true
+dates:
+  announced: '2024-03-28'
+  ga: '2024-03-28'
+  deprecated: null
+  retired: null
+specs:
+  context_window: 256000
+  max_output: null
+  modalities_in:
+  - text
+  modalities_out:
+  - text
+  knowledge_cutoff: null
+  params_b: 52
+  pricing:
+    input_per_mtok: null
+    output_per_mtok: null
+benchmarks: []
+highlights:
+- 融合 SSM、Transformer 与专家混合的开放权重模型
+sources:
+- https://www.ai21.com/blog/announcing-jamba/
+verified_at: '2026-09-30'

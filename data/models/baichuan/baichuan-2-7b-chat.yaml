@@ -1,0 +1,33 @@
+id: baichuan-2-7b-chat
+name: Baichuan2-7B-Chat
+vendor: baichuan
+family: baichuan
+tier: small
+generation: '2'
+predecessor: null
+open_weights: true
+dates:
+  announced: '2023-09-06'
+  ga: '2023-09-06'
+  deprecated: null
+  retired: null
+specs:
+  context_window: 4096
+  max_output: null
+  modalities_in:
+  - text
+  modalities_out:
+  - text
+  knowledge_cutoff: null
+  params_b: 7
+  pricing:
+    input_per_mtok: null
+    output_per_mtok: null
+benchmarks: []
+highlights:
+- 开源中英双语对话模型
+sources:
+- https://github.com/baichuan-inc/Baichuan-7B
+- https://github.com/baichuan-inc/Baichuan2
+- https://huggingface.co/baichuan-inc/Baichuan2-7B-Chat/blob/main/config.json
+verified_at: '2026-09-30'

@@ -1,0 +1,31 @@
+id: internlm-2-20b-chat
+name: InternLM2-20B-Chat
+vendor: internlm
+family: internlm
+tier: mid
+generation: '2'
+predecessor: internlm-20b-chat
+open_weights: true
+dates:
+  announced: '2024-01-17'
+  ga: '2024-01-17'
+  deprecated: null
+  retired: null
+specs:
+  context_window: null
+  max_output: null
+  modalities_in:
+  - text
+  modalities_out:
+  - text
+  knowledge_cutoff: null
+  params_b: 20
+  pricing:
+    input_per_mtok: null
+    output_per_mtok: null
+benchmarks: []
+highlights:
+- 书生浦语第二代通用对话模型
+sources:
+- https://github.com/InternLM/InternLM
+verified_at: '2026-09-30'

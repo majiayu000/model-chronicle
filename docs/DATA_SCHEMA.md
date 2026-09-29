@@ -89,6 +89,15 @@ verified_at: 2026-09-24
 | microsoft | `phi` |
 | ibm | `granite` |
 | nvidia | `nemotron` |
+| stepfun | `step` |
+| iflytek | `spark`、`spark-x` |
+| ai21 | `jurassic`、`jamba` |
+| allenai | `olmo`、`olmoe`、`olmo-think`、`olmo-hybrid` |
+| 01ai | `yi`、`yi-vl` |
+| internlm | `internlm` |
+| baichuan | `baichuan` |
+| tii | `falcon` |
+| liquid | `lfm`、`lfm-vl`、`lfm-thinking` |
 
 ## tier 判定
 

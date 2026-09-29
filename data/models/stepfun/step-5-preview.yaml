@@ -1,0 +1,42 @@
+id: step-5-preview
+name: Step 5 Preview
+vendor: stepfun
+family: step
+tier: flagship
+generation: '5'
+predecessor: step-3
+open_weights: false
+dates:
+  announced: '2026-09-20'
+  ga: null
+  deprecated: null
+  retired: null
+specs:
+  context_window: 1000000
+  max_output: 64000
+  modalities_in:
+  - text
+  - image
+  - video
+  modalities_out:
+  - text
+  knowledge_cutoff: null
+  params_b: 600
+  pricing:
+    input_per_mtok: null
+    output_per_mtok: null
+benchmarks: []
+highlights:
+- 预览模型，支持百万 token 上下文和图像、视频输入
+- 截至核查日尚未公开权重；日期采用 Vercel 分发平台记录
+sources:
+- https://www.stepfun.com/step-5-preview
+- https://vercel.com/ai-gateway/models/step-5-preview
+- https://platform.stepfun.ai/docs/en/guides/models/step-5-preview
+verified_at: '2026-09-30'
+reasoning: true
+arch:
+  type: moe
+  total: 600
+  active: 27
+  source: https://www.stepfun.com/step-5-preview

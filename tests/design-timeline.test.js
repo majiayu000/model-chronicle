@@ -20,7 +20,7 @@ function load(records = catalog, initialStorage) {
     DCLogic: class { setState(p, callback) { this.state = { ...this.state, ...p }; callback?.(); } } });
   for (const name of ["chronicle.js", "chronicle-timeline.js", "chronicle-visibility.js", "chronicle-route.js", "chronicle-vm.js", "chronicle-ext.js", "chronicle-ext2.js"]) {
     runInContext(readFileSync(new URL(`../public/graph-v2/${name}`, import.meta.url), "utf8"), context);
-    window.MC.today = "2026-09-28";
+    window.MC.today = "2026-09-30";
   }
   runInContext(readFileSync(new URL("../src/design/application.js", import.meta.url), "utf8") + "\nwindow.App = Component;", context);
   const mc = window.MC, changes = [];
@@ -40,10 +40,10 @@ describe("series and version timeline", () => {
     const rows = view({ vendors: ["openai"] }).tl.rows.filter(r => r.isLine);
     expect(rows.map(r => r.family)).toEqual(["GPT"]);
     const gpt = rows[0];
-    expect(gpt.versions.map(v => v.label)).toEqual(["5.1", "5.2", "5.3", "5.4", "5.5", "5.6", "6"]);
+    expect(gpt.versions.map(v => v.label)).toEqual(["5.1", "5.2", "5.3", "5.4", "5.5", "5.6", "6", "6.1"]);
     expect(gpt.versions.find(v => v.label === "5.4").models.map(m => m.id).sort()).toEqual(["gpt-5-4", "gpt-5-4-mini", "gpt-5-4-nano", "gpt-5-4-pro"]);
     expect(gpt.versions.find(v => v.label === "6").models).toHaveLength(3);
-    expect(gpt.n).toBe(17);
+    expect(gpt.n).toBe(18);
     expect(gpt.links.length).toBeGreaterThan(0);
     expect(gpt).not.toHaveProperty("segs");
     expect(gpt).not.toHaveProperty("pending");
@@ -113,6 +113,7 @@ describe("recorded successor connections", () => {
       ["gpt-5-1", "gpt-5-2"], ["gpt-5-2", "gpt-5-4"],
       ["gpt-5-3-instant", "gpt-5-5-instant"], ["gpt-5-4-mini", "gpt-5-6-luna"],
       ["gpt-5-6-sol", "gpt-6-astra"],
+      ["gpt-6-sol", "gpt-6-1-sol"],
     ]));
     for (const pair of pairs) expect(mc.byId[pair.to].predecessor).toBe(pair.from);
     const first = row.links.find(link => link.source.label === "5.1" && link.target.label === "5.2");
@@ -187,6 +188,24 @@ describe("original model glyphs", () => {
     expect(gpt.multiple).toBe(true); gpt.toggle();
     expect(changes.at(-1)).toMatchObject({ variants: [gpt.key] });
   });
+  it("expands version members as connected tree nodes inside the axis and collapses their space", () => {
+    const { view, render } = load();
+    const before = view({ vendors: ["openai"] }).tl.rows[0];
+    const version = before.versions.find(v => v.label === "6");
+    const state = { vendors: ["openai"], variants: [version.key] };
+    const row = render(state).tl.rows[0];
+    const expanded = row.versions.find(v => v.key === version.key);
+    expect(expanded.models.map(m => m.id).sort()).toEqual(["gpt-6-astra", "gpt-6-luna", "gpt-6-sol"]);
+    expect(row.height).toBeGreaterThan(before.height);
+    expect(expanded.px).toBe(version.px);
+    expect(new Set(expanded.models.map(m => m.treeTop)).size).toBe(3);
+    expect(expanded.models.every(m => m.treeTop + 44 <= row.height)).toBe(true);
+    expect(row.linksEl.children.filter(c => c.props?.className === "model-branch").map(c => c.props.d)).toEqual(expanded.models.map(m => m.branchPath));
+    const hidden = render({ ...state, hiddenModels: ["gpt-6-astra"] }).tl.rows[0];
+    expect(hidden.versions.find(v => v.key === version.key).models.map(m => m.id)).not.toContain("gpt-6-astra");
+    expect(hidden.height).toBeLessThan(row.height);
+    expect(view({ ...state, variants: [] }).tl.rows[0].height).toBe(before.height);
+  });
   it("does not present a mixed-architecture version as a verified MoE or Dense model", () => {
     const { view } = load([
       model("one", "2026-01-01", { generation: "1", arch: { type: "dense", source: base.sources[0] } }),
@@ -198,7 +217,7 @@ describe("original model glyphs", () => {
 
 describe("window, archive and vendor controls", () => {
   it("uses inclusive calendar-year boundaries and clamps leap day", () => {
-    const { mc } = load([]), range = mc.timeline.windowRange();
+    const { mc } = load([]), range = mc.timeline.windowRange("recent", "2026-09-28");
     expect(range.startDate).toBe("2025-09-28");
     for (const [date, included] of [["2025-09-27", false], ["2025-09-28", true], ["2026-09-28", true], ["2026-09-29", false], ["2025-09", true], ["2025-08", false]]) expect(mc.timeline.inWindow({ date }, range), date).toBe(included);
     expect(mc.timeline.windowRange("recent", "2024-02-29").startDate).toBe("2023-02-28");
@@ -256,7 +275,7 @@ describe("personal model visibility", () => {
     version.models.find(m => m.id === "gpt-6-astra").hide();
     const state = changes.at(-1), instance = app({ vendors: ["openai"], ...state }), after = instance.renderVals();
     expect(state.hiddenModels).toEqual(["gpt-6-astra"]);
-    expect(after.heroTotal).toBe(16); expect(after.visibility).toMatchObject({ count: 1, eligible: 17, inScope: 1 });
+    expect(after.heroTotal).toBe(17); expect(after.visibility).toMatchObject({ count: 1, eligible: 18, inScope: 1 });
     expect(after.tl.rows[0].versions.find(v => v.label === "6")).toMatchObject({ px: version.px, n: 2, eligible: 3 });
     after.visibility.undo(); expect(instance.state.hiddenModels).toEqual([]);
   });
@@ -337,5 +356,56 @@ describe("shared display state", () => {
     instance._key({ key: "Escape" });
     expect(instance.state.hiddenManager).toBe(false);
     expect(focused.at(-1).options.preventScroll).toBe(true);
+  });
+});
+
+describe("timeline hover previews", () => {
+  const target = (left = 200, top = 200) => ({ currentTarget: {
+    getBoundingClientRect: () => ({ left, top, bottom: top + 24 }),
+  } });
+  it("previews a single model with recorded specs and benchmarks, then clears on leave", () => {
+    const { view, changes, mc } = load();
+    const version = view().tl.rows.find(r => r.family === "Haiku").versions[0];
+    version.enter(target());
+    const preview = view(changes.at(-1)).hover;
+    expect(preview.m.id).toBe("claude-haiku-4-5");
+    expect(preview.m.ctxLabel).toBe(mc.byId[preview.m.id].ctxLabel);
+    expect(preview.bench).toEqual(mc.byId[preview.m.id].benchmarks.slice(0, 3));
+    expect(preview.group).toBe(false);
+    version.leave();
+    expect(view(changes.at(-1)).hover).toBeNull();
+  });
+  it("previews only visible version members and gives each expanded model its own details", () => {
+    const { view, changes } = load();
+    const state = { vendors: ["openai"], hiddenModels: ["gpt-5-4-pro"] };
+    const version = view(state).tl.rows[0].versions.find(v => v.label === "5.4");
+    version.enter(target());
+    const preview = view({ ...state, ...changes.at(-1) }).hover;
+    expect(preview.group).toBe(true);
+    expect(preview.m).toBeNull();
+    expect(preview.models.map(m => m.id).sort()).toEqual(["gpt-5-4", "gpt-5-4-mini", "gpt-5-4-nano"]);
+    const mini = version.models.find(m => m.id === "gpt-5-4-mini");
+    mini.enter(target());
+    expect(view({ ...state, ...changes.at(-1) }).hover.m.id).toBe(mini.id);
+    mini.open();
+    expect(changes.at(-1)).toEqual({ view: "detail", id: mini.id, hover: null });
+  });
+  it("keeps the card inside the viewport at the right and bottom edges", () => {
+    const { view, changes, window } = load();
+    window.innerWidth = 390; window.innerHeight = 700;
+    const version = view().tl.rows.find(r => r.family === "Haiku").versions[0];
+    version.enter(target(370, 650));
+    expect(view(changes.at(-1)).hover).toMatchObject({ x: 62, y: 62, position: "bottom" });
+    version.enter(target(-20, 50));
+    expect(view(changes.at(-1)).hover).toMatchObject({ x: 8, y: 86, position: "top" });
+  });
+  it("dismisses previews on scrolling, Escape and filter changes", () => {
+    const { app } = load();
+    const instance = app(); instance.componentDidMount();
+    const enter = () => instance.renderVals().tl.rows.find(r => r.family === "Haiku").versions[0].enter(target());
+    enter(); expect(instance.state.hover).not.toBeNull();
+    instance._scroll(); expect(instance.state.hover).toBeNull();
+    enter(); instance._key({ key: "Escape" }); expect(instance.state.hover).toBeNull();
+    enter(); instance.renderVals().vendorChips[0].toggle(); expect(instance.state.hover).toBeNull();
   });
 });

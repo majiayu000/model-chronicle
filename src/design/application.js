@@ -2,6 +2,7 @@ class Component extends DCLogic {
   state = { ready: false };
   update(p) {
     const patch = { ...p };
+    if (!Object.hasOwn(patch, "hover")) patch.hover = null;
     if (Object.hasOwn(patch, "hiddenModels")) {
       patch.hiddenModels = window.MC.visibility.normalize(patch.hiddenModels);
       try {
@@ -76,6 +77,10 @@ class Component extends DCLogic {
     window.addEventListener("hashchange", this._route);
     this._key = (e) => {
       if (!this.state.ready) return;
+      if (e.key === "Escape" && this.state.hover) {
+        this.update({ hover: null });
+        return;
+      }
       if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") {
         e.preventDefault();
         this.update({ pal: !this.state.pal, q: "" });
@@ -113,8 +118,13 @@ class Component extends DCLogic {
         this.update({ view: "timeline", id: null });
     };
     window.addEventListener("keydown", this._key);
-    this._resize = () => this.setState({ viewportWidth: window.innerWidth });
+    this._resize = () =>
+      this.setState({ viewportWidth: window.innerWidth, hover: null });
     window.addEventListener("resize", this._resize);
+    this._scroll = () => {
+      if (this.state.hover) this.setState({ hover: null });
+    };
+    window.addEventListener("scroll", this._scroll, true);
   }
   componentDidUpdate() {
     const key = `${this.state.view}/${this.state.window}`;
@@ -129,6 +139,7 @@ class Component extends DCLogic {
     window.removeEventListener("popstate", this._route);
     window.removeEventListener("hashchange", this._route);
     window.removeEventListener("resize", this._resize);
+    window.removeEventListener("scroll", this._scroll, true);
   }
   clockEl() {
     if (!this._Clock) {
@@ -162,6 +173,21 @@ class Component extends DCLogic {
         role: "img",
         "aria-label": `${row.family} 已记录的继任关系`,
       },
+      ...row.versions
+        .filter((v) => v.expanded)
+        .flatMap((v) =>
+          v.models.map((m) =>
+            h("path", {
+              key: `branch-${m.id}`,
+              d: m.branchPath,
+              className: "model-branch",
+              fill: "none",
+              stroke: row.color,
+              strokeWidth: 1.5,
+              "aria-hidden": true,
+            }),
+          ),
+        ),
       ...row.links.map((link) => {
         const x1 = link.source.px + 8,
           x2 = link.target.px - 8,
@@ -299,8 +325,7 @@ class Component extends DCLogic {
     Object.assign(v, base, MC.ext(this.state, set), MC.ext2(this.state, set));
     if (v.tl)
       for (const row of v.tl.rows) {
-        if (row.isLine && row.links.length)
-          row.linksEl = this.linksEl(row, v.tl.width);
+        if (row.isLine) row.linksEl = this.linksEl(row, v.tl.width);
       }
     // Native option text avoids the template runtime's interpolation spans inside <option>.
     const focus = v.vendorFocus;

@@ -1,0 +1,39 @@
+id: step-3-7-flash
+name: Step 3.7 Flash
+vendor: stepfun
+family: step
+tier: small
+generation: '3.7'
+predecessor: step-3-5-flash
+open_weights: true
+dates:
+  announced: '2026-05-29'
+  ga: '2026-05-29'
+  deprecated: null
+  retired: null
+specs:
+  context_window: 262144
+  max_output: null
+  modalities_in:
+  - text
+  - image
+  modalities_out:
+  - text
+  knowledge_cutoff: null
+  params_b: 198
+  pricing:
+    input_per_mtok: null
+    output_per_mtok: null
+benchmarks: []
+highlights:
+- 支持图文理解和可调推理强度
+sources:
+- https://static.stepfun.com/blog/step-3.7-flash/
+- https://huggingface.co/stepfun-ai/Step-3.7-Flash
+verified_at: '2026-09-30'
+reasoning: true
+arch:
+  type: moe
+  total: 198
+  active: 11
+  source: https://huggingface.co/stepfun-ai/Step-3.7-Flash

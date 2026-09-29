@@ -1,0 +1,32 @@
+id: yi-vl-6b
+name: Yi-VL-6B
+vendor: 01ai
+family: yi-vl
+tier: small
+generation: '1'
+predecessor: null
+open_weights: true
+dates:
+  announced: '2024-01-23'
+  ga: '2024-01-23'
+  deprecated: null
+  retired: null
+specs:
+  context_window: null
+  max_output: null
+  modalities_in:
+  - text
+  - image
+  modalities_out:
+  - text
+  knowledge_cutoff: null
+  params_b: 6
+  pricing:
+    input_per_mtok: null
+    output_per_mtok: null
+benchmarks: []
+highlights:
+- 支持图文理解的 Yi 视觉语言模型
+sources:
+- https://github.com/01-ai/Yi
+verified_at: '2026-09-30'

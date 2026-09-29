@@ -1,0 +1,31 @@
+id: olmo-2-7b-instruct
+name: OLMo 2 7B Instruct
+vendor: allenai
+family: olmo
+tier: small
+generation: '2'
+predecessor: null
+open_weights: true
+dates:
+  announced: '2024-11-26'
+  ga: '2024-11-26'
+  deprecated: null
+  retired: null
+specs:
+  context_window: null
+  max_output: null
+  modalities_in:
+  - text
+  modalities_out:
+  - text
+  knowledge_cutoff: null
+  params_b: 7
+  pricing:
+    input_per_mtok: null
+    output_per_mtok: null
+benchmarks: []
+highlights:
+- 开放权重的 OLMo 2 指令模型
+sources:
+- https://allenai.org/blog/olmo2
+verified_at: '2026-09-30'

@@ -1,0 +1,36 @@
+id: olmoe-1b-7b-instruct
+name: OLMoE 1B-7B Instruct
+vendor: allenai
+family: olmoe
+tier: small
+generation: '1'
+predecessor: null
+open_weights: true
+dates:
+  announced: '2024-09-04'
+  ga: '2024-09-04'
+  deprecated: null
+  retired: null
+specs:
+  context_window: null
+  max_output: null
+  modalities_in:
+  - text
+  modalities_out:
+  - text
+  knowledge_cutoff: null
+  params_b: 7
+  pricing:
+    input_per_mtok: null
+    output_per_mtok: null
+benchmarks: []
+highlights:
+- 开放 MoE 指令模型，总参数 7B、激活参数 1B
+sources:
+- https://allenai.org/blog/olmoe-an-open-small-and-state-of-the-art-mixture-of-experts-model-c258432d0514
+verified_at: '2026-09-30'
+arch:
+  type: moe
+  total: 7
+  active: 1
+  source: https://allenai.org/blog/olmoe-an-open-small-and-state-of-the-art-mixture-of-experts-model-c258432d0514

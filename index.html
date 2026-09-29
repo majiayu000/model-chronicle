@@ -511,6 +511,71 @@
           .version-node:focus-within .node-hide {
             opacity: 1;
           }
+          .model-branch {
+            opacity: 0.65;
+          }
+          .tree-model {
+            position: absolute;
+            display: flex;
+            align-items: center;
+            width: 220px;
+            height: 44px;
+            z-index: 2;
+            background: #141518;
+          }
+          .tree-model-open {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex: 1;
+            min-width: 0;
+            height: 44px;
+            color: #ecebe6;
+            text-decoration: none;
+            border-radius: 6px;
+          }
+          .tree-model-open:hover,
+          .tree-model-open:focus-visible {
+            background: #ffffff08;
+            outline: 1px solid var(--branch-color);
+          }
+          .tree-model-dot {
+            width: 14px;
+            height: 14px;
+            margin: 0 3px;
+            border: 2px solid var(--branch-color);
+            border-radius: 50%;
+            background: #141518;
+            box-sizing: border-box;
+            flex: none;
+          }
+          .tree-model-text {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            min-width: 0;
+          }
+          .tree-model-text strong {
+            font-size: 11px;
+            font-weight: 500;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+          }
+          .tree-model-text small {
+            font:
+              9px "Geist Mono",
+              monospace;
+            color: #858892;
+          }
+          .tree-model-hide {
+            flex: none;
+            opacity: 0.5;
+          }
+          .tree-model:hover .tree-model-hide,
+          .tree-model:focus-within .tree-model-hide {
+            opacity: 1;
+          }
           .marker-legend {
             display: flex;
             align-items: center;
@@ -1804,11 +1869,67 @@
                         class="series-grid series-now"
                         style="left:{{ tl.todayPx }}px"
                       ></span>
-                      <sc-if value="{{ r.links.length }}"
-                        ><span class="series-links"
-                          >{{ r.linksEl }}</span
-                        ></sc-if
-                      >
+                      <span class="series-links">{{ r.linksEl }}</span>
+                      <sc-for list="{{ r.versions }}" as="v"
+                        ><sc-if value="{{ v.expanded }}">
+                          <div
+                            id="{{ v.key }}"
+                            role="group"
+                            aria-label="{{ v.name }} 型号分支"
+                          >
+                            <sc-for list="{{ v.models }}" as="m">
+                              <div
+                                class="tree-model"
+                                style="left:{{ v.treeLeft }}px;top:{{ m.treeTop }}px;flex-direction:{{ v.treeDirection }};--branch-color:{{ r.color }}"
+                              >
+                                <a
+                                  class="tree-model-open"
+                                  href="#"
+                                  style="flex-direction:{{ v.treeDirection }}"
+                                  onClick="{{ m.open }}"
+                                  onMouseEnter="{{ m.enter }}"
+                                  onMouseLeave="{{ m.leave }}"
+                                  onFocus="{{ m.enter }}"
+                                  onBlur="{{ m.leave }}"
+                                >
+                                  <span
+                                    class="tree-model-dot"
+                                    aria-hidden="true"
+                                  ></span>
+                                  <span class="tree-model-text"
+                                    ><strong>{{ m.name }}</strong
+                                    ><small
+                                      >{{ m.tier }} · {{ m.date }}</small
+                                    ></span
+                                  >
+                                </a>
+                                <button
+                                  type="button"
+                                  class="hide-model tree-model-hide"
+                                  aria-label="{{ m.hideLabel }}"
+                                  title="{{ m.hideLabel }}"
+                                  onClick="{{ m.hide }}"
+                                >
+                                  <svg
+                                    width="14"
+                                    height="14"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    stroke-width="1.5"
+                                    aria-hidden="true"
+                                  >
+                                    <path
+                                      d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7S2 12 2 12Z"
+                                    ></path>
+                                    <circle cx="12" cy="12" r="3"></circle>
+                                    <path d="m3 3 18 18"></path>
+                                  </svg>
+                                </button>
+                              </div>
+                            </sc-for>
+                          </div> </sc-if
+                      ></sc-for>
                       <sc-for list="{{ r.versions }}" as="v"
                         ><div
                           class="version-node"
@@ -1844,7 +1965,10 @@
                             aria-label="{{ v.action }}"
                             aria-expanded="{{ v.expansionState }}"
                             aria-controls="{{ v.expansionTarget }}"
-                            title="{{ v.markerHint }}"
+                            onMouseEnter="{{ v.enter }}"
+                            onMouseLeave="{{ v.leave }}"
+                            onFocus="{{ v.enter }}"
+                            onBlur="{{ v.leave }}"
                             onClick="{{ v.toggle }}"
                           >
                             <sc-if value="{{ v.dense }}"
@@ -1881,56 +2005,6 @@
                       >
                     </div>
                   </div>
-                  <sc-for list="{{ r.versions }}" as="v"
-                    ><sc-if value="{{ v.expanded }}"
-                      ><div
-                        class="timeline-history"
-                        id="{{ v.key }}"
-                        role="region"
-                        aria-label="{{ v.name }} 型号"
-                      >
-                        <span class="timeline-history-title"
-                          >{{ v.name }}<br />{{ v.n }} / {{ v.eligible }}
-                          个型号可见</span
-                        >
-                        <div class="history-models">
-                          <sc-for list="{{ v.models }}" as="m"
-                            ><div class="model-item">
-                              <button
-                                type="button"
-                                class="hide-model"
-                                aria-label="{{ m.hideLabel }}"
-                                title="{{ m.hideLabel }}"
-                                onClick="{{ m.hide }}"
-                              >
-                                <svg
-                                  width="14"
-                                  height="14"
-                                  viewBox="0 0 24 24"
-                                  fill="none"
-                                  stroke="currentColor"
-                                  stroke-width="1.5"
-                                  aria-hidden="true"
-                                >
-                                  <path
-                                    d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7S2 12 2 12Z"
-                                  ></path>
-                                  <circle cx="12" cy="12" r="3"></circle>
-                                  <path d="m3 3 18 18"></path>
-                                </svg></button
-                              ><a
-                                class="history-model"
-                                href="#"
-                                onClick="{{ m.open }}"
-                                ><span>{{ m.name }} · {{ m.tier }}</span
-                                ><time>{{ m.date }} · {{ m.label }}</time></a
-                              >
-                            </div></sc-for
-                          >
-                        </div>
-                      </div></sc-if
-                    ></sc-for
-                  >
                   <sc-if value="{{ r.historyOpen }}"
                     ><div
                       class="timeline-history"
@@ -1969,6 +2043,10 @@
                             ><a
                               class="history-model"
                               href="#"
+                              onMouseEnter="{{ m.enter }}"
+                              onMouseLeave="{{ m.leave }}"
+                              onFocus="{{ m.enter }}"
+                              onBlur="{{ m.leave }}"
                               onClick="{{ m.open }}"
                               ><span>{{ m.name }} · {{ m.tier }}</span
                               ><time>{{ m.date }} · {{ m.label }}</time></a
@@ -2049,6 +2127,10 @@
                                 ><a
                                   class="history-model"
                                   href="#"
+                                  onMouseEnter="{{ m.enter }}"
+                                  onMouseLeave="{{ m.leave }}"
+                                  onFocus="{{ m.enter }}"
+                                  onBlur="{{ m.leave }}"
                                   onClick="{{ m.open }}"
                                   ><span>{{ m.name }} · {{ m.tier }}</span
                                   ><time>{{ m.date }} · {{ m.label }}</time></a
@@ -2085,6 +2167,120 @@
               </div></sc-if
             >
           </section>
+          <sc-if value="{{ hover }}">
+            <div
+              role="tooltip"
+              class="model-preview"
+              style="position:fixed;z-index:40;width:320px;max-width:calc(100vw - 16px);max-height:calc(100vh - 24px);background:#ecebe6;color:#0e0f11;border-radius:10px;box-shadow:0 20px 40px -8px rgba(0,0,0,.6);pointer-events:none;overflow:hidden;left:{{ hover.x }}px;{{ hover.position }}:{{ hover.y }}px"
+            >
+              <div
+                style="
+                  padding: 12px 14px 10px;
+                  font-size: 16px;
+                  font-weight: 700;
+                "
+              >
+                {{ hover.title }}
+              </div>
+              <sc-if value="{{ hover.group }}">
+                <div
+                  style="padding: 0 14px 10px; font-size: 11px; color: #55575e"
+                >
+                  {{ hover.count }} 个可见型号 · 点击展开
+                </div>
+                <sc-for list="{{ hover.models }}" as="m">
+                  <div
+                    style="
+                      padding: 8px 14px;
+                      border-top: 1px solid #d6d4cd;
+                      font-size: 12px;
+                    "
+                  >
+                    <div style="font-weight: 600">{{ m.name }}</div>
+                    <div style="color: #55575e">
+                      {{ m.tierLabel }} · {{ m.date }}
+                    </div>
+                  </div>
+                </sc-for>
+                <sc-if value="{{ hover.remaining }}"
+                  ><div
+                    style="padding: 8px 14px; font-size: 11px; color: #55575e"
+                  >
+                    另有 {{ hover.remaining }} 个型号，点击展开查看
+                  </div></sc-if
+                >
+              </sc-if>
+              <sc-if value="{{ hover.m }}">
+                <div
+                  style="padding: 0 14px 10px; font-size: 11px; color: #55575e"
+                >
+                  {{ hover.m.vendorLabel }} · {{ hover.m.tierLabel }} · {{
+                  hover.m.date }}
+                </div>
+                <div
+                  style="
+                    padding: 8px 14px;
+                    display: grid;
+                    grid-template-columns: auto 1fr;
+                    gap: 3px 14px;
+                    font-size: 12px;
+                    border-top: 1px solid #d6d4cd;
+                  "
+                >
+                  <span style="color: #55575e">架构</span
+                  ><span>{{ hover.m.archLabel }}</span>
+                  <span style="color: #55575e">参数</span
+                  ><span>{{ hover.m.paramsLabel }}</span>
+                  <span style="color: #55575e">上下文</span
+                  ><span>{{ hover.m.ctxLabel }}</span>
+                </div>
+              </sc-if>
+              <sc-if value="{{ hover.hasCaps }}">
+                <div
+                  style="
+                    padding: 0 14px 10px;
+                    display: flex;
+                    gap: 4px;
+                    flex-wrap: wrap;
+                  "
+                >
+                  <sc-for list="{{ hover.caps }}" as="c"
+                    ><span
+                      style="
+                        background: #0e0f11;
+                        color: #d4f53c;
+                        border-radius: 4px;
+                        padding: 0 6px;
+                        font-size: 11px;
+                        line-height: 18px;
+                      "
+                      >{{ c }}</span
+                    ></sc-for
+                  >
+                </div>
+              </sc-if>
+              <sc-if value="{{ hover.hasBench }}">
+                <div
+                  style="
+                    display: flex;
+                    flex-direction: column;
+                    gap: 2px;
+                    border-top: 1px solid #d6d4cd;
+                    padding: 8px 14px 10px;
+                  "
+                >
+                  <sc-for list="{{ hover.bench }}" as="b"
+                    ><div style="display: flex; gap: 8px; font-size: 12px">
+                      <span style="color: #55575e">{{ b.name }}</span
+                      ><span style="margin-left: auto; font-weight: 600"
+                        >{{ b.score }}</span
+                      >
+                    </div></sc-for
+                  >
+                </div>
+              </sc-if>
+            </div>
+          </sc-if>
         </sc-if>
 
         <sc-if value="{{ isTrends }}">

@@ -19,6 +19,15 @@
     microsoft: { label: "Microsoft", color: "#7AB8F5" },
     ibm: { label: "IBM", color: "#9B8BFA" },
     nvidia: { label: "NVIDIA", color: "#76B900" },
+    stepfun: { label: "阶跃星辰", color: "#29A7E8" },
+    iflytek: { label: "讯飞星火", color: "#6D94FF" },
+    ai21: { label: "AI21", color: "#E8A580" },
+    allenai: { label: "Ai2", color: "#74BEA5" },
+    "01ai": { label: "零一万物", color: "#C595ED" },
+    internlm: { label: "书生浦语", color: "#70B9DC" },
+    baichuan: { label: "百川智能", color: "#E69173" },
+    tii: { label: "TII / Falcon", color: "#A3BA64" },
+    liquid: { label: "Liquid AI", color: "#D69CCC" },
   };
   const VENDORS = [
       "anthropic",
@@ -40,6 +49,15 @@
       "microsoft",
       "ibm",
       "nvidia",
+      "stepfun",
+      "iflytek",
+      "ai21",
+      "allenai",
+      "01ai",
+      "internlm",
+      "baichuan",
+      "tii",
+      "liquid",
     ],
     TIERS = ["flagship", "mid", "small"];
   const TIER_LABEL = { flagship: "旗舰", mid: "中档", small: "小型" };

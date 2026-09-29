@@ -1,0 +1,31 @@
+id: spark-1-0
+name: 讯飞星火 V1.0
+vendor: iflytek
+family: spark
+tier: flagship
+generation: '1.0'
+predecessor: null
+open_weights: false
+dates:
+  announced: '2023-05-06'
+  ga: null
+  deprecated: null
+  retired: null
+specs:
+  context_window: null
+  max_output: null
+  modalities_in:
+  - text
+  modalities_out:
+  - text
+  knowledge_cutoff: null
+  params_b: null
+  pricing:
+    input_per_mtok: null
+    output_per_mtok: null
+benchmarks: []
+highlights:
+- 星火通用认知大模型的独立发布版本
+sources:
+- https://edu.iflytek.com/about-us/news/company-news/83.html
+verified_at: '2026-09-30'

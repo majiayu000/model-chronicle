@@ -1,0 +1,33 @@
+id: glm-5
+name: GLM-5
+vendor: zhipu
+family: glm
+tier: flagship
+generation: '5'
+predecessor: glm-4-7
+open_weights: true
+dates:
+  announced: null
+  ga: '2026-02-12'
+  deprecated: null
+  retired: null
+specs:
+  context_window: null
+  max_output: null
+  modalities_in:
+  - text
+  modalities_out:
+  - text
+  knowledge_cutoff: null
+  params_b: 744
+  pricing:
+    input_per_mtok: null
+    output_per_mtok: null
+benchmarks: []
+highlights:
+- 面向系统工程和长程智能体任务；可用日期采用官方 API 发布记录
+sources:
+- https://docs.z.ai/release-notes/new-released
+- https://huggingface.co/zai-org/GLM-5
+verified_at: '2026-09-30'
+reasoning: true

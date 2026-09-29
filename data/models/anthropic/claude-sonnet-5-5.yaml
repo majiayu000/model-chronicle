@@ -1,0 +1,36 @@
+id: claude-sonnet-5-5
+name: Claude Sonnet 5.5
+vendor: anthropic
+family: sonnet
+tier: mid
+generation: "5.5"
+predecessor: claude-sonnet-5
+open_weights: false
+reasoning: true
+dates:
+  announced: 2026-09-28
+  ga: 2026-09-28
+  deprecated: null
+  retired: null
+specs:
+  context_window: 1000000
+  max_output: 128000
+  modalities_in:
+    - text
+    - image
+  modalities_out:
+    - text
+  knowledge_cutoff: 2026-06
+  params_b: null
+  pricing:
+    input_per_mtok: 2
+    output_per_mtok: 10
+benchmarks: []
+highlights:
+  - 支持自适应思考，提供百万 token 上下文
+  - 厂商报告输出速度较 Sonnet 5 提升超过 30%
+  - 发布时每百万输入／输出 token 价格为 2／10 美元
+sources:
+  - https://www.anthropic.com/claude-sonnet-5-5
+  - https://platform.claude.com/docs/en/models/overview
+verified_at: 2026-09-30

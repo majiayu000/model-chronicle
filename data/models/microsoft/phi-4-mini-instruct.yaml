@@ -1,0 +1,31 @@
+id: phi-4-mini-instruct
+name: Phi-4-mini-instruct
+vendor: microsoft
+family: phi
+tier: small
+generation: '4'
+predecessor: null
+open_weights: true
+dates:
+  announced: '2025-02-26'
+  ga: '2025-02-26'
+  deprecated: null
+  retired: null
+specs:
+  context_window: 128000
+  max_output: null
+  modalities_in:
+  - text
+  modalities_out:
+  - text
+  knowledge_cutoff: null
+  params_b: 3.8
+  pricing:
+    input_per_mtok: null
+    output_per_mtok: null
+benchmarks: []
+highlights:
+- 3.8B 参数，支持长上下文和函数调用
+sources:
+- https://azure.microsoft.com/en-us/blog/empowering-innovation-the-next-generation-of-the-phi-family/
+verified_at: '2026-09-30'

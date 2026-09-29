@@ -13,6 +13,23 @@
     sonnet: "Sonnet",
     haiku: "Haiku",
     fable: "Fable",
+    step: "Step",
+    spark: "星火",
+    "spark-x": "星火 X",
+    jurassic: "Jurassic",
+    jamba: "Jamba",
+    olmo: "Olmo",
+    olmoe: "OLMoE",
+    "olmo-think": "Olmo Think",
+    "olmo-hybrid": "Olmo Hybrid",
+    yi: "Yi",
+    "yi-vl": "Yi-VL",
+    internlm: "InternLM",
+    baichuan: "Baichuan",
+    falcon: "Falcon",
+    lfm: "LFM",
+    "lfm-vl": "LFM-VL",
+    "lfm-thinking": "LFM Thinking",
   };
   function seriesOf(model) {
     let family = model.family;

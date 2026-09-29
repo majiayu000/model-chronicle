@@ -1,0 +1,38 @@
+id: kimi-k2-thinking
+name: Kimi K2 Thinking
+vendor: moonshot
+family: kimi-thinking
+tier: flagship
+generation: K2
+predecessor: null
+open_weights: true
+dates:
+  announced: '2025-11-06'
+  ga: '2025-11-06'
+  deprecated: null
+  retired: null
+specs:
+  context_window: 262144
+  max_output: null
+  modalities_in:
+  - text
+  modalities_out:
+  - text
+  knowledge_cutoff: null
+  params_b: 1000
+  pricing:
+    input_per_mtok: null
+    output_per_mtok: null
+benchmarks: []
+highlights:
+- 支持持续思考与长程工具调用
+sources:
+- https://www.kimi.com/en/blog/
+- https://huggingface.co/moonshotai/Kimi-K2-Thinking
+verified_at: '2026-09-30'
+reasoning: true
+arch:
+  type: moe
+  total: 1000
+  active: 32
+  source: https://huggingface.co/moonshotai/Kimi-K2-Thinking

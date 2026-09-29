@@ -1,0 +1,36 @@
+id: qwen3-8b
+name: Qwen3-8B
+vendor: qwen
+family: qwen
+tier: small
+generation: '3'
+predecessor: null
+open_weights: true
+dates:
+  announced: '2025-04-29'
+  ga: '2025-04-29'
+  deprecated: null
+  retired: null
+specs:
+  context_window: 131072
+  max_output: null
+  modalities_in:
+  - text
+  modalities_out:
+  - text
+  knowledge_cutoff: null
+  params_b: 8
+  pricing:
+    input_per_mtok: null
+    output_per_mtok: null
+benchmarks: []
+highlights:
+- 支持思考与非思考模式的稠密模型
+sources:
+- https://qwenlm.github.io/blog/qwen3/
+verified_at: '2026-09-30'
+reasoning: true
+arch:
+  type: dense
+  total: 8
+  source: https://qwenlm.github.io/blog/qwen3/

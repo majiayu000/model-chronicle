@@ -207,12 +207,30 @@
       const x = (t) => 24 + ((t - start) / YEAR) * P;
       const fullModels = availableModels.filter(pass);
       const grouped = MC.timeline.partition(fullModels, range);
+      const preview = (items, title) => ({
+        enter: (e) => {
+          const r = e.currentTarget.getBoundingClientRect();
+          const height = window.innerHeight || 900;
+          const above = r.top > height / 2;
+          set({
+            hover: {
+              ids: items.map((m) => m.id),
+              title,
+              x: Math.max(8, Math.min(r.left, viewport - 328)),
+              y: above ? height - r.top + 12 : r.bottom + 12,
+              above,
+            },
+          });
+        },
+        leave: () => set({ hover: null }),
+      });
       const chip = (m) => ({
         id: m.id,
         name: m.name,
         date: m.date,
         label: m.dateLabel,
         open: open(m.id),
+        ...preview([m], m.name),
         tier: m.tierLabel,
         hideLabel: `隐藏 ${m.name}`,
         hide: () => hide([m.id], m.name),
@@ -325,6 +343,7 @@
             ? () => set({ variants: tog(s.variants || [], v.id), hover: null })
             : open(visible[0].id),
           models: visible.map(chip),
+          ...preview(visible, v.name),
           hideLabel: multiple
             ? `隐藏 ${v.name} 的全部型号`
             : `隐藏 ${visible[0].name}`,
@@ -389,6 +408,25 @@
               ? `0 0 0 2px #141518,0 0 0 3px ${MC.V[vendor].color}`
               : "none";
           }
+          const baseHeight =
+            baseline +
+            18 +
+            Math.max(0, labelEnds.length - 2) * step +
+            control +
+            10;
+          let treeBottom = baseHeight;
+          for (const v of versions.filter((v) => v.expanded)) {
+            const reverse = v.px + 280 > x(end);
+            v.treeLeft = reverse ? Math.max(8, v.px - 264) : v.px + 44;
+            v.treeDirection = reverse ? "row-reverse" : "row";
+            const anchor = v.treeLeft + (reverse ? 210 : 10);
+            v.models = v.models.map((m, i) => ({
+              ...m,
+              treeTop: treeBottom + i * 56,
+              branchPath: `M${v.px},${v.top + 12} V${treeBottom + i * 56 + 22} H${anchor}`,
+            }));
+            treeBottom += v.models.length * 56 + 12;
+          }
           const earlier =
             range.mode === "all"
               ? []
@@ -405,12 +443,7 @@
             n: versions.reduce((n, v) => n + v.n, 0),
             versions,
             links: MC.timeline.versionLinks(versions),
-            height:
-              baseline +
-              18 +
-              Math.max(0, labelEnds.length - 2) * step +
-              control +
-              10,
+            height: treeBottom,
             hideLabel: `隐藏 ${row.family} 系列的全部型号`,
             hide: () =>
               hide(
@@ -495,7 +528,26 @@
         panLeft: pan(-1),
         panRight: pan(1),
       };
-      out.hover = null;
+      const hovered = (s.hover?.ids || [])
+        .map((id) => fullModels.find((m) => m.id === id))
+        .filter(Boolean);
+      const h = hovered.length === 1 ? hovered[0] : null;
+      out.hover = hovered.length
+        ? {
+            ...s.hover,
+            position: s.hover.above ? "bottom" : "top",
+            title: h ? h.name : s.hover.title,
+            m: h,
+            group: !h,
+            count: hovered.length,
+            models: hovered.slice(0, 6),
+            remaining: Math.max(0, hovered.length - 6),
+            caps: h?.capLabels || [],
+            bench: h?.benchmarks.slice(0, 3) || [],
+            hasBench: !!h?.benchmarks.length,
+            hasCaps: !!h?.caps.length,
+          }
+        : null;
 
       // —— 年表（纵向矩阵）
       const cols = MC.VENDORS.filter((v) => s.vendors.includes(v));

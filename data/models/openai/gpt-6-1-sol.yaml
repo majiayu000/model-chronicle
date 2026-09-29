@@ -1,0 +1,37 @@
+id: gpt-6-1-sol
+name: GPT-6.1 Sol
+vendor: openai
+family: gpt
+tier: mid
+generation: "6.1"
+predecessor: gpt-6-sol
+open_weights: false
+reasoning: true
+dates:
+  announced: 2026-09-29
+  ga: 2026-09-29
+  deprecated: null
+  retired: null
+specs:
+  context_window: 1050000
+  max_output: 128000
+  modalities_in:
+    - text
+    - image
+  modalities_out:
+    - text
+  knowledge_cutoff: 2026-04
+  params_b: null
+  pricing:
+    input_per_mtok: 2
+    output_per_mtok: 10
+benchmarks: []
+highlights:
+  - GPT-6 Sol 的后继版本，面向编程、电脑操作与专业工作
+  - 支持 105 万 token 上下文和最高 128K 输出
+  - 发布时标准文本输入／输出价格为每百万 token 2／10 美元（输入不超过 272K）
+sources:
+  - https://openai.com/index/introducing-gpt-6-1-sol/
+  - https://developers.openai.com/api/docs/models/gpt-6.1-sol
+  - https://developers.openai.com/api/docs/changelog
+verified_at: 2026-09-30

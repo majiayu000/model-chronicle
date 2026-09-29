@@ -1,0 +1,39 @@
+id: glm-5-3-flash
+name: GLM-5.3-Flash
+vendor: zhipu
+family: glm
+tier: small
+generation: "5.3"
+predecessor: null
+open_weights: true
+reasoning: true
+dates:
+  announced: 2026-08-26
+  ga: 2026-08-26
+  deprecated: null
+  retired: null
+specs:
+  context_window: 1000000
+  max_output: 128000
+  modalities_in:
+    - text
+    - image
+    - video
+  modalities_out:
+    - text
+  knowledge_cutoff: null
+  params_b: 320
+  pricing:
+    input_per_mtok: null
+    output_per_mtok: null
+benchmarks: []
+highlights:
+  - GLM-5 系列首个原生多模态模型，支持图像与视频输入
+  - 官方报告总参数 320B、激活参数 18B
+  - 采用稀疏与线性注意力结合的混合架构
+sources:
+  - https://z.ai/blog/glm-5.3-flash
+  - https://docs.z.ai/release-notes/new-released
+  - https://docs.z.ai/guides/vlm/glm-5.3-flash
+  - https://huggingface.co/zai-org/GLM-5.3-Flash
+verified_at: 2026-09-30

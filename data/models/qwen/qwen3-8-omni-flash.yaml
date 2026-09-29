@@ -1,0 +1,40 @@
+id: qwen3-8-omni-flash
+name: Qwen3.8-Omni-Flash
+vendor: qwen
+family: qwen
+tier: small
+generation: "3.8"
+predecessor: null
+open_weights: false
+reasoning: true
+dates:
+  announced: 2026-09-18
+  ga: 2026-09-18
+  deprecated: null
+  retired: null
+specs:
+  context_window: 1000000
+  max_output: 131072
+  modalities_in:
+    - text
+    - image
+    - audio
+    - video
+  modalities_out:
+    - text
+  knowledge_cutoff: null
+  params_b: null
+  pricing:
+    input_per_mtok: null
+    output_per_mtok: null
+benchmarks: []
+highlights:
+  - 支持文本、图像、音频和视频输入，输出文本
+  - 支持工具调用，默认开启可调强度的思考模式
+  - 百万 token 上下文，可用于音视频分析与多步任务
+sources:
+  - https://qwen.ai/
+  - https://qwen.ai/blog?id=qwen3.8-omni-flash
+  - https://www.alibabacloud.com/blog/qwen3-8-omni-flash-omni-senses--agentic-delivery-_603580
+  - https://www.alibabacloud.com/help/en/model-studio/qwen3-8-omni-flash
+verified_at: 2026-09-30

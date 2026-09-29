@@ -1,0 +1,32 @@
+id: lfm-2-vl-3b
+name: LFM2-VL-3B
+vendor: liquid
+family: lfm-vl
+tier: small
+generation: '2'
+predecessor: null
+open_weights: true
+dates:
+  announced: '2025-10-22'
+  ga: '2025-10-22'
+  deprecated: null
+  retired: null
+specs:
+  context_window: null
+  max_output: null
+  modalities_in:
+  - text
+  - image
+  modalities_out:
+  - text
+  knowledge_cutoff: null
+  params_b: 3
+  pricing:
+    input_per_mtok: null
+    output_per_mtok: null
+benchmarks: []
+highlights:
+- 基于 LFM2-2.6B 的开放权重视觉语言模型
+sources:
+- https://www.liquid.ai/blog/lfm2-vl-3b-a-new-efficient-vision-language-for-the-edge
+verified_at: '2026-09-30'

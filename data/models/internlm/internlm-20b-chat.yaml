@@ -1,0 +1,31 @@
+id: internlm-20b-chat
+name: InternLM-20B-Chat
+vendor: internlm
+family: internlm
+tier: mid
+generation: '1'
+predecessor: null
+open_weights: true
+dates:
+  announced: '2023-09-20'
+  ga: '2023-09-20'
+  deprecated: null
+  retired: null
+specs:
+  context_window: null
+  max_output: null
+  modalities_in:
+  - text
+  modalities_out:
+  - text
+  knowledge_cutoff: null
+  params_b: 20
+  pricing:
+    input_per_mtok: null
+    output_per_mtok: null
+benchmarks: []
+highlights:
+- 开放的 20B 参数对话模型
+sources:
+- https://github.com/InternLM/InternLM
+verified_at: '2026-09-30'

@@ -1,0 +1,32 @@
+id: lfm-2-5-1-2b-thinking
+name: LFM2.5-1.2B-Thinking
+vendor: liquid
+family: lfm-thinking
+tier: small
+generation: '2.5'
+predecessor: null
+open_weights: true
+dates:
+  announced: '2026-01-20'
+  ga: '2026-01-20'
+  deprecated: null
+  retired: null
+specs:
+  context_window: 32768
+  max_output: null
+  modalities_in:
+  - text
+  modalities_out:
+  - text
+  knowledge_cutoff: null
+  params_b: 1.2
+  pricing:
+    input_per_mtok: null
+    output_per_mtok: null
+benchmarks: []
+highlights:
+- 输出思考过程的端侧推理模型
+sources:
+- https://www.liquid.ai/blog/lfm2-5-1-2b-thinking-on-device-reasoning-under-1gb
+verified_at: '2026-09-30'
+reasoning: true

@@ -2,6 +2,7 @@ export const VENDORS = [
   "anthropic", "openai", "google", "meta", "deepseek", "qwen",
   "moonshot", "zhipu", "minimax", "bytedance", "baidu", "tencent",
   "xai", "mistral", "cohere", "amazon", "microsoft", "ibm", "nvidia",
+  "stepfun", "iflytek", "ai21", "allenai", "01ai", "internlm", "baichuan", "tii", "liquid",
 ] as const;
 export const TIERS = ["flagship", "mid", "small"] as const;
 export const BENCHMARKS = [
@@ -35,4 +36,13 @@ export const FAMILIES: Record<(typeof VENDORS)[number], readonly string[]> = {
   microsoft: ["phi"],
   ibm: ["granite"],
   nvidia: ["nemotron"],
+  stepfun: ["step"],
+  iflytek: ["spark", "spark-x"],
+  ai21: ["jurassic", "jamba"],
+  allenai: ["olmo", "olmoe", "olmo-think", "olmo-hybrid"],
+  "01ai": ["yi", "yi-vl"],
+  internlm: ["internlm"],
+  baichuan: ["baichuan"],
+  tii: ["falcon"],
+  liquid: ["lfm", "lfm-vl", "lfm-thinking"],
 };

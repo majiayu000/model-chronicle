@@ -1,0 +1,32 @@
+id: olmo-3-7b-think
+name: Olmo 3 7B Think
+vendor: allenai
+family: olmo-think
+tier: small
+generation: '3'
+predecessor: null
+open_weights: true
+dates:
+  announced: '2025-11-20'
+  ga: '2025-11-20'
+  deprecated: null
+  retired: null
+specs:
+  context_window: null
+  max_output: null
+  modalities_in:
+  - text
+  modalities_out:
+  - text
+  knowledge_cutoff: null
+  params_b: 7
+  pricing:
+    input_per_mtok: null
+    output_per_mtok: null
+benchmarks: []
+highlights:
+- 公开训练数据、权重与推理训练流程
+sources:
+- https://allenai.org/blog/olmo3
+verified_at: '2026-09-30'
+reasoning: true

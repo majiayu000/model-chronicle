@@ -1,0 +1,31 @@
+id: olmo-3-7b-instruct
+name: Olmo 3 7B Instruct
+vendor: allenai
+family: olmo
+tier: small
+generation: '3'
+predecessor: olmo-2-7b-instruct
+open_weights: true
+dates:
+  announced: '2025-11-20'
+  ga: '2025-11-20'
+  deprecated: null
+  retired: null
+specs:
+  context_window: null
+  max_output: null
+  modalities_in:
+  - text
+  modalities_out:
+  - text
+  knowledge_cutoff: null
+  params_b: 7
+  pricing:
+    input_per_mtok: null
+    output_per_mtok: null
+benchmarks: []
+highlights:
+- 支持对话、工具调用与多轮交互
+sources:
+- https://allenai.org/blog/olmo3
+verified_at: '2026-09-30'

@@ -1,0 +1,37 @@
+id: glm-5-3
+name: GLM-5.3
+vendor: zhipu
+family: glm
+tier: flagship
+generation: "5.3"
+predecessor: glm-5-2
+open_weights: true
+reasoning: true
+dates:
+  announced: 2026-08-14
+  ga: 2026-08-14
+  deprecated: null
+  retired: null
+specs:
+  context_window: 1000000
+  max_output: 128000
+  modalities_in:
+    - text
+  modalities_out:
+    - text
+  knowledge_cutoff: null
+  params_b: null
+  pricing:
+    input_per_mtok: null
+    output_per_mtok: null
+benchmarks: []
+highlights:
+  - 沿用 GLM-5.2 基座，通过扩展后训练提升代码与长程任务能力
+  - 始终启用推理，支持 low、high、max 三档强度
+  - 官方已发布模型权重，支持本地部署
+sources:
+  - https://z.ai/blog/glm-5.3
+  - https://docs.z.ai/release-notes/new-released
+  - https://docs.z.ai/guides/llm/glm-5.3
+  - https://huggingface.co/zai-org/GLM-5.3
+verified_at: 2026-09-30

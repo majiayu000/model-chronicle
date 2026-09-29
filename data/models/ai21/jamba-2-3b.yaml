@@ -1,0 +1,31 @@
+id: jamba-2-3b
+name: Jamba2 3B
+vendor: ai21
+family: jamba
+tier: small
+generation: '2'
+predecessor: null
+open_weights: true
+dates:
+  announced: '2026-01-08'
+  ga: '2026-01-08'
+  deprecated: null
+  retired: null
+specs:
+  context_window: 256000
+  max_output: null
+  modalities_in:
+  - text
+  modalities_out:
+  - text
+  knowledge_cutoff: null
+  params_b: 3
+  pricing:
+    input_per_mtok: null
+    output_per_mtok: null
+benchmarks: []
+highlights:
+- Apache 2.0 开放权重，面向企业指令跟随与有据回答
+sources:
+- https://www.ai21.com/blog/introducing-jamba2/
+verified_at: '2026-09-30'

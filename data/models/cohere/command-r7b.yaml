@@ -1,0 +1,32 @@
+id: command-r7b
+name: Command R7B
+vendor: cohere
+family: command
+tier: small
+generation: R7B
+predecessor: null
+open_weights: true
+dates:
+  announced: '2024-12-13'
+  ga: '2024-12-13'
+  deprecated: null
+  retired: null
+specs:
+  context_window: null
+  max_output: null
+  modalities_in:
+  - text
+  modalities_out:
+  - text
+  knowledge_cutoff: null
+  params_b: 7
+  pricing:
+    input_per_mtok: null
+    output_per_mtok: null
+benchmarks: []
+highlights:
+- Command R 系列的小型开放权重模型
+sources:
+- https://docs.cohere.com/changelog/command-r-7b
+- https://cohere.com/blog/command-r7b
+verified_at: '2026-09-30'

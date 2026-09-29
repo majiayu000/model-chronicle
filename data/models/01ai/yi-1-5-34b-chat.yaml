@@ -1,0 +1,31 @@
+id: yi-1-5-34b-chat
+name: Yi-1.5-34B-Chat
+vendor: 01ai
+family: yi
+tier: mid
+generation: '1.5'
+predecessor: yi-34b-chat
+open_weights: true
+dates:
+  announced: '2024-05-13'
+  ga: '2024-05-13'
+  deprecated: null
+  retired: null
+specs:
+  context_window: null
+  max_output: null
+  modalities_in:
+  - text
+  modalities_out:
+  - text
+  knowledge_cutoff: null
+  params_b: 34
+  pricing:
+    input_per_mtok: null
+    output_per_mtok: null
+benchmarks: []
+highlights:
+- 增强代码、数学及指令跟随能力
+sources:
+- https://github.com/01-ai/Yi-1.5
+verified_at: '2026-09-30'

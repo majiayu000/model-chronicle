@@ -1,0 +1,32 @@
+id: olmo-1b
+name: OLMo 1B
+vendor: allenai
+family: olmo
+tier: small
+generation: '1'
+predecessor: null
+open_weights: true
+dates:
+  announced: '2024-02-01'
+  ga: '2024-02-01'
+  deprecated: null
+  retired: null
+specs:
+  context_window: null
+  max_output: null
+  modalities_in:
+  - text
+  modalities_out:
+  - text
+  knowledge_cutoff: null
+  params_b: 1
+  pricing:
+    input_per_mtok: null
+    output_per_mtok: null
+benchmarks: []
+highlights:
+- 公开模型权重、训练代码和训练数据
+sources:
+- https://allenai.org/blog/hello-olmo-a-truly-open-llm-43f7e7359222
+- https://arxiv.org/html/2402.00838v1
+verified_at: '2026-09-30'

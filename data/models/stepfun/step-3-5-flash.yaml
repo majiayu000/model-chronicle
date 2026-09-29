@@ -1,0 +1,39 @@
+id: step-3-5-flash
+name: Step 3.5 Flash
+vendor: stepfun
+family: step
+tier: small
+generation: '3.5'
+predecessor: null
+open_weights: true
+dates:
+  announced: null
+  ga: '2026-01-29'
+  deprecated: null
+  retired: null
+specs:
+  context_window: 262144
+  max_output: null
+  modalities_in:
+  - text
+  modalities_out:
+  - text
+  knowledge_cutoff: null
+  params_b: 196
+  pricing:
+    input_per_mtok: null
+    output_per_mtok: null
+benchmarks: []
+highlights:
+- 稀疏 MoE，196B 总参数、每 token 激活 11B
+- 可用日期采用分发平台记录；官方博客 2 月 12 日为更新日期
+sources:
+- https://vercel.com/ai-gateway/models/step-3.5-flash
+- https://github.com/stepfun-ai/Step-3.5-Flash
+verified_at: '2026-09-30'
+reasoning: true
+arch:
+  type: moe
+  total: 196
+  active: 11
+  source: https://github.com/stepfun-ai/Step-3.5-Flash

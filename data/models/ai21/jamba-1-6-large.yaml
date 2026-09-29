@@ -1,0 +1,31 @@
+id: jamba-1-6-large
+name: Jamba 1.6 Large
+vendor: ai21
+family: jamba
+tier: flagship
+generation: '1.6'
+predecessor: jamba-1-5-large
+open_weights: true
+dates:
+  announced: '2025-03-06'
+  ga: '2025-03-06'
+  deprecated: null
+  retired: null
+specs:
+  context_window: 256000
+  max_output: null
+  modalities_in:
+  - text
+  modalities_out:
+  - text
+  knowledge_cutoff: null
+  params_b: null
+  pricing:
+    input_per_mtok: null
+    output_per_mtok: null
+benchmarks: []
+highlights:
+- 256K 长上下文，支持私有部署
+sources:
+- https://www.ai21.com/blog/introducing-jamba-1-6/
+verified_at: '2026-09-30'

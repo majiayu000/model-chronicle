@@ -1,0 +1,31 @@
+id: internlm-2-5-1-8b-chat
+name: InternLM2.5-1.8B-Chat
+vendor: internlm
+family: internlm
+tier: small
+generation: '2.5'
+predecessor: null
+open_weights: true
+dates:
+  announced: 2024-08
+  ga: 2024-08
+  deprecated: null
+  retired: null
+specs:
+  context_window: null
+  max_output: null
+  modalities_in:
+  - text
+  modalities_out:
+  - text
+  knowledge_cutoff: null
+  params_b: 1.8
+  pricing:
+    input_per_mtok: null
+    output_per_mtok: null
+benchmarks: []
+highlights:
+- 书生浦语 2.5 对话版本
+sources:
+- https://github.com/InternLM/InternLM
+verified_at: '2026-09-30'

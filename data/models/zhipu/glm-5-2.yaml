@@ -4,7 +4,7 @@ vendor: zhipu
 family: glm
 tier: flagship
 generation: '5.2'
-predecessor: null
+predecessor: glm-5-1
 open_weights: true
 reasoning: true
 dates:
