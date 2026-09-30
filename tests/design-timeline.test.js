@@ -258,7 +258,7 @@ describe("window, archive and vendor controls", () => {
     expect(v.heat.flatMap(r => r.cells).reduce((n, cell) => n + Number(cell.tip.match(/ · (\d+)$/)?.[1] || 0), 0)).toBe(v.heatTotal);
     expect(render({ vendors: [] })).toMatchObject({ heroTotal: 0, coverageTotal: 0, heatTotal: 0 });
   });
-  it("shows September outside the rolling window and keeps hidden models and future months distinct", () => {
+  it("shows all earlier years regardless of the timeline window and distinguishes hidden and future models", () => {
     const { render, mc } = load([
       model("older", "2024-12-10"),
       model("september", "2025-09-29"),
@@ -267,14 +267,15 @@ describe("window, archive and vendor controls", () => {
     mc.today = "2026-10-01";
     const v = render();
     expect(v.heroTotal).toBe(1);
-    expect(v.heatTotal).toBe(2);
-    expect(v.heat.map(r => r.y)).toEqual([2025, 2026]);
-    expect(v.heat[0].cells[8].tip).toBe("2025-09 · 1");
-    expect(v.heat[0].cells[8].bg).not.toBe("transparent");
-    expect(v.heat[1].cells[9].tip).toBe("2026-10 · 0");
-    expect(v.heat[1].cells[10].tip).toBe("2026-11 · 尚未到来");
-    expect(render({ hiddenModels: ["september"] }).heatTotal).toBe(1);
-    expect(render({ window: "all" }).heatTotal).toBe(3);
+    expect(v.heatTotal).toBe(3);
+    expect(v.heat.map(r => r.y)).toEqual([2024, 2025, 2026]);
+    expect(v.heat[0].cells[11].tip).toBe("2024-12 · 1");
+    expect(v.heat[1].cells[8].tip).toBe("2025-09 · 1");
+    expect(v.heat[1].cells[8].bg).not.toBe("transparent");
+    expect(v.heat[2].cells[9].tip).toBe("2026-10 · 0");
+    expect(v.heat[2].cells[10].tip).toBe("2026-11 · 尚未到来");
+    expect(render({ hiddenModels: ["september"] }).heatTotal).toBe(2);
+    expect(render({ window: "all" }).heat).toEqual(v.heat);
   });
   it("distinguishes release frequency above three models and retains the scale after filtering", () => {
     const records = [4, 10, 19].flatMap((count, i) =>

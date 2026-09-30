@@ -310,7 +310,7 @@ class Component extends DCLogic {
       }),
     );
   }
-  heatmap(models, today, range, peak) {
+  heatmap(models, today, peak) {
     const cnt = {};
     models.forEach((m) => {
       const k = String(m.date).slice(0, 7);
@@ -318,10 +318,7 @@ class Component extends DCLogic {
     });
     const max = peak || Math.max(1, ...Object.values(cnt));
     const ys = models.map((m) => +String(m.date).slice(0, 4)).filter(Boolean);
-    const y0 =
-        range?.mode === "recent"
-          ? Number(range.startDate.slice(0, 4))
-          : Math.min(Number(today.slice(0, 4)), ...ys),
+    const y0 = Math.min(Number(today.slice(0, 4)), ...ys),
       y1 = Math.max(...ys, Number(today.slice(0, 4)));
     const nowK = today.slice(0, 7),
       rows = [];
@@ -507,12 +504,7 @@ class Component extends DCLogic {
       });
     v.heatMax = Math.max(1, ...Object.values(monthlyTotals));
     v.heatAsOf = MC.today;
-    v.heat = this.heatmap(
-      v.heatModels,
-      MC.today,
-      v.isTimeline ? v.range : null,
-      v.heatMax,
-    );
+    v.heat = this.heatmap(v.heatModels, MC.today, v.heatMax);
     const ys = stats.map((m) => Number(m.date.slice(0, 4)));
     v.span =
       v.isTimeline && v.range.mode === "recent"

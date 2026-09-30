@@ -182,13 +182,7 @@
       statsModels: s.view === "timeline" ? models : MC.models,
       heatModels:
         s.view === "timeline"
-          ? availableModels.filter(
-              (m) =>
-                pass(m) &&
-                m.date <= MC.today &&
-                (range.mode === "all" ||
-                  m.year >= Number(range.startDate.slice(0, 4))),
-            )
+          ? availableModels.filter((m) => pass(m) && m.date <= MC.today)
           : MC.models,
       range,
       shown: models.length,
