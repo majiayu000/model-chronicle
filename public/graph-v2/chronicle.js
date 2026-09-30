@@ -5,13 +5,21 @@
     google: { label: "Google", color: "#4285F4" },
     meta: { label: "Meta", color: "#8B5CF6" },
     deepseek: { label: "DeepSeek", color: "#4D6BFE" },
-    qwen: { label: "Qwen", color: "#E8A33D" },
+    qwen: { label: "Qwen", searchLabel: "Qwen / 通义千问", color: "#E8A33D" },
     moonshot: { label: "Kimi", color: "#5AA8F2" },
-    zhipu: { label: "Z.ai", color: "#35C7B2" },
+    zhipu: { label: "Z.ai", searchLabel: "Z.ai / 智谱", color: "#35C7B2" },
     minimax: { label: "MiniMax", color: "#F47BA8" },
-    bytedance: { label: "Seed", color: "#F08B4B" },
-    baidu: { label: "ERNIE", color: "#5F91FF" },
-    tencent: { label: "Hunyuan", color: "#48C2D5" },
+    bytedance: {
+      label: "Seed",
+      searchLabel: "Seed / 字节豆包",
+      color: "#F08B4B",
+    },
+    baidu: { label: "ERNIE", searchLabel: "ERNIE / 文心", color: "#5F91FF" },
+    tencent: {
+      label: "Hunyuan",
+      searchLabel: "Hunyuan / 腾讯混元",
+      color: "#48C2D5",
+    },
     xai: { label: "xAI", color: "#D7D8DC" },
     mistral: { label: "Mistral", color: "#F7A13C" },
     cohere: { label: "Cohere", color: "#B995D8" },
@@ -141,7 +149,7 @@
     code: "代码",
     vision: "多模态",
     long: "长上下文",
-    open: "开源权重",
+    open: "开放权重",
   };
   all.forEach((m) => {
     const c = [];
@@ -161,7 +169,7 @@
     m.capLabels = c.map((k) => CAPS[k]);
     const a = m.arch;
     m.archType = a ? a.type : null;
-    m.archLabel = !a ? "未公开" : a.type === "moe" ? "MoE" : "Dense";
+    m.archLabel = !a ? "未核实" : a.type === "moe" ? "MoE" : "Dense";
     m.paramsLabel =
       a && a.type === "moe"
         ? fmtParams(a.total) + " · 激活 " + fmtParams(a.active)

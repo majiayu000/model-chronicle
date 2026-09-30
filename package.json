@@ -11,8 +11,8 @@
     "typecheck": "tsc --noEmit",
     "test": "bun run data && bun run pages && vitest run",
     "test:unit": "vitest run",
-    "format:ui": "prettier --write index.html 'public/graph-v2/chronicle*.js' public/graph-v2/price-chart.js src/design/application.js",
-    "format:check": "prettier --check index.html 'public/graph-v2/chronicle*.js' public/graph-v2/price-chart.js src/design/application.js"
+    "format:ui": "prettier --write index.html 'public/graph-v2/chronicle*.js' 'public/graph-v2/catalog-*.js' public/graph-v2/price-chart.js src/design/application.js",
+    "format:check": "prettier --check index.html 'public/graph-v2/chronicle*.js' 'public/graph-v2/catalog-*.js' public/graph-v2/price-chart.js src/design/application.js"
   },
   "dependencies": {
     "yaml": "^2.9.1",

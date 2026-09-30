@@ -18,7 +18,7 @@ function load(records = catalog, initialStorage) {
   const context = createContext({ window, URL, URLSearchParams, document: { querySelector: selector => ({ focus(options) { focused.push({ selector, options }); } }) },
     React: { Component: class {}, createElement(tag, props, ...children) { return { tag, props, children }; } },
     DCLogic: class { setState(p, callback) { this.state = { ...this.state, ...p }; callback?.(); } } });
-  for (const name of ["chronicle.js", "chronicle-timeline.js", "chronicle-visibility.js", "chronicle-route.js", "chronicle-vm.js", "chronicle-ext.js", "chronicle-ext2.js"]) {
+  for (const name of ["chronicle.js", "catalog-tools.js", "chronicle-timeline.js", "chronicle-visibility.js", "chronicle-route.js", "chronicle-vm.js", "chronicle-ext.js", "chronicle-ext2.js"]) {
     runInContext(readFileSync(new URL(`../public/graph-v2/${name}`, import.meta.url), "utf8"), context);
     window.MC.today = "2026-09-30";
   }
@@ -250,12 +250,42 @@ describe("window, archive and vendor controls", () => {
     view().tl.onZoom({ target: { value: "840" } });
     expect(view(mc.route.parse(mc.route.serialize({ ...mc.initState(), ...changes.at(-1) }))).tl.pxPerYear).toBe(840);
   });
-  it("keeps cards, coverage and heatmap synchronized with visible filtered models", () => {
+  it("keeps cards and coverage within the timeline window while counting complete calendar years in the heatmap", () => {
     const { render } = load();
     const v = render({ vendors: ["anthropic"] });
     expect(v).toMatchObject({ heroTotal: 12, coverageTotal: 12, vendorCount: 1, shown: 12 });
-    expect(v.heat.flatMap(r => r.cells).reduce((n, cell) => n + Number(cell.tip.match(/ · (\d+)$/)?.[1] || 0), 0)).toBe(12);
-    expect(render({ vendors: [] })).toMatchObject({ heroTotal: 0, coverageTotal: 0 });
+    expect(v.heatTotal).toBeGreaterThan(v.heroTotal);
+    expect(v.heat.flatMap(r => r.cells).reduce((n, cell) => n + Number(cell.tip.match(/ · (\d+)$/)?.[1] || 0), 0)).toBe(v.heatTotal);
+    expect(render({ vendors: [] })).toMatchObject({ heroTotal: 0, coverageTotal: 0, heatTotal: 0 });
+  });
+  it("shows September outside the rolling window and keeps hidden models and future months distinct", () => {
+    const { render, mc } = load([
+      model("older", "2024-12-10"),
+      model("september", "2025-09-29"),
+      model("recent", "2026-09-20"),
+    ]);
+    mc.today = "2026-10-01";
+    const v = render();
+    expect(v.heroTotal).toBe(1);
+    expect(v.heatTotal).toBe(2);
+    expect(v.heat.map(r => r.y)).toEqual([2025, 2026]);
+    expect(v.heat[0].cells[8].tip).toBe("2025-09 · 1");
+    expect(v.heat[0].cells[8].bg).not.toBe("transparent");
+    expect(v.heat[1].cells[9].tip).toBe("2026-10 · 0");
+    expect(v.heat[1].cells[10].tip).toBe("2026-11 · 尚未到来");
+    expect(render({ hiddenModels: ["september"] }).heatTotal).toBe(1);
+    expect(render({ window: "all" }).heatTotal).toBe(3);
+  });
+  it("distinguishes release frequency above three models and retains the scale after filtering", () => {
+    const records = [4, 10, 19].flatMap((count, i) =>
+      Array.from({ length: count }, (_, j) => model(`month-${i}-${j}`, `2026-0${i + 1}-15`)),
+    );
+    const { render } = load(records);
+    const cells = render().heat.find(r => r.y === 2026).cells;
+    expect(new Set(cells.slice(0, 3).map(c => c.bg)).size).toBe(3);
+    expect(cells[0].bg).not.toBe(cells[3].bg);
+    const reduced = render({ hiddenModels: records.filter(m => m.dates.ga.startsWith("2026-03")).slice(0, 15).map(m => m.id) });
+    expect(reduced.heat.find(r => r.y === 2026).cells[2].bg).toBe(cells[0].bg);
   });
   it("supports single-vendor focus, existing multiselect and restoring all vendors", () => {
     const { view, changes, mc, render } = load();

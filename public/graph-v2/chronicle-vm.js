@@ -34,6 +34,8 @@
       bench,
       hover: null,
       archMode: "total",
+      thr: {},
+      diffOnly: false,
     };
   }
 
@@ -159,6 +161,10 @@
     }));
     const capChips = CAP_KEYS.map((c) => ({
       label: MC.CAPS[c],
+      description:
+        c === "code"
+          ? "已收录编程评测达标或属于 Coder 系列；缺少评测不等于不支持编程。"
+          : MC.CAPS[c],
       on: s.caps.includes(c),
       toggle: () => set({ caps: tog(s.caps, c) }),
     }));
@@ -172,7 +178,18 @@
       capChips,
       total: windowModels.length,
       catalogTotal: MC.models.length,
+      exportModels: models,
       statsModels: s.view === "timeline" ? models : MC.models,
+      heatModels:
+        s.view === "timeline"
+          ? availableModels.filter(
+              (m) =>
+                pass(m) &&
+                m.date <= MC.today &&
+                (range.mode === "all" ||
+                  m.year >= Number(range.startDate.slice(0, 4))),
+            )
+          : MC.models,
       range,
       shown: models.length,
       priceCount: MC.models.filter(

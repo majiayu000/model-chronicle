@@ -15,6 +15,15 @@
 
 上述应用文件是仓库维护的源码。执行 `bun run format:ui` 格式化，`bun run format:check` 检查；固定 Prettier 版本，避免每次编辑生成大量样式差异。HTML 保持一个入口以兼容导出运行时；状态逻辑已从 HTML 拆出。
 
+## 资料页与工具
+
+- `scripts/build-pages.ts`：型号页、面包屑、引用、来源与 sitemap；`scripts/build-discovery.ts`：厂商/系列/专题/对比页及两份 RSS。
+- `public/graph-v2/catalog-tools.js`：交互搜索与静态工具共用的检索、筛选、费用计算、选中模型 CSV。
+- `public/graph-v2/catalog-page.js`：静态页的筛选、试算与引用复制，数据加载失败时保留原有静态目录。
+- `vite.config.ts`：首页静态资料入口及元数据；`public/social-card.png`：默认分享图。
+
+交互与静态工具的脚本链接都带内容指纹。静态工具的数据来自同次构建的 `dataset/models.json`；页面应明确显示数据加载失败，不能让旧试算结果假装有效。
+
 ## 导出运行时边界
 
 `support.js` 与 `vendor/` 是第三方文件，格式化命令不包含它们。`support.js` 中提到的 `dc-runtime/src` 未随设计包提供，当前仓库不能重建这个运行时。不要把它当成可再生成的本地构建产物，也不要伪造上游源码。其来源及许可限制见 [第三方说明](../THIRD_PARTY_NOTICES.md)。升级时需取得新的完整导出包，比较行为后整体替换。

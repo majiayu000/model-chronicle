@@ -77,6 +77,33 @@ class Component extends DCLogic {
     window.addEventListener("hashchange", this._route);
     this._key = (e) => {
       if (!this.state.ready) return;
+      if (this.state.pal && e.key === "Tab") {
+        const dialog = document.querySelector(
+          '[role="dialog"][aria-label="搜索模型"]',
+        );
+        const nodes = [
+          ...(dialog?.querySelectorAll(
+            "a[href],button:not([disabled]),input",
+          ) || []),
+        ];
+        const first = nodes[0],
+          last = nodes.at(-1);
+        if (
+          e.shiftKey &&
+          (document.activeElement === first ||
+            !dialog?.contains(document.activeElement))
+        ) {
+          e.preventDefault();
+          last?.focus();
+        } else if (
+          !e.shiftKey &&
+          (document.activeElement === last ||
+            !dialog?.contains(document.activeElement))
+        ) {
+          e.preventDefault();
+          first?.focus();
+        }
+      }
       if (e.key === "Escape" && this.state.hover) {
         this.update({ hover: null });
         return;
@@ -127,6 +154,22 @@ class Component extends DCLogic {
     window.addEventListener("scroll", this._scroll, true);
   }
   componentDidUpdate() {
+    const dialog = document.querySelector(
+      '[role="dialog"][aria-label="搜索模型"]',
+    );
+    if (dialog && !this._searchDialog) {
+      this._searchReturn = document.activeElement;
+      dialog.querySelector("input")?.focus();
+    } else if (!dialog && this._searchDialog) {
+      this._searchReturn?.focus?.({ preventScroll: true });
+    }
+    this._searchDialog = dialog;
+    if (dialog)
+      dialog
+        .querySelector('[data-search-active="true"]')
+        ?.scrollIntoView({ block: "nearest" });
+    const landing = document.getElementById("site-discovery");
+    if (landing && this.state.ready) landing.hidden = true;
     if (this.state.hover) {
       const preview = document.querySelector(".model-preview");
       if (preview) {
@@ -267,12 +310,13 @@ class Component extends DCLogic {
       }),
     );
   }
-  heatmap(models, today, range) {
+  heatmap(models, today, range, peak) {
     const cnt = {};
     models.forEach((m) => {
       const k = String(m.date).slice(0, 7);
       cnt[k] = (cnt[k] || 0) + 1;
     });
+    const max = peak || Math.max(1, ...Object.values(cnt));
     const ys = models.map((m) => +String(m.date).slice(0, 4)).filter(Boolean);
     const y0 =
         range?.mode === "recent"
@@ -287,20 +331,20 @@ class Component extends DCLogic {
         cells: Array.from({ length: 12 }, (_, i) => {
           const k = y + "-" + String(i + 1).padStart(2, "0"),
             n = cnt[k] || 0,
-            future =
-              k > nowK ||
-              (range?.mode === "recent" && k < range.startDate.slice(0, 7));
+            future = k > nowK,
+            intensity = n / max;
           return {
-            tip: k + (future ? " · 窗口外" : " · " + n),
+            tip: k + (future ? " · 尚未到来" : " · " + n),
+            label: `${k}：${future ? "尚未到来" : `${n} 个型号`}${k === nowK ? `，截至 ${today}` : ""}`,
+            count: future ? "—" : n,
+            color: future
+              ? "#62656d"
+              : intensity >= 0.4
+                ? "#141518"
+                : "#ecebe6",
             bg: future
               ? "transparent"
-              : n === 0
-                ? "#1c1d21"
-                : n === 1
-                  ? "rgba(212,245,60,.28)"
-                  : n === 2
-                    ? "rgba(212,245,60,.55)"
-                    : "#d4f53c",
+              : `rgb(${Math.round(28 + 184 * intensity)},${Math.round(29 + 216 * intensity)},${Math.round(33 + 27 * intensity)})`,
             ol:
               k === nowK
                 ? "1px solid #ecebe6"
@@ -321,6 +365,7 @@ class Component extends DCLogic {
         mode: "LOADING",
         total: "…",
         heroTotal: "…",
+        heatTotal: "…",
         coverageTotal: "…",
         statLabel: "收录模型",
         shown: "…",
@@ -452,7 +497,22 @@ class Component extends DCLogic {
         (m) => (Date.now() - Date.parse(m.verified_at)) / 864e5 > 90,
       ).length,
     };
-    v.heat = this.heatmap(stats, MC.today, v.isTimeline ? v.range : null);
+    v.heatTotal = v.heatModels.length;
+    // Keep the same color scale across filters and date windows.
+    const monthlyTotals = {};
+    MC.models
+      .filter((m) => m.date <= MC.today)
+      .forEach((m) => {
+        monthlyTotals[m.month] = (monthlyTotals[m.month] || 0) + 1;
+      });
+    v.heatMax = Math.max(1, ...Object.values(monthlyTotals));
+    v.heatAsOf = MC.today;
+    v.heat = this.heatmap(
+      v.heatModels,
+      MC.today,
+      v.isTimeline ? v.range : null,
+      v.heatMax,
+    );
     const ys = stats.map((m) => Number(m.date.slice(0, 4)));
     v.span =
       v.isTimeline && v.range.mode === "recent"
@@ -544,6 +604,8 @@ class Component extends DCLogic {
         });
       v.d.noSources = !v.d.hasSources;
     }
+    v.exportFiltered = () =>
+      window.MCCatalog.download(v.exportModels, "model-selection.csv");
     v.goHome = (e) => {
       e.preventDefault();
       set({ view: "timeline", id: null });

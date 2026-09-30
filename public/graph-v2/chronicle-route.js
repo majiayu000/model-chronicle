@@ -49,6 +49,17 @@
       ].slice(0, 4);
     if (q.has("bench") && MC.BENCH.includes(q.get("bench")))
       state.bench = q.get("bench");
+    state.diffOnly = q.get("diff") === "1";
+    if (q.has("threshold")) {
+      const value = Number(q.get("threshold"));
+      if (
+        MC.BENCH.includes(state.bench) &&
+        Number.isFinite(value) &&
+        value >= 20 &&
+        value <= 95
+      )
+        state.thr = { [state.bench]: value };
+    }
     if (q.has("groups")) {
       try {
         const groups = JSON.parse(q.get("groups"));
@@ -97,6 +108,9 @@
     if (s.caps?.length) q.set("caps", s.caps.join(","));
     if (s.cmp !== null && s.cmp !== undefined) q.set("cmp", s.cmp.join(","));
     if (s.bench) q.set("bench", s.bench);
+    if (s.diffOnly) q.set("diff", "1");
+    if (s.thr?.[s.bench] !== undefined)
+      q.set("threshold", String(s.thr[s.bench]));
     if (s.groups && Object.keys(s.groups).length)
       q.set("groups", JSON.stringify(s.groups));
     if (s.lifeMode && s.lifeMode !== "all") q.set("life", s.lifeMode);

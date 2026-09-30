@@ -2,7 +2,7 @@
 <html lang="zh-CN">
   <head>
     <meta charset="utf-8" />
-    <title>模型编年史</title>
+    <title>模型编年史｜大模型发布时间线、规格与发布价格</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta
       name="description"
@@ -17,6 +17,7 @@
     <script type="module" src="/src/design/bootstrap.ts"></script>
   </head>
   <body>
+    <!-- SITE_DISCOVERY -->
     <x-dc>
       <helmet>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -68,6 +69,95 @@
         </style>
 
         <style>
+          .release-heatmap {
+            width: 380px;
+            max-width: 100%;
+            min-width: 0;
+            background: #141518;
+            border: 1px solid #26282d;
+            border-radius: 12px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+          }
+          .heat-heading {
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+            gap: 12px;
+            font-size: 13px;
+          }
+          .heat-heading > span {
+            color: #9a9ca3;
+            font-family: "Geist Mono", monospace;
+            font-size: 11px;
+          }
+          .heat-caption {
+            margin: 0;
+            color: #858892;
+            font-size: 10px;
+            line-height: 1.6;
+          }
+          .heat-grid {
+            display: grid;
+            grid-template-columns: 32px repeat(12, minmax(0, 1fr));
+            gap: 3px;
+            align-items: center;
+            font-family: "Geist Mono", monospace;
+          }
+          .heat-months {
+            margin-top: 12px;
+            color: #858892;
+            text-align: center;
+            font-size: 9px;
+          }
+          .heat-months > span:first-child {
+            text-align: left;
+          }
+          .heat-year {
+            font-size: 10px;
+            color: #9a9ca3;
+          }
+          .heat-cell {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            aspect-ratio: 1;
+            border-radius: 3px;
+            font-size: 9px;
+            outline-offset: 1px;
+          }
+          .heat-footer {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 1px solid #26282d;
+            color: #9a9ca3;
+            font-size: 9px;
+          }
+          .heat-footer > span {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+          }
+          .heat-scale {
+            display: inline-block;
+            width: 50px;
+            height: 7px;
+            border-radius: 2px;
+            background: linear-gradient(to right, #1c1d21, #d4f53c);
+          }
+          @media (max-width: 760px) {
+            .release-heatmap {
+              width: 100%;
+              padding: 16px;
+            }
+          }
           @media (max-width: 760px) {
             .site-header {
               height: auto !important;
@@ -799,6 +889,40 @@
             color: #ecebe6;
             margin-right: 4px;
           }
+          .tool-link {
+            display: flex;
+            align-items: center;
+            flex: none;
+            padding: 4px 12px;
+            border-radius: 6px;
+            color: #9a9ca3;
+            text-decoration: none;
+            white-space: nowrap;
+            font-size: 13px;
+          }
+          .tool-link:hover {
+            background: #1b1c20;
+            color: #ecebe6;
+          }
+          .tool-actions {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            align-items: center;
+            font-size: 13px;
+          }
+          .tool-actions button {
+            background: #1b1c20;
+            color: #ecebe6;
+            border: 1px solid #444;
+            border-radius: 5px;
+            padding: 8px 12px;
+            cursor: pointer;
+          }
+          .tool-actions button[aria-pressed="true"] {
+            background: #d4f53c;
+            color: #0e0f11;
+          }
           :where(a, button, input, summary):focus-visible {
             outline: 2px solid #d4f53c !important;
             outline-offset: 3px;
@@ -982,6 +1106,7 @@
                 ></sc-if
               >
             </sc-for>
+            <a href="./model/explore.html" class="tool-link">资料与工具</a>
           </nav>
           <button
             aria-label="搜索模型"
@@ -1222,123 +1347,45 @@
               </div>
             </div>
           </div>
-          <div
-            style="
-              background: #141518;
-              border: 1px solid #26282d;
-              border-radius: 12px;
-              padding: 18px 20px 16px;
-              display: flex;
-              flex-direction: column;
-              gap: 12px;
-            "
-          >
-            <div
-              style="
-                display: flex;
-                align-items: baseline;
-                gap: 12px;
-                font-size: 12px;
-              "
-            >
-              <span style="font-weight: 600">每月宣布或可用</span
-              ><span
-                style="
-                  font-family: &quot;Geist Mono&quot;, monospace;
-                  color: #858892;
-                  margin-left: auto;
-                "
-                >{{ heroTotal }} models</span
-              >
+          <div class="release-heatmap" aria-label="模型发布频率">
+            <div class="heat-heading">
+              <strong>模型发布频率</strong>
+              <span>{{ heatTotal }} 个型号</span>
             </div>
-            <div style="display: flex; flex-direction: column; gap: 4px">
-              <div
-                style="
-                  display: grid;
-                  grid-template-columns: 40px repeat(12, 16px);
-                  gap: 4px;
-                  font-family: &quot;Geist Mono&quot;, monospace;
-                  font-size: 9px;
-                  color: #858892;
-                "
-              >
-                <span></span><span>1</span><span></span><span>3</span
-                ><span></span><span>5</span><span></span><span>7</span
-                ><span></span><span>9</span><span></span><span>11</span
-                ><span></span>
-              </div>
-              <sc-for list="{{ heat }}" as="y" hint-placeholder-count="4">
-                <div
-                  style="
-                    display: grid;
-                    grid-template-columns: 40px repeat(12, 16px);
-                    gap: 4px;
-                    align-items: center;
-                  "
-                >
+            <p
+              class="heat-caption"
+              title="统计已收录型号；优先使用正式可用日期，缺失时使用宣布日期"
+            >
+              完整自然年 · 每格为当月发布型号数
+            </p>
+            <div class="heat-grid heat-months" aria-hidden="true">
+              <span>月</span><span>1</span><span>2</span><span>3</span
+              ><span>4</span><span>5</span><span>6</span><span>7</span
+              ><span>8</span><span>9</span><span>10</span><span>11</span
+              ><span>12</span>
+            </div>
+            <sc-for list="{{ heat }}" as="y">
+              <div class="heat-grid">
+                <span class="heat-year">{{ y.y }}</span>
+                <sc-for list="{{ y.cells }}" as="c">
                   <span
-                    style="
-                      font-family: &quot;Geist Mono&quot;, monospace;
-                      font-size: 11px;
-                      color: #9a9ca3;
-                    "
-                    >{{ y.y }}</span
+                    class="heat-cell"
+                    title="{{ c.label }}"
+                    aria-label="{{ c.label }}"
+                    style="background:{{ c.bg }};color:{{ c.color }};outline:{{ c.ol }}"
+                    >{{ c.count }}</span
                   >
-                  <sc-for list="{{ y.cells }}" as="c"
-                    ><span
-                      title="{{ c.tip }}"
-                      style="width:16px;height:16px;border-radius:3px;background:{{ c.bg }};outline:{{ c.ol }};outline-offset:1px"
-                    ></span
-                  ></sc-for>
-                </div>
-              </sc-for>
+                </sc-for>
+              </div>
+            </sc-for>
+            <div class="heat-footer">
+              <span title="颜色按全库月度峰值计算，筛选时保持同一色尺"
+                >0 <span class="heat-scale" aria-hidden="true"></span> {{
+                heatMax }} 个/月</span
+              >
+              <span>白框为本月 · 虚线为未来</span>
             </div>
-            <div
-              style="
-                display: flex;
-                align-items: center;
-                gap: 4px;
-                font-family: &quot;Geist Mono&quot;, monospace;
-                font-size: 10px;
-                color: #858892;
-                justify-content: flex-end;
-              "
-            >
-              <span style="margin-right: 4px">0</span
-              ><span
-                style="
-                  width: 10px;
-                  height: 10px;
-                  border-radius: 2px;
-                  background: #1c1d21;
-                "
-              ></span
-              ><span
-                style="
-                  width: 10px;
-                  height: 10px;
-                  border-radius: 2px;
-                  background: rgba(212, 245, 60, 0.28);
-                "
-              ></span
-              ><span
-                style="
-                  width: 10px;
-                  height: 10px;
-                  border-radius: 2px;
-                  background: rgba(212, 245, 60, 0.55);
-                "
-              ></span
-              ><span
-                style="
-                  width: 10px;
-                  height: 10px;
-                  border-radius: 2px;
-                  background: #d4f53c;
-                "
-              ></span
-              ><span style="margin-left: 4px">3+</span>
-            </div>
+            <p class="heat-caption">本月截至 {{ heatAsOf }}，尚未结束</p>
           </div>
         </section>
       </sc-if>
@@ -1393,7 +1440,7 @@
             tl.rowCount }} 个系列 · 范围内隐藏 {{ visibility.inScope }} 个</span
           >
           <p>
-            统计与热图使用当前可见型号；隐藏只影响本机时间轴。全库 {{
+            统计按时间轴范围，热图按完整自然年；均跟随筛选与隐藏。全库 {{
             catalogTotal }} 个模型均可搜索、查看和下载。
           </p>
           <sc-if value="{{ visibility.managerOpen }}"
@@ -1535,6 +1582,9 @@
           >
             缺失字段表示尚无足够依据，不代表数值为零。
             <a href="./model/">模型索引</a
+            ><a href="./model/finder.html">按需求找模型</a
+            ><a href="./model/recent.html">近期发布 / RSS</a
+            ><button onClick="{{ exportFiltered }}">导出当前选择</button
             ><a href="./dataset/review-queue.json" download>待复核清单</a
             ><a href="./dataset/models.csv" download>CSV 数据</a
             ><a href="./dataset/models.json" download>JSON 数据</a
@@ -1616,6 +1666,7 @@
               <sc-for list="{{ capChips }}" as="c" hint-placeholder-count="5">
                 <button
                   onClick="{{ c.toggle }}"
+                  title="{{ c.description }}"
                   style="font:inherit;font-size:12px;background:{{ c.bg }};color:{{ c.fg }};border:1px solid {{ c.bd }};border-radius:6px;padding:3px 10px;cursor:pointer"
                 >
                   {{ c.label }}
@@ -3493,7 +3544,7 @@
                         border-top: 1px solid #26282d;
                       "
                     >
-                      当前筛选下没有可比的闭源纪录；需先核实评测条件
+                      资料不足：需要同条件的开放权重与闭源模型样本，才能计算追平时间。
                     </div></sc-if
                   >
                 </div>
@@ -3598,7 +3649,10 @@
                 ></label
               >
               <span style="color: #858892"
-                >混合发布价 = (3 × 输入 + 输出) ÷ 4，美元 / 百万 token</span
+                >混合发布价 = (3 × 输入 + 输出) ÷ 4，美元 / 百万 token。<a
+                  href="./model/calculator.html"
+                  >按自己的用量试算</a
+                ></span
               >
             </div>
             <div
@@ -4616,9 +4670,19 @@
                 onClick="{{ cp.reset }}"
                 style="color: #9a9ca3; text-decoration: none"
                 style-hover="color:#ecebe6"
-                >恢复默认</a
+                >查看同条件示例</a
               >
             </div>
+            <p class="tool-actions">
+              <button
+                onClick="{{ cp.toggleDiff }}"
+                aria-pressed="{{ cp.diffOnly }}"
+              >
+                只看差异</button
+              ><button onClick="{{ cp.exportCsv }}">导出对比 CSV</button
+              ><a href="./model/comparisons.html">精选代际对比</a
+              ><span>默认示例来自已核实的同条件评测组。</span>
+            </p>
             <sc-if value="{{ cp.empty }}">
               <div
                 style="
@@ -4944,7 +5008,9 @@
                     font-size: 10px;
                     line-height: 14px;
                   "
-                  >esc</span
+                  ><button onClick="{{ pal.close }}" aria-label="关闭搜索">
+                    关闭
+                  </button></span
                 >
               </div>
               <div
@@ -5905,6 +5971,7 @@
           <div
             onClick="{{ pal.stop }}"
             role="dialog"
+            data-search-dialog="true"
             aria-modal="true"
             aria-label="搜索模型"
             style="
@@ -5962,7 +6029,9 @@
                   padding: 0 4px;
                   line-height: 15px;
                 "
-                >esc</span
+                ><button onClick="{{ pal.close }}" aria-label="关闭搜索">
+                  关闭
+                </button></span
               >
             </div>
             <div
@@ -5976,6 +6045,7 @@
             >
               <sc-for list="{{ pal.hits }}" as="h" hint-placeholder-count="6">
                 <div
+                  data-search-active="{{ h.active }}"
                   style="display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:7px;background:{{ h.bg }}"
                   style-hover="background:#1f2125"
                 >
@@ -6052,6 +6122,11 @@
                   >
                 </div>
               </sc-for>
+              <sc-if value="{{ pal.hasMore }}"
+                ><button onClick="{{ pal.showAll }}">
+                  查看全部 {{ pal.count }} 个结果
+                </button></sc-if
+              >
               <sc-if value="{{ pal.empty }}"
                 ><div
                   style="
@@ -6075,13 +6150,13 @@
                 color: #858892;
               "
             >
-              <span>↵ 打开详情</span><span>⌘↵ 加入对比</span
+              <span>↑↓ 选择 · ↵ 打开</span><span>⌘↵ 加入对比</span
               ><span
                 style="
                   margin-left: auto;
                   font-family: &quot;Geist Mono&quot;, monospace;
                 "
-                >{{ pal.count }}</span
+                >{{ pal.shown }} / {{ pal.count }}</span
               >
             </div>
           </div>

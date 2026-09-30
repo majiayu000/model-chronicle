@@ -24,18 +24,22 @@ function loadScript(path: string): Promise<void> {
 }
 
 async function boot() {
+  const paths = [
+    "graph-v2/vendor/react.production.min.js", "graph-v2/vendor/react-dom.production.min.js",
+    "graph-v2/catalog-tools.js", "graph-v2/chronicle.js", "graph-v2/chronicle-timeline.js",
+    "graph-v2/chronicle-visibility.js", "graph-v2/chronicle-route.js", "graph-v2/chronicle-vm.js",
+    "graph-v2/chronicle-ext.js", "graph-v2/chronicle-ext2.js", "graph-v2/price-chart.js", "graph-v2/support.js",
+  ];
+  // Download in parallel while retaining the runtime's execution order.
+  for (const path of paths) {
+    const link = document.createElement("link");
+    link.rel = "preload";
+    link.as = "script";
+    link.href = `${import.meta.env.BASE_URL}${path}?v=${__CHRONICLE_RUNTIME_VERSION__}`;
+    document.head.appendChild(link);
+  }
   // The exported design runtime targets React 18's UMD API.
-  await loadScript("graph-v2/vendor/react.production.min.js");
-  await loadScript("graph-v2/vendor/react-dom.production.min.js");
-  await loadScript("graph-v2/chronicle.js");
-  await loadScript("graph-v2/chronicle-timeline.js");
-  await loadScript("graph-v2/chronicle-visibility.js");
-  await loadScript("graph-v2/chronicle-route.js");
-  await loadScript("graph-v2/chronicle-vm.js");
-  await loadScript("graph-v2/chronicle-ext.js");
-  await loadScript("graph-v2/chronicle-ext2.js");
-  await loadScript("graph-v2/price-chart.js");
-  await loadScript("graph-v2/support.js");
+  for (const path of paths) await loadScript(path);
 }
 
 boot().catch((error: unknown) => {

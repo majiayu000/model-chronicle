@@ -98,7 +98,7 @@
             fr.push(p);
           }
         });
-      const rows = fr.map((c) => {
+      const rows = (openPts.length ? fr : []).map((c) => {
         const o = openPts.find((p) => p.v >= c.v),
           led = !!o && o.t <= c.t,
           matched = !!o && !led;
@@ -142,11 +142,16 @@
         count: rows.length,
         empty: rows.length === 0,
         comparisonGroup: comparable.name || "暂无同条件对照组",
+        insufficient: !openPts.length || !fr.length,
         median: med == null ? "—" : med + " 天",
         medianSub: m.length + " 次追平闭源纪录",
         latest: latest ? latest.lag + " 天" : "—",
         latestSub: latest ? latest.openName + " 追平 " + latest.name : "暂无",
-        pendingDays: pend ? pend.lag + " 天" : comparable.name ? "0" : "—",
+        pendingDays: pend
+          ? pend.lag + " 天"
+          : openPts.length && fr.length
+            ? "0"
+            : "—",
         pendingSub: pend
           ? "自 " +
             pend.name +
@@ -154,9 +159,9 @@
             pend.score +
             "）起，开源最高 " +
             (bestOpen < 0 ? "—" : bestOpen)
-          : comparable.name
-            ? "开源已追平全部闭源纪录"
-            : "缺少可比评测条件",
+          : openPts.length && fr.length
+            ? "开放权重模型已追平该组闭源纪录"
+            : "资料不足：需要同组的开放权重与闭源样本",
       };
     }
 

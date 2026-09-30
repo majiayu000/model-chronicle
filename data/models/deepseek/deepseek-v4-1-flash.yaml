@@ -21,17 +21,32 @@ specs:
   modalities_out:
     - text
   knowledge_cutoff: null
-  params_b: 552
+  params_b: null
   pricing:
     input_per_mtok: null
     output_per_mtok: null
-benchmarks: []
-highlights: []
+benchmarks:
+  - name: GPQA Diamond
+    score: 90.9
+    reported_by: vendor
+    source: https://huggingface.co/deepseek-ai/DeepSeek-V4.1-Flash/raw/main/README.md
+    evaluation:
+      benchmark_version: GPQA Diamond (Pass@1)
+      reasoning_effort: "100（最大推理强度）"
+highlights:
+  - 采用因果编码器—解码器架构，40 层分为 20 层编码器与 20 层解码器
+  - 官方分别报告 552B 主干参数和 196B 条件记忆，不将主干数值当作整模总参数
+  - 预填充激活 8B、解码激活 16B 参数，不合并成单一激活量
+  - 全局 KV 缓存为每 token 890 字节，约为 DeepSeek-V4-Flash 的四分之一
 sources:
   - https://api-docs.deepseek.com/news/news260910/
   - https://arxiv.org/abs/2609.19969
+  - https://huggingface.co/deepseek-ai/DeepSeek-V4.1-Flash/raw/main/README.md
 verified_at: 2026-09-25
 arch:
   type: moe
-  total: 552
-  source: https://api-docs.deepseek.com/news/news260910/
+  layers: 40
+  experts: 384
+  topk: 6
+  shared: 1
+  source: https://huggingface.co/deepseek-ai/DeepSeek-V4.1-Flash/raw/main/README.md

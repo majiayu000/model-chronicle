@@ -8,7 +8,7 @@ function load() {
     .map(id => parse(readFileSync(new URL("../data/models/" + id + ".yaml", import.meta.url), "utf8")));
   const window = { __CHRONICLE_MODELS__: records, scrollTo() {} };
   const context = createContext({ window });
-  for (const name of ["chronicle.js", "chronicle-ext2.js"]) {
+  for (const name of ["catalog-tools.js", "chronicle.js", "chronicle-ext2.js"]) {
     runInContext(readFileSync(new URL("../public/graph-v2/" + name, import.meta.url), "utf8"), context);
   }
   return window.MC;

@@ -3,19 +3,11 @@
   if (!window.MC || !window.MC.models) return setTimeout(init, 20);
   const MAX = 4;
   const defaults = () => {
-    const MC = window.MC,
-      seen = new Set(),
-      out = [];
-    MC.models
-      .filter((m) => m.tier === "flagship")
-      .sort((a, b) => b.t - a.t)
-      .forEach((m) => {
-        if (!seen.has(m.vendor) && out.length < 3) {
-          seen.add(m.vendor);
-          out.push(m.id);
-        }
-      });
-    return out;
+    const MC = window.MC;
+    const group = MC.BENCH.map((b) => MC.comparable(MC.models, b)).find(
+      (g) => g.models.length >= 2,
+    );
+    return group ? group.models.slice(0, 3).map((m) => m.id) : [];
   };
   const cmpIds = (s) =>
     (s.cmp || defaults()).filter((id) => window.MC.byId[id]);
@@ -189,8 +181,15 @@
             set({ cmp: ids.filter((x) => x !== m.id) });
           },
         })),
-        specs,
-        bench,
+        specs: s.diffOnly
+          ? specs.filter((r) => new Set(r.cells.map((c) => c.v)).size > 1)
+          : specs,
+        bench: s.diffOnly
+          ? bench.filter((r) => new Set(r.cells.map((c) => c.v)).size > 1)
+          : bench,
+        diffOnly: !!s.diffOnly,
+        toggleDiff: () => set({ diffOnly: !s.diffOnly }),
+        exportCsv: () => window.MCCatalog.download(ms, "model-comparison.csv"),
         hasBench: bench.length > 0,
         noBench: bench.length === 0 && n > 0,
         n,
@@ -200,7 +199,7 @@
         slots: MAX - n,
         addOpen: (e) => {
           if (e && e.preventDefault) e.preventDefault();
-          set({ pal: true, q: "" });
+          set({ pal: true, q: "", searchIndex: 0, searchAll: false });
         },
         clear: (e) => {
           e.preventDefault();
@@ -213,28 +212,42 @@
       };
     }
 
-    const q = (s.q || "").trim().toLowerCase();
-    const hits = MC.models
-      .filter(
-        (m) =>
-          !q ||
-          [m.name, m.id, m.family, MC.V[m.vendor].label, m.generation]
-            .join(" ")
-            .toLowerCase()
-            .includes(q),
-      )
-      .sort((a, b) => b.t - a.t)
-      .slice(0, 8);
+    const matches = window.MCCatalog.search(
+      MC.models,
+      s.q,
+      Object.fromEntries(
+        Object.entries(MC.V).map(([id, v]) => [id, v.searchLabel || v.label]),
+      ),
+    );
+    const hits = s.searchAll ? matches : matches.slice(0, 8);
+    const active = Math.max(0, Math.min(s.searchIndex || 0, hits.length - 1));
     out.pal = {
       open: !!s.pal,
       q: s.q || "",
-      count: hits.length,
+      count: matches.length,
+      shown: hits.length,
+      hasMore: matches.length > hits.length,
+      showAll: () => set({ searchAll: true }),
       empty: hits.length === 0,
-      onQ: (e) => set({ q: e.target.value }),
+      onQ: (e) => set({ q: e.target.value, searchIndex: 0, searchAll: false }),
       onKey: (e) => {
-        if (e.key === "Enter" && hits[0]) {
-          if (e.metaKey || e.ctrlKey) add(hits[0].id)(e);
-          else open(hits[0].id)(e);
+        if (e.isComposing) return;
+        if (e.key === "ArrowDown" || e.key === "ArrowUp") {
+          e.preventDefault();
+          set({
+            searchIndex: Math.max(
+              0,
+              Math.min(
+                hits.length - 1,
+                active + (e.key === "ArrowDown" ? 1 : -1),
+              ),
+            ),
+          });
+        }
+        if (e.key === "Enter" && hits[active]) {
+          e.preventDefault();
+          if (e.metaKey || e.ctrlKey) add(hits[active].id)(e);
+          else open(hits[active].id)(e);
         }
         if (e.key === "Escape") set({ pal: false });
       },
@@ -242,7 +255,7 @@
       stop: (e) => e.stopPropagation(),
       openPal: (e) => {
         if (e && e.preventDefault) e.preventDefault();
-        set({ pal: true, q: "" });
+        set({ pal: true, q: "", searchIndex: 0, searchAll: false });
       },
       hits: hits.map((m, i) => {
         const inCmp = ids.includes(m.id);
@@ -250,8 +263,9 @@
           name: m.name,
           color: m.color,
           sub: MC.V[m.vendor].label + " · " + m.tierLabel + " · " + m.date,
-          first: i === 0,
-          bg: i === 0 ? "#1b1c20" : "transparent",
+          first: i === active,
+          active: i === active,
+          bg: i === active ? "#1b1c20" : "transparent",
           go: open(m.id),
           add: add(m.id),
           canAdd: !inCmp && ids.length < MAX,
