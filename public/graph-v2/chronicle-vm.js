@@ -224,6 +224,52 @@
         },
         leave: () => set({ hover: null }),
       });
+      const linkPreview = (link) => {
+        const pairs = link.pairs.map((pair) => {
+          const from = MC.byId[pair.from],
+            to = MC.byId[pair.to];
+          return {
+            ...pair,
+            fromName: from.name,
+            toName: to.name,
+            fromDate: `${from.date} · ${from.dateLabel}`,
+            toDate: `${to.date} · ${to.dateLabel}`,
+            interval: pair.gap
+              ? `相隔 ${pair.gap}`
+              : "日期口径不同，未计算间隔",
+          };
+        });
+        const enter = (e) => {
+          const r = e.currentTarget.getBoundingClientRect();
+          const svg = e.currentTarget.ownerSVGElement.getBoundingClientRect();
+          const pointer = Number.isFinite(e.clientX);
+          const clientX = pointer ? e.clientX : r.left + r.width / 2;
+          const clientY = pointer ? e.clientY : r.top + r.height / 2;
+          const px = Math.max(
+            Math.min(link.source.px, link.target.px),
+            Math.min(
+              Math.max(link.source.px, link.target.px),
+              ((clientX - svg.left) * x(end)) / svg.width,
+            ),
+          );
+          const time =
+            Math.round((start + ((px - 24) / P) * YEAR) / 864e5) * 864e5;
+          const height = window.innerHeight || 900;
+          const above = clientY > height / 2;
+          set({
+            hover: {
+              line: true,
+              title: `${link.source.name} → ${link.target.name}`,
+              date: new Date(time).toISOString().slice(0, 10),
+              pairs,
+              x: Math.max(8, Math.min(clientX + 16, viewport - 328)),
+              y: above ? height - clientY + 18 : clientY + 18,
+              above,
+            },
+          });
+        };
+        return { ...link, enter, leave: () => set({ hover: null }) };
+      };
       const chip = (m) => ({
         id: m.id,
         name: m.name,
@@ -442,7 +488,7 @@
             family: row.family,
             n: versions.reduce((n, v) => n + v.n, 0),
             versions,
-            links: MC.timeline.versionLinks(versions),
+            links: MC.timeline.versionLinks(versions).map(linkPreview),
             height: treeBottom,
             hideLabel: `隐藏 ${row.family} 系列的全部型号`,
             hide: () =>
@@ -532,22 +578,24 @@
         .map((id) => fullModels.find((m) => m.id === id))
         .filter(Boolean);
       const h = hovered.length === 1 ? hovered[0] : null;
-      out.hover = hovered.length
-        ? {
-            ...s.hover,
-            position: s.hover.above ? "bottom" : "top",
-            title: h ? h.name : s.hover.title,
-            m: h,
-            group: !h,
-            count: hovered.length,
-            models: hovered.slice(0, 6),
-            remaining: Math.max(0, hovered.length - 6),
-            caps: h?.capLabels || [],
-            bench: h?.benchmarks.slice(0, 3) || [],
-            hasBench: !!h?.benchmarks.length,
-            hasCaps: !!h?.caps.length,
-          }
-        : null;
+      out.hover = s.hover?.line
+        ? { ...s.hover, position: s.hover.above ? "bottom" : "top" }
+        : hovered.length
+          ? {
+              ...s.hover,
+              position: s.hover.above ? "bottom" : "top",
+              title: h ? h.name : s.hover.title,
+              m: h,
+              group: !h,
+              count: hovered.length,
+              models: hovered.slice(0, 6),
+              remaining: Math.max(0, hovered.length - 6),
+              caps: h?.capLabels || [],
+              bench: h?.benchmarks.slice(0, 3) || [],
+              hasBench: !!h?.benchmarks.length,
+              hasCaps: !!h?.caps.length,
+            }
+          : null;
 
       // —— 年表（纵向矩阵）
       const cols = MC.VENDORS.filter((v) => s.vendors.includes(v));

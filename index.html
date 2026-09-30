@@ -422,8 +422,15 @@
           }
           .series-link-hit {
             pointer-events: stroke;
+            cursor: help;
+          }
+          .series-connection:hover .series-link,
+          .series-connection:focus-within .series-link {
+            opacity: 1;
+            stroke-width: 3;
           }
           .series-link-gap {
+            pointer-events: none;
             font:
               10px "Geist Mono",
               monospace;
@@ -469,7 +476,8 @@
             height: 28px;
             border: 1px dashed #ecebe6;
             border-radius: 50%;
-            pointer-events: none;
+            pointer-events: auto;
+            box-sizing: border-box;
           }
           .version-open[aria-expanded="true"] .node-glyph {
             outline: 1px solid #ecebe6;
@@ -1990,7 +1998,10 @@
                               ></span
                             ></sc-if>
                             <sc-if value="{{ v.announcedOnly }}"
-                              ><span class="node-announced"></span
+                              ><span
+                                class="node-announced"
+                                style="left:{{ v.rimLeft }}px"
+                              ></span
                             ></sc-if>
                             <span
                               class="node-label"
@@ -2182,6 +2193,40 @@
               >
                 {{ hover.title }}
               </div>
+              <sc-if value="{{ hover.line }}">
+                <div
+                  style="padding: 0 14px 12px; font-size: 12px; color: #55575e"
+                >
+                  光标日期
+                  <strong
+                    style="color: #0e0f11; font-variant-numeric: tabular-nums"
+                    >{{ hover.date }}</strong
+                  >
+                </div>
+                <sc-for list="{{ hover.pairs }}" as="p">
+                  <div
+                    style="
+                      padding: 12px 14px;
+                      border-top: 1px solid #d6d4cd;
+                      font-size: 12px;
+                    "
+                  >
+                    <div style="font-weight: 600">{{ p.fromName }}</div>
+                    <div style="color: #55575e; margin-top: 3px">
+                      {{ p.fromDate }}
+                    </div>
+                    <div
+                      style="margin: 9px 0; color: #285544; font-weight: 700"
+                    >
+                      ↓ {{ p.interval }}
+                    </div>
+                    <div style="font-weight: 600">{{ p.toName }}</div>
+                    <div style="color: #55575e; margin-top: 3px">
+                      {{ p.toDate }}
+                    </div>
+                  </div>
+                </sc-for>
+              </sc-if>
               <sc-if value="{{ hover.group }}">
                 <div
                   style="padding: 0 14px 10px; font-size: 11px; color: #55575e"

@@ -127,6 +127,20 @@ class Component extends DCLogic {
     window.addEventListener("scroll", this._scroll, true);
   }
   componentDidUpdate() {
+    if (this.state.hover) {
+      const preview = document.querySelector(".model-preview");
+      if (preview) {
+        const r = preview.getBoundingClientRect();
+        const top = Math.max(
+          12,
+          Math.min(r.top, window.innerHeight - r.height - 12),
+        );
+        if (top !== r.top) {
+          preview.style.top = `${top}px`;
+          preview.style.bottom = "auto";
+        }
+      }
+    }
     const key = `${this.state.view}/${this.state.window}`;
     if (key !== this._timelineViewportKey) {
       this._timelineViewportKey = key;
@@ -177,15 +191,27 @@ class Component extends DCLogic {
         .filter((v) => v.expanded)
         .flatMap((v) =>
           v.models.map((m) =>
-            h("path", {
-              key: `branch-${m.id}`,
-              d: m.branchPath,
-              className: "model-branch",
-              fill: "none",
-              stroke: row.color,
-              strokeWidth: 1.5,
-              "aria-hidden": true,
-            }),
+            h(
+              "g",
+              { key: `branch-${m.id}` },
+              h("path", {
+                d: m.branchPath,
+                fill: "none",
+                stroke: row.color,
+                strokeWidth: 1.5,
+                className: "model-branch",
+                "aria-hidden": true,
+              }),
+              h("path", {
+                d: m.branchPath,
+                fill: "none",
+                stroke: "transparent",
+                strokeWidth: 14,
+                className: "series-link-hit",
+                onMouseEnter: m.enter,
+                onMouseLeave: m.leave,
+              }),
+            ),
           ),
         ),
       ...row.links.map((link) => {
@@ -201,8 +227,7 @@ class Component extends DCLogic {
         const showGap = link.gap && !branch && x2 - x1 >= 64;
         return h(
           "g",
-          { key: link.key },
-          h("title", null, link.title),
+          { key: link.key, className: "series-connection" },
           h("path", {
             d,
             className: "series-link",
@@ -216,7 +241,15 @@ class Component extends DCLogic {
             className: "series-link-hit",
             fill: "none",
             stroke: "transparent",
-            strokeWidth: 12,
+            strokeWidth: 18,
+            tabIndex: 0,
+            role: "img",
+            "aria-label": link.title,
+            onMouseEnter: link.enter,
+            onMouseMove: link.enter,
+            onMouseLeave: link.leave,
+            onFocus: link.enter,
+            onBlur: link.leave,
           }),
           showGap
             ? h(

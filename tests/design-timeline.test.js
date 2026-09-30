@@ -157,7 +157,10 @@ describe("recorded successor connections", () => {
       const path = group.children.find(child => child?.props?.className === "series-link");
       expect(path.props.d).toMatch(/^M[\d., -]+ [HQ][\d., -]+$/);
       expect(path.props.d).not.toMatch(/NaN|undefined|\{\{/);
-      expect(group.children.find(child => child.tag === "title").children[0]).toContain("→");
+      const hit = group.children.find(child => child.props?.className === "series-link-hit");
+      expect(hit.props["aria-label"]).toContain("→");
+      expect(hit.props.onMouseMove).toBeTypeOf("function");
+      expect(group.children.some(child => child?.tag === "title")).toBe(false);
     }
   });
 });
@@ -200,7 +203,7 @@ describe("original model glyphs", () => {
     expect(expanded.px).toBe(version.px);
     expect(new Set(expanded.models.map(m => m.treeTop)).size).toBe(3);
     expect(expanded.models.every(m => m.treeTop + 44 <= row.height)).toBe(true);
-    expect(row.linksEl.children.filter(c => c.props?.className === "model-branch").map(c => c.props.d)).toEqual(expanded.models.map(m => m.branchPath));
+    expect(row.linksEl.children.flatMap(c => c.children || []).filter(c => c?.props?.className === "model-branch").map(c => c.props.d)).toEqual(expanded.models.map(m => m.branchPath));
     const hidden = render({ ...state, hiddenModels: ["gpt-6-astra"] }).tl.rows[0];
     expect(hidden.versions.find(v => v.key === version.key).models.map(m => m.id)).not.toContain("gpt-6-astra");
     expect(hidden.height).toBeLessThan(row.height);
@@ -360,6 +363,39 @@ describe("shared display state", () => {
 });
 
 describe("timeline hover previews", () => {
+  it("immediately previews successor dates and days, following the timeline cursor after scrolling", () => {
+    const { view, changes, window } = load([
+      model("first", "2026-01-01"),
+      model("second", "2026-01-11", { predecessor: "first" }),
+    ]);
+    window.innerWidth = 1440;
+    const vm = view(), link = vm.tl.rows[0].links[0];
+    const svgLeft = -100;
+    const currentTarget = {
+      getBoundingClientRect: () => ({ left: svgLeft + link.source.px, top: 200, width: link.target.px - link.source.px, height: 0 }),
+      ownerSVGElement: { getBoundingClientRect: () => ({ left: svgLeft, width: vm.tl.width }) },
+    };
+    link.enter({ currentTarget, clientX: svgLeft + (link.source.px + link.target.px) / 2, clientY: 200 });
+    expect(view(changes.at(-1)).hover).toMatchObject({ line: true, date: "2026-01-06", pairs: [{ fromName: "first", toName: "second", interval: "相隔 10 天" }] });
+    link.enter({ currentTarget, clientX: svgLeft + link.target.px, clientY: 200 });
+    expect(view(changes.at(-1)).hover.date).toBe("2026-01-11");
+    link.enter({ currentTarget });
+    expect(view(changes.at(-1)).hover.date).toBe("2026-01-06");
+    link.leave();
+    expect(view(changes.at(-1)).hover).toBeNull();
+  });
+  it("labels announcement dates without inventing a release interval", () => {
+    const { view, changes } = load([
+      model("first", "2026-01-01"),
+      model("second", "2026-01-11", { predecessor: "first", dates: { announced: "2026-01-11", ga: null } }),
+    ]);
+    const vm = view(), link = vm.tl.rows[0].links[0];
+    link.enter({ currentTarget: {
+      getBoundingClientRect: () => ({ left: link.source.px, top: 200, width: link.target.px - link.source.px, height: 0 }),
+      ownerSVGElement: { getBoundingClientRect: () => ({ left: 0, width: vm.tl.width }) },
+    } });
+    expect(view(changes.at(-1)).hover.pairs[0]).toMatchObject({ toDate: "2026-01-11 · 仅有宣布日期", interval: "日期口径不同，未计算间隔" });
+  });
   const target = (left = 200, top = 200) => ({ currentTarget: {
     getBoundingClientRect: () => ({ left, top, bottom: top + 24 }),
   } });
