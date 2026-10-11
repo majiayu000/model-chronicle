@@ -10,8 +10,8 @@ reasoning: true
 dates:
   announced: 2025-11-12
   ga: 2025-11-12
-  deprecated: null
-  retired: null
+  deprecated: 2026-10-01
+  retired: 2027-04-01
 specs:
   context_window: 400000
   max_output: 128000
@@ -30,4 +30,5 @@ highlights: []
 sources:
   - https://openai.com/index/gpt-5-system-card-addendum-gpt-5-1/
   - https://developers.openai.com/api/docs/models/gpt-5.1
+  - https://developers.openai.com/api/docs/deprecations
 verified_at: 2026-09-25

@@ -54,6 +54,7 @@ describe("series and version timeline", () => {
     const original = catalog.map(m => m.id).sort();
     expect(mc.timeline.catalog.flatMap(r => r.versions.flatMap(v => v.models.map(m => m.id))).sort()).toEqual(original);
     expect(liveIds(view({ window: "all" })).sort()).toEqual(original);
+    mc.today = "2026-10-11";
     const recent = view();
     const ids = recent.tl.rows.flatMap(r => r.isLine ? [...r.versions.flatMap(v => v.models.map(m => m.id)), ...r.history.map(m => m.id)] : r.archivedRows.flatMap(a => a.models.map(m => m.id)));
     expect(ids.sort()).toEqual(original);
@@ -298,7 +299,7 @@ describe("window, archive and vendor controls", () => {
     view({ vendors: [] }).vendorFocus.reset(); expect(changes.at(-1).vendors).toEqual(mc.VENDORS);
     view().tl.rows.find(r => r.vendorLabel === "OpenAI").focusVendor(); expect(changes.at(-1).vendors).toEqual(["openai"]);
     const select = render({ vendors: ["google"] }).vendorSelect;
-    expect(select.children.find(c => c?.props.value === "google").children).toEqual(["Google (14)"]);
+    expect(select.children.find(c => c?.props.value === "google").children).toEqual(["Google (15)"]);
   });
 });
 

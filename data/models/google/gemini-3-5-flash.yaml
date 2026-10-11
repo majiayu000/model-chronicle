@@ -10,7 +10,7 @@ reasoning: true
 dates:
   announced: 2026-05-19
   ga: 2026-05-19
-  deprecated: null
+  deprecated: 2026-10-08
   retired: null
 specs:
   context_window: 1048576
@@ -29,8 +29,10 @@ specs:
     input_per_mtok: null
     output_per_mtok: null
 benchmarks: []
-highlights: []
+highlights:
+  - 官方于 2026-10-08 宣布弃用，原型号请求自动路由到 Gemini 3.6 Flash
 sources:
   - https://blog.google/innovation-and-ai/models-and-research/gemini-models/gemini-3-5/
   - https://ai.google.dev/gemini-api/docs/models/gemini-3.5-flash
+  - https://ai.google.dev/gemini-api/docs/changelog
 verified_at: 2026-09-25

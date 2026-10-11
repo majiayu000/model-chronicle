@@ -1,0 +1,38 @@
+id: gemini-4-argon
+name: Gemini 4 Argon
+vendor: google
+family: gemini
+tier: flagship
+generation: "4"
+predecessor: gemini-3-1-pro
+open_weights: false
+reasoning: true
+dates:
+  announced: 2026-09-30
+  ga: null
+  deprecated: null
+  retired: null
+specs:
+  context_window: null
+  max_output: 1000000
+  modalities_in:
+    - text
+    - image
+    - video
+  modalities_out:
+    - text
+  knowledge_cutoff: null
+  params_b: null
+  pricing:
+    input_per_mtok: null
+    output_per_mtok: null
+benchmarks: []
+highlights:
+  - 已宣布并向 Fairwind 计划受邀伙伴逐步开放，尚未确认公开可用日期
+  - 最大输出提升至百万 token，面向长程推理、软件工程及企业知识工作
+  - 支持图表分析与长视频理解，并强化自主漏洞发现和修复能力
+  - 官方预告每百万输入／输出 token 的引入期价格为 2／10 美元，之后为 4／20 美元；正式发布价待核实
+sources:
+  - https://blog.google/innovation-and-ai/models-and-research/gemini-models/gemini-4-argon/
+  - https://deepmind.google/models/gemini/
+verified_at: 2026-10-11

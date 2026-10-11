@@ -1,0 +1,36 @@
+id: claude-haiku-5-5
+name: Claude Haiku 5.5
+vendor: anthropic
+family: haiku
+tier: small
+generation: "5.5"
+predecessor: claude-haiku-4-5
+open_weights: false
+reasoning: true
+dates:
+  announced: 2026-10-07
+  ga: 2026-10-07
+  deprecated: null
+  retired: null
+specs:
+  context_window: 1000000
+  max_output: 128000
+  modalities_in:
+    - text
+    - image
+  modalities_out:
+    - text
+  knowledge_cutoff: 2026-06
+  params_b: null
+  pricing:
+    input_per_mtok: 0.1
+    output_per_mtok: 0.5
+benchmarks: []
+highlights:
+  - 首个支持 effort 调节的 Haiku，提供自适应思考、百万上下文与 128K 输出
+  - 面向分类、提取、摘要及低延迟子代理任务
+  - 发布价按提示词长度分档；不超过 100K 时每百万输入／输出 token 为 0.10／0.50 美元，超过后为 0.50／2.50 美元
+sources:
+  - https://www.anthropic.com/claude-haiku-5-5
+  - https://platform.claude.com/docs/en/models/haiku-5-5/overview
+verified_at: 2026-10-11

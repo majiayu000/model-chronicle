@@ -9,8 +9,8 @@ open_weights: false
 dates:
   announced: 2026-03-17
   ga: 2026-03-17
-  deprecated: null
-  retired: null
+  deprecated: 2026-10-01
+  retired: 2027-04-01
 specs:
   context_window: 400000
   max_output: 128000
@@ -29,5 +29,6 @@ highlights: []
 sources:
   - https://openai.com/index/introducing-gpt-5-4-mini-and-nano/
   - https://developers.openai.com/api/docs/models/gpt-5.4-nano
+  - https://developers.openai.com/api/docs/deprecations
 verified_at: 2026-09-25
 reasoning: true

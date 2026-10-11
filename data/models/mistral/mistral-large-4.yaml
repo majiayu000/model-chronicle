@@ -1,0 +1,41 @@
+id: mistral-large-4
+name: Mistral Large 4
+vendor: mistral
+family: mistral-large
+tier: flagship
+generation: "4"
+predecessor: mistral-large-3
+open_weights: false
+reasoning: true
+dates:
+  announced: 2026-10-06
+  ga: null
+  deprecated: null
+  retired: null
+specs:
+  context_window: 1000000
+  max_output: null
+  modalities_in:
+    - text
+    - image
+  modalities_out:
+    - text
+  knowledge_cutoff: null
+  params_b: 1050
+  pricing:
+    input_per_mtok: 1.36
+    output_per_mtok: 4.18
+arch:
+  type: moe
+  total: 1050
+  source: https://docs.mistral.ai/models/mistral-large
+benchmarks: []
+highlights:
+  - 10 月 6 日开放 API 公开预览；截至核查日权重尚未公开，官方计划于 10 月底发布
+  - 原生多模态 MoE，型号文档列出 1.05T 总参数及百万 token 上下文
+  - 融合指令、推理和代理能力，支持图像与复杂文档理解
+  - 发布页标准输入／输出价为每百万 token 1.36／4.18 美元；型号文档另列 0.68／2.09 美元促销价
+sources:
+  - https://mistral.ai/news/mistral-large-4/
+  - https://docs.mistral.ai/models/mistral-large
+verified_at: 2026-10-11

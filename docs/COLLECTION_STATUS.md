@@ -1,5 +1,7 @@
 # 数据收录状态（2026-09-30）
 
+> 2026-10-11 增量更新：新增 Claude Haiku 5.5、Gemini 4 Argon、Mistral Large 4，当前共 319 个模型、28 家厂商；Anthropic 26、Google 33、Mistral 13，其余厂商数量不变。同步 GPT-5.1、GPT-5.4 nano 与 Gemini 3.5／3.7 Flash 的官方生命周期公告。Argon 仍为受邀访问，Mistral Large 4 为公开预览且尚未公开权重；日期、价格与缺失字段的处理见 [10 月 11 日复核记录](DATA_REVIEW_2026-10-11.md)。下方表格保留 9 月 30 日历史快照，当前统计以生成的 `dataset/coverage.json` 为准。
+
 > 2026-10-01 局部补核：DeepSeek-V4.1-Flash 的[官方模型卡](https://huggingface.co/deepseek-ai/DeepSeek-V4.1-Flash/raw/main/README.md)补入 GPQA Diamond 90.9（Instruct、最大推理强度 100）、40 层架构、384 个路由专家/6 个激活/1 个共享专家及关键变化。552B 明确为主干参数，另有 196B 条件记忆，因此移除把主干当作整模总参数的 `params_b` 与 `arch.total`；预填充 8B、解码 16B 的激活量只作文字说明。未将 Base 模型的 MMLU-Pro/HumanEval 转填给 Instruct，也未因同表出现而新增可比组。未重新核对该条全部日期事实，保留原 `verified_at`。下文仍为 9 月 30 日快照；当前有基准记录 46、部分评测条件 6、关键变化 172、总参数量 150，完整可比模型仍为 2。当前精确统计以生成的 `dataset/coverage.json` 为准。
 
 此快照按 [数据 Schema](DATA_SCHEMA.md) 的二十八家厂商、2022-11 起的通用语言模型范围统计。一个 YAML 代表一个独立命名的模型；日期快照通常不单列，官方作为新版本发布的例外。
