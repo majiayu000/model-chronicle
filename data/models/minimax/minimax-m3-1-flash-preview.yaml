@@ -1,0 +1,39 @@
+id: minimax-m3-1-flash-preview
+name: MiniMax M3.1 Flash Preview
+vendor: minimax
+family: minimax-m
+tier: small
+generation: M3.1
+predecessor: null
+open_weights: false
+reasoning: true
+dates:
+  announced: '2026-09-27'
+  ga: null
+  deprecated: null
+  retired: null
+specs:
+  context_window: 1000000
+  max_output: null
+  modalities_in:
+    - text
+    - image
+    - video
+  modalities_out:
+    - text
+  knowledge_cutoff: null
+  params_b: null
+  pricing:
+    input_per_mtok: null
+    output_per_mtok: null
+benchmarks: []
+highlights:
+  - 已在 MiniMax Code 上线预览，目前通过 M Plan 和 MiniMax Code 提供
+  - 百万 token 上下文，支持文本、图像与视频输入，面向编程和 Agent 工作流
+  - 推理始终开启，可用 effort 调节五档思考深度，默认 max
+  - 尚未核实正式版日期、开放权重与按 token 发布价，不沿用 M3 的价格或跑分
+sources:
+  - https://x.com/MiniMaxAgent/status/2104079819881517400
+  - https://platform.minimax.io/docs/guides/text-generation
+  - https://www.minimax.io/m-plan
+verified_at: '2026-10-11'

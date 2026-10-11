@@ -1,5 +1,7 @@
 # 数据收录状态（2026-09-30）
 
+> 2026-10-11 MiniMax 补录：已核实官方发布帖与调用文档，新增 MiniMax M3.1 Flash Preview；当前共 320 个模型、28 家厂商，MiniMax 从 6 条增至 7 条。9 月 27 日为预览发布日，正式版日期与按 token 发布价留空。此前因官方依据不足暂缓的条目已完成补核，详见 [10 月 11 日复核记录](DATA_REVIEW_2026-10-11.md#minimax-m31-flash-preview-补录)。
+
 > 2026-10-11 增量更新：新增 Claude Haiku 5.5、Gemini 4 Argon、Mistral Large 4，当前共 319 个模型、28 家厂商；Anthropic 26、Google 33、Mistral 13，其余厂商数量不变。同步 GPT-5.1、GPT-5.4 nano 与 Gemini 3.5／3.7 Flash 的官方生命周期公告。Argon 仍为受邀访问，Mistral Large 4 为公开预览且尚未公开权重；日期、价格与缺失字段的处理见 [10 月 11 日复核记录](DATA_REVIEW_2026-10-11.md)。下方表格保留 9 月 30 日历史快照，当前统计以生成的 `dataset/coverage.json` 为准。
 
 > 2026-10-01 局部补核：DeepSeek-V4.1-Flash 的[官方模型卡](https://huggingface.co/deepseek-ai/DeepSeek-V4.1-Flash/raw/main/README.md)补入 GPQA Diamond 90.9（Instruct、最大推理强度 100）、40 层架构、384 个路由专家/6 个激活/1 个共享专家及关键变化。552B 明确为主干参数，另有 196B 条件记忆，因此移除把主干当作整模总参数的 `params_b` 与 `arch.total`；预填充 8B、解码 16B 的激活量只作文字说明。未将 Base 模型的 MMLU-Pro/HumanEval 转填给 Instruct，也未因同表出现而新增可比组。未重新核对该条全部日期事实，保留原 `verified_at`。下文仍为 9 月 30 日快照；当前有基准记录 46、部分评测条件 6、关键变化 172、总参数量 150，完整可比模型仍为 2。当前精确统计以生成的 `dataset/coverage.json` 为准。
@@ -94,7 +96,7 @@ GPT-5 mini 的 SWE-bench Verified，以及 GPT-5 nano 的 SWE-bench Verified、G
 - GLM-5.3 属于旗舰档；GLM-5.3-Flash 和 Qwen3.8-Omni-Flash 按低成本定位归入 small，这是本库的分类判断。两个 Flash 型号未建立未经核实的同档位前代连线。
 - 除 Sonnet 5.5 和 GPT-6.1 Sol 外，未核实其余三条的发布时标准美元文本 API 价格，继续留空。未将当前价、促销价或多模态价格填成发布价。
 - 新发布文中的 Terminal-Bench、FrontierCode、DeepSWE、OSWorld 等不在当前基准白名单。GLM-5.3-Flash 博客的 MMLU 表属于 Base 模型，不转填到对话模型；这五条的 benchmarks 保持空数组。
-- MiniMax M3.1-Flash-Preview 本次仅找到二手报道，未获得足够的官方发布依据，暂未收录。官方文档中的 GLM-5.3-FlashX 是加速服务变体，本次未将其作为独立主力模型新增。
+- MiniMax M3.1-Flash-Preview 在 9 月 30 日复核时仅找到二手报道，因官方发布依据不足暂未收录；10 月 11 日已核实官方发布帖与文档并补录，见页首更新。官方文档中的 GLM-5.3-FlashX 是加速服务变体，本次未将其作为独立主力模型新增。
 - Google 近期 Live/TTS、Qwen 图像及专用翻译发布按现有通用 LLM 收录范围未新增；已有的 GPT-6 Sol/Luna、Opus 5.5、Grok 4.7 未重复建档。
 
 
