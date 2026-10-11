@@ -14,6 +14,8 @@
     <link
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600&family=Noto+Sans+SC:wght@400;500;700&display=swap"
+      media="print"
+      onload="this.media='all'"
     />
     <style>
       html,
@@ -35,6 +37,7 @@
       }
       html[data-app-ready] #dc-root {
         visibility: visible;
+        animation: site-reveal 180ms ease-out;
       }
       .site-loading {
         position: fixed;
@@ -51,11 +54,121 @@
       .site-loading a {
         color: #d4f53c;
       }
+      .site-loading-animation {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+      }
+      .site-loading-track {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 144px;
+        height: 24px;
+        overflow: hidden;
+      }
+      .site-loading-track::before,
+      .site-loading-track::after {
+        content: "";
+        position: absolute;
+        inset: 50% 4px auto;
+        height: 1px;
+        background: #30332a;
+      }
+      .site-loading-track::after {
+        background: linear-gradient(90deg, transparent, #d4f53c, transparent);
+        animation: site-loading-sweep 1.6s ease-in-out infinite;
+      }
+      .site-loading-track span {
+        position: relative;
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: #d4f53c;
+        opacity: 0.25;
+        animation: site-loading-pulse 1.6s ease-in-out infinite;
+      }
+      .site-loading-track span:nth-child(2) {
+        animation-delay: 160ms;
+      }
+      .site-loading-track span:nth-child(3) {
+        animation-delay: 320ms;
+      }
+      .site-loading-track span:nth-child(4) {
+        animation-delay: 480ms;
+      }
+      .site-loading-track span:nth-child(5) {
+        animation-delay: 640ms;
+      }
+      .site-loading-title {
+        color: #9a9ca3;
+        font-size: 12px;
+        letter-spacing: 0.2em;
+      }
+      #site-loading:not([data-state="error"]) #site-loading-message {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip-path: inset(50%);
+        white-space: nowrap;
+      }
+      #site-loading[data-state="error"] .site-loading-animation {
+        display: none;
+      }
+      @keyframes site-loading-sweep {
+        from {
+          transform: translateX(-100%);
+        }
+        to {
+          transform: translateX(100%);
+        }
+      }
+      @keyframes site-loading-pulse {
+        0%,
+        60%,
+        100% {
+          opacity: 0.25;
+          transform: scale(0.75);
+        }
+        30% {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+      @keyframes site-reveal {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .site-loading-track::after,
+        .site-loading-track span,
+        html[data-app-ready] #dc-root {
+          animation: none;
+        }
+        .site-loading-track::after {
+          display: none;
+        }
+      }
     </style>
     <script type="module" src="/src/design/bootstrap.ts"></script>
   </head>
   <body>
     <div id="site-loading" class="site-loading" role="status">
+      <div class="site-loading-animation" aria-hidden="true">
+        <div class="site-loading-track">
+          <span></span><span></span><span></span><span></span><span></span>
+        </div>
+        <span class="site-loading-title">模型编年史</span>
+      </div>
       <p id="site-loading-message">正在加载模型编年史…</p>
       <a id="site-loading-help" href="./model/explore.html" hidden
         >查看模型资料</a

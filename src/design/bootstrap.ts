@@ -44,6 +44,8 @@ async function boot() {
 
 boot().catch((error: unknown) => {
   console.error(error);
+  const loading = document.getElementById("site-loading");
+  if (loading) loading.dataset.state = "error";
   const message = document.getElementById("site-loading-message");
   if (message) message.textContent = "界面加载失败，请刷新页面重试。";
   const help = document.getElementById("site-loading-help");
