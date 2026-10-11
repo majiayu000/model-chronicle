@@ -9,22 +9,71 @@
       content="有来源的大模型发布时间线、规格、价格观测与同条件基准对照。"
     />
     <!-- SITE_METADATA -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600&family=Noto+Sans+SC:wght@400;500;700&display=swap"
+    />
     <style>
+      html,
+      body {
+        margin: 0;
+        background: #0e0f11;
+        color: #ecebe6;
+        font:
+          14px/1.55 "Geist",
+          "Noto Sans SC",
+          -apple-system,
+          sans-serif;
+      }
       x-dc {
         display: none;
+      }
+      #dc-root {
+        visibility: hidden;
+      }
+      html[data-app-ready] #dc-root {
+        visibility: visible;
+      }
+      .site-loading {
+        position: fixed;
+        inset: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 24px;
+        background: #0e0f11;
+        color: #9a9ca3;
+        text-align: center;
+      }
+      .site-loading a {
+        color: #d4f53c;
       }
     </style>
     <script type="module" src="/src/design/bootstrap.ts"></script>
   </head>
   <body>
-    <!-- SITE_DISCOVERY -->
+    <div id="site-loading" class="site-loading" role="status">
+      <p id="site-loading-message">正在加载模型编年史…</p>
+      <a id="site-loading-help" href="./model/explore.html" hidden
+        >查看模型资料</a
+      >
+    </div>
+    <noscript>
+      <style>
+        #site-loading {
+          display: none;
+        }
+      </style>
+      <div class="site-loading">
+        <p>请启用 JavaScript 查看时间轴。</p>
+        <a href="./model/explore.html">查看模型资料</a>
+      </div>
+    </noscript>
     <x-dc>
       <helmet>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link
-          rel="stylesheet"
-          href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600&family=Noto+Sans+SC:wght@400;500;700&display=swap"
-        />
         <style>
           body {
             margin: 0;

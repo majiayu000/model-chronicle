@@ -11,21 +11,24 @@ function load() {
 }
 
 describe("catalog search and tools", () => {
-  it("keeps the startup fallback until ready, then hides it without moving it over the timeline", () => {
-    const landing = { hidden: false };
+  it("reveals the initialized interface and removes the loading indicator only when ready", () => {
+    const loading = { removed: false, remove() { this.removed = true; } };
+    const documentElement = { dataset: {} };
     const window = {};
     const context = createContext({
       window,
-      document: { querySelector: () => null, getElementById: id => id === "site-discovery" ? landing : null },
+      document: { documentElement, querySelector: () => null, getElementById: id => id === "site-loading" ? loading : null },
       DCLogic: class {},
     });
     runInContext(readFileSync(new URL("../src/design/application.js", import.meta.url), "utf8") + "\nwindow.App = Component;", context);
     const app = new window.App();
     app.componentDidUpdate();
-    expect(landing.hidden).toBe(false);
+    expect(loading.removed).toBe(false);
+    expect(documentElement.dataset.appReady).toBeUndefined();
     app.state.ready = true;
     app.componentDidUpdate();
-    expect(landing.hidden).toBe(true);
+    expect(loading.removed).toBe(true);
+    expect(documentElement.dataset.appReady).toBe("true");
   });
   it("normalizes spelling, prioritizes exact models, and exposes all results", () => {
     const { mc } = load();

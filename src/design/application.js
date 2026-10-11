@@ -168,8 +168,10 @@ class Component extends DCLogic {
       dialog
         .querySelector('[data-search-active="true"]')
         ?.scrollIntoView({ block: "nearest" });
-    const landing = document.getElementById("site-discovery");
-    if (landing && this.state.ready) landing.hidden = true;
+    if (this.state.ready) {
+      document.documentElement.dataset.appReady = "true";
+      document.getElementById("site-loading")?.remove();
+    }
     if (this.state.hover) {
       const preview = document.querySelector(".model-preview");
       if (preview) {

@@ -44,8 +44,8 @@ async function boot() {
 
 boot().catch((error: unknown) => {
   console.error(error);
-  const message = document.createElement("p");
-  message.textContent = "界面加载失败，请刷新页面重试。";
-  message.style.cssText = "padding:32px;color:#ecebe6;font-family:sans-serif";
-  document.body.appendChild(message);
+  const message = document.getElementById("site-loading-message");
+  if (message) message.textContent = "界面加载失败，请刷新页面重试。";
+  const help = document.getElementById("site-loading-help");
+  if (help) help.hidden = false;
 });

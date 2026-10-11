@@ -20,9 +20,11 @@
 - `scripts/build-pages.ts`：型号页、面包屑、引用、来源与 sitemap；`scripts/build-discovery.ts`：厂商/系列/专题/对比页及两份 RSS。
 - `public/graph-v2/catalog-tools.js`：交互搜索与静态工具共用的检索、筛选、费用计算、选中模型 CSV。
 - `public/graph-v2/catalog-page.js`：静态页的筛选、试算与引用复制，数据加载失败时保留原有静态目录。
-- `vite.config.ts`：首页静态资料入口及元数据；`public/social-card.png`：默认分享图。
+- `vite.config.ts`：首页元数据；`public/social-card.png`：默认分享图。
 
 交互与静态工具的脚本链接都带内容指纹。静态工具的数据来自同次构建的 `dataset/models.json`；页面应明确显示数据加载失败，不能让旧试算结果假装有效。
+
+首页加载提示在 `index.html` 中；正式界面在应用状态 ready 后显示，脚本加载失败由 `bootstrap.ts` 更新同一提示。不要在加载期间插入另一套静态资料页。字体链接放在 head 中，避免交互界面挂载时才开始加载。
 
 ## 导出运行时边界
 
