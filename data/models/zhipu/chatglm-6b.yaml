@@ -1,0 +1,31 @@
+id: chatglm-6b
+name: ChatGLM-6B
+vendor: zhipu
+family: glm
+tier: small
+generation: "1"
+predecessor: null
+open_weights: true
+dates:
+  announced: 2023-03
+  ga: 2023-03
+  deprecated: null
+  retired: null
+specs:
+  context_window: 2048
+  max_output: null
+  modalities_in:
+    - text
+  modalities_out:
+    - text
+  knowledge_cutoff: null
+  params_b: 6.2
+  pricing:
+    input_per_mtok: null
+    output_per_mtok: null
+benchmarks: []
+highlights:
+  - 62 亿参数中英双语对话模型，权重向学术研究完全开放，登记后可免费商用
+sources:
+  - https://github.com/THUDM/ChatGLM-6B
+verified_at: 2026-10-20
