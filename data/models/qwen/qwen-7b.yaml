@@ -1,0 +1,32 @@
+id: qwen-7b
+name: Qwen-7B
+vendor: qwen
+family: qwen
+tier: small
+generation: "1"
+predecessor: null
+open_weights: true
+dates:
+  announced: 2023-08-03
+  ga: 2023-08-03
+  deprecated: null
+  retired: null
+specs:
+  context_window: 2048
+  max_output: null
+  modalities_in:
+    - text
+  modalities_out:
+    - text
+  knowledge_cutoff: null
+  params_b: null
+  pricing:
+    input_per_mtok: null
+    output_per_mtok: null
+benchmarks: []
+highlights:
+  - 通义千问首批开源权重，与 Qwen-7B-Chat 同日发布于 ModelScope 和 Hugging Face
+  - 2023-09-25 更新版将上下文从 2048 扩展到 8192
+sources:
+  - https://github.com/QwenLM/Qwen
+verified_at: 2026-10-20

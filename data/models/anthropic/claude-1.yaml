@@ -1,0 +1,32 @@
+id: claude-1
+name: Claude 1
+vendor: anthropic
+family: claude
+tier: flagship
+generation: "1"
+predecessor: null
+open_weights: false
+dates:
+  announced: 2023-03-14
+  ga: null
+  deprecated: null
+  retired: null
+specs:
+  context_window: null
+  max_output: null
+  modalities_in:
+    - text
+  modalities_out:
+    - text
+  knowledge_cutoff: null
+  params_b: null
+  pricing:
+    input_per_mtok: null
+    output_per_mtok: null
+benchmarks: []
+highlights:
+  - 结束与 Notion、Quora、DuckDuckGo 的封闭内测，通过聊天界面和开发者控制台 API 扩大提供
+  - 同日推出更轻、更便宜、更快的 Claude Instant
+sources:
+  - https://www.anthropic.com/news/introducing-claude
+verified_at: 2026-10-20

@@ -1,0 +1,33 @@
+id: grok-4-1
+name: Grok 4.1
+vendor: xai
+family: grok
+tier: flagship
+generation: '4.1'
+predecessor: grok-4
+open_weights: false
+reasoning: true
+dates:
+  announced: '2025-11-17'
+  ga: '2025-11-17'
+  deprecated: null
+  retired: null
+specs:
+  context_window: null
+  max_output: null
+  modalities_in:
+  - text
+  modalities_out:
+  - text
+  knowledge_cutoff: null
+  params_b: null
+  pricing:
+    input_per_mtok: null
+    output_per_mtok: null
+benchmarks: []
+highlights:
+- 面向 grok.com、X 与 iOS/Android 应用的全部用户上线
+- 后训练重点降低信息检索类问题的事实幻觉
+sources:
+- https://x.ai/news/grok-4-1
+verified_at: '2026-10-20'
