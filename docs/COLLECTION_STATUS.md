@@ -1,5 +1,7 @@
 # 数据收录状态（2026-09-30）
 
+> 2026-10-20 biannianshi 迁移：从已停止维护的 [biannianshi](https://github.com/majiayu000/biannianshi) 迁入 7 条本库缺失、属于收录范围且能找到官方来源的记录：Claude 1、ChatGLM-6B、Qwen-7B、Qwen-14B、Kimi k1.5、Qwen3-Max、Grok 4.1。当前共 327 个模型、28 家厂商。所有字段按本库规则重新核对官方来源，没有沿用 biannianshi 的 Wikipedia 来源或二手日期：ChatGLM-6B 与 Kimi k1.5 只确认到月份；Claude 1、Kimi k1.5、Qwen3-Max 的来源没有明确写出公众可用，`ga` 留空；Qwen-7B 官方表格里的分数对应 9 月更新版，因此不填。Qwen3-Max-Thinking 的前代由 Qwen3-235B-A22B 改为 Qwen3-Max，避免同一条线分叉。GLM-4 没有找到智谱官方发布页，暂不收录。Code Llama、Magistral、GPT-5.x-Codex、Muse Spark、DeepSeek LLM 和 MiniMax-Text-01 需要先新增产品线，Gemini Deep Think 属于推理模式；这些都留给后续单独决定。2022-11 之前的模型和 Kimi 智能助手（消费产品）不在收录范围内。
+
 > 2026-10-11 MiniMax 补录：已核实官方发布帖与调用文档，新增 MiniMax M3.1 Flash Preview；当前共 320 个模型、28 家厂商，MiniMax 从 6 条增至 7 条。9 月 27 日为预览发布日，正式版日期与按 token 发布价留空。此前因官方依据不足暂缓的条目已完成补核，详见 [10 月 11 日复核记录](DATA_REVIEW_2026-10-11.md#minimax-m31-flash-preview-补录)。
 
 > 2026-10-11 增量更新：新增 Claude Haiku 5.5、Gemini 4 Argon、Mistral Large 4，当前共 319 个模型、28 家厂商；Anthropic 26、Google 33、Mistral 13，其余厂商数量不变。同步 GPT-5.1、GPT-5.4 nano 与 Gemini 3.5／3.7 Flash 的官方生命周期公告。Argon 仍为受邀访问，Mistral Large 4 为公开预览且尚未公开权重；日期、价格与缺失字段的处理见 [10 月 11 日复核记录](DATA_REVIEW_2026-10-11.md)。下方表格保留 9 月 30 日历史快照，当前统计以生成的 `dataset/coverage.json` 为准。
