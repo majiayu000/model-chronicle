@@ -1,0 +1,39 @@
+id: qwen-14b
+name: Qwen-14B
+vendor: qwen
+family: qwen
+tier: mid
+generation: "1"
+predecessor: null
+open_weights: true
+dates:
+  announced: 2023-09-25
+  ga: 2023-09-25
+  deprecated: null
+  retired: null
+specs:
+  context_window: 8192
+  max_output: null
+  modalities_in:
+    - text
+  modalities_out:
+    - text
+  knowledge_cutoff: null
+  params_b: null
+  pricing:
+    input_per_mtok: null
+    output_per_mtok: null
+benchmarks:
+  - name: MMLU
+    score: 66.3
+    reported_by: vendor
+    source: https://github.com/QwenLM/Qwen
+  - name: HumanEval
+    score: 32.3
+    reported_by: vendor
+    source: https://github.com/QwenLM/Qwen
+highlights:
+  - 与 Qwen-14B-Chat 同日开源，发布于 ModelScope 和 Hugging Face
+sources:
+  - https://github.com/QwenLM/Qwen
+verified_at: 2026-10-20
