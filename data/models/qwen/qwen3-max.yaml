@@ -1,0 +1,32 @@
+id: qwen3-max
+name: Qwen3-Max
+vendor: qwen
+family: qwen
+tier: flagship
+generation: "3 Max"
+predecessor: qwen3-235b-a22b
+open_weights: false
+dates:
+  announced: 2025-09-24
+  ga: null
+  deprecated: null
+  retired: null
+specs:
+  context_window: null
+  max_output: null
+  modalities_in:
+    - text
+  modalities_out:
+    - text
+  knowledge_cutoff: null
+  params_b: null
+  pricing:
+    input_per_mtok: null
+    output_per_mtok: null
+benchmarks: []
+highlights:
+  - 云栖大会发布，官方称参数超过 1 万亿，是阿里最大的语言模型
+  - 提供 Instruct（非思考）与 Thinking 两种模式
+sources:
+  - https://www.alibabacloud.com/blog/602560
+verified_at: 2026-10-20

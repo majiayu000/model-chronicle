@@ -4,7 +4,7 @@ vendor: qwen
 family: qwen
 tier: flagship
 generation: "3 Max Thinking"
-predecessor: qwen3-235b-a22b
+predecessor: qwen3-max
 open_weights: false
 reasoning: true
 dates:
