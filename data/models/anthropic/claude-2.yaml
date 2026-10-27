@@ -4,7 +4,7 @@ vendor: anthropic
 family: claude
 tier: flagship
 generation: "2"
-predecessor: null
+predecessor: claude-1
 open_weights: false
 dates:
   announced: 2023-07-11

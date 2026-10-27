@@ -8,9 +8,9 @@ predecessor: null
 open_weights: false
 dates:
   announced: 2023-03-14
-  ga: null
-  deprecated: null
-  retired: null
+  ga: 2023-03-14
+  deprecated: 2024-09-04
+  retired: 2024-11-06
 specs:
   context_window: null
   max_output: null
@@ -29,4 +29,5 @@ highlights:
   - 同日推出更轻、更便宜、更快的 Claude Instant
 sources:
   - https://www.anthropic.com/news/introducing-claude
-verified_at: 2026-10-20
+  - https://platform.claude.com/docs/en/about-claude/model-deprecations
+verified_at: 2026-10-27

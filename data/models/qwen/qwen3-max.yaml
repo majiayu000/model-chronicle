@@ -6,9 +6,10 @@ tier: flagship
 generation: "3 Max"
 predecessor: qwen3-235b-a22b
 open_weights: false
+reasoning: false
 dates:
-  announced: 2025-09-24
-  ga: null
+  announced: 2025-09-23
+  ga: 2025-09-23
   deprecated: null
   retired: null
 specs:
@@ -26,7 +27,10 @@ specs:
 benchmarks: []
 highlights:
   - 云栖大会发布，官方称参数超过 1 万亿，是阿里最大的语言模型
-  - 提供 Instruct（非思考）与 Thinking 两种模式
+  - 发布时公开 Instruct 非思考版，可通过 Qwen Chat 和阿里云 API 使用
+  - 百炼北京地区 2025-09-23 正式发布，国际及全球地区与 Qwen 发布文为 2025-09-24
 sources:
   - https://www.alibabacloud.com/blog/602560
-verified_at: 2026-10-20
+  - https://help.aliyun.com/zh/model-studio/newly-released-models
+  - https://qwen.ai/blog?from=research.latest-advancements-list&id=241398b9cd6353de490b0f82806c7848c5d2777d
+verified_at: 2026-10-27
