@@ -1,0 +1,35 @@
+id: kimi-k1-5
+name: Kimi k1.5
+vendor: moonshot
+family: kimi-thinking
+tier: flagship
+generation: k1.5
+predecessor: null
+open_weights: false
+reasoning: true
+dates:
+  announced: 2025-01
+  ga: null
+  deprecated: null
+  retired: null
+specs:
+  context_window: null
+  max_output: null
+  modalities_in:
+    - text
+    - image
+  modalities_out:
+    - text
+  knowledge_cutoff: null
+  params_b: null
+  pricing:
+    input_per_mtok: null
+    output_per_mtok: null
+benchmarks: []
+highlights:
+  - 文本与视觉联合训练的多模态思考模型，同时公开训练技术报告
+  - 强化学习上下文扩展到 128K，提供 long-CoT 与 short-CoT 两种模式
+sources:
+  - https://github.com/MoonshotAI/Kimi-k1.5
+  - https://arxiv.org/abs/2501.12599
+verified_at: 2026-10-20

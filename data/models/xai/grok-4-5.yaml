@@ -4,7 +4,7 @@ vendor: xai
 family: grok
 tier: flagship
 generation: '4.5'
-predecessor: null
+predecessor: grok-4-1
 open_weights: false
 reasoning: true
 dates:
