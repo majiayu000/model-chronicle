@@ -1,5 +1,9 @@
 # 数据收录状态（2026-09-30）
 
+## 2026-11-25 Claude 5 前代复核
+
+目录增至 360 条。补入 Claude Mythos 5 和 5.1，连起 5 → 5.1 → 5.2。官方将这三个型号标为需验证访问，按首次发布日期入时间轴，公众正式可用日期留空。对照官方型号页补齐 Claude Fable 5 与 5.1 的图像输入和相关规格，两代都可出现在视觉筛选中。[Claude Mythos 5](https://platform.claude.com/docs/en/models/mythos-5/overview) · [Claude Mythos 5.1](https://platform.claude.com/docs/en/models/mythos-5-1/overview) · [Claude Fable 5](https://platform.claude.com/docs/en/models/fable-5/overview) · [Claude Fable 5.1](https://platform.claude.com/docs/en/models/fable-5-1/overview)
+
 ## 2026-11-24 目录更新
 
 从 327 条增至 358 条，仍覆盖 28 家厂商。沿用独立命名的主力语言模型口径，优先补齐 10 月至 11 月的官方发布，同时补入 IBM 与 Cohere 此前遗漏的现行主力系列。每个条目的发布与规格来源见对应 YAML。

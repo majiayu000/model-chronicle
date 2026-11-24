@@ -35,6 +35,17 @@ function load(records = catalog, initialStorage) {
 const liveIds = v => v.tl.rows.filter(r => r.isLine).flatMap(r => r.versions.flatMap(v => v.models.map(m => m.id)));
 
 describe("series and version timeline", () => {
+  it("keeps all three Fable and Mythos generations visible under the vision filter", () => {
+    const { mc, view } = load();
+    mc.today = "2026-11-25";
+    const rows = view({ vendors: ["anthropic"], caps: ["vision"] }).tl.rows;
+    for (const family of ["Fable", "Mythos"]) {
+      const row = rows.find(entry => entry.family === family);
+      expect(row.versions.map(version => version.label)).toEqual(["5", "5.1", "5.2"]);
+      expect(row.links).toHaveLength(2);
+    }
+  });
+
   it("uses one GPT series with ordered version nodes and places Pro/mini/nano inside their version", () => {
     const { view } = load();
     const rows = view({ vendors: ["openai"] }).tl.rows.filter(r => r.isLine);
@@ -252,9 +263,10 @@ describe("window, archive and vendor controls", () => {
     expect(view(mc.route.parse(mc.route.serialize({ ...mc.initState(), ...changes.at(-1) }))).tl.pxPerYear).toBe(840);
   });
   it("keeps cards and coverage within the timeline window while counting complete calendar years in the heatmap", () => {
-    const { render } = load();
+    const { mc, render } = load();
     const v = render({ vendors: ["anthropic"] });
-    expect(v).toMatchObject({ heroTotal: 12, coverageTotal: 12, vendorCount: 1, shown: 12 });
+    const recent = mc.models.filter(m => m.vendor === "anthropic" && mc.timeline.inWindow(m, v.range)).length;
+    expect(v).toMatchObject({ heroTotal: recent, coverageTotal: recent, vendorCount: 1, shown: recent });
     expect(v.heatTotal).toBeGreaterThan(v.heroTotal);
     expect(v.heat.flatMap(r => r.cells).reduce((n, cell) => n + Number(cell.tip.match(/ · (\d+)$/)?.[1] || 0), 0)).toBe(v.heatTotal);
     expect(render({ vendors: [] })).toMatchObject({ heroTotal: 0, coverageTotal: 0, heatTotal: 0 });

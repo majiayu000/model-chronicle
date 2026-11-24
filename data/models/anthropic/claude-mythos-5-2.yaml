@@ -4,7 +4,7 @@ vendor: anthropic
 family: mythos
 tier: flagship
 generation: "5.2"
-predecessor: null
+predecessor: claude-mythos-5-1
 open_weights: false
 reasoning: true
 dates:
@@ -20,7 +20,7 @@ specs:
     - image
   modalities_out:
     - text
-  knowledge_cutoff: null
+  knowledge_cutoff: 2026-06
   params_b: null
   pricing:
     input_per_mtok: 8
@@ -32,4 +32,5 @@ highlights:
 sources:
   - https://www.anthropic.com/claude-fable-and-mythos-5-2
   - https://platform.claude.com/docs/en/models/fable-5-2/whats-new-fable-5-2
-verified_at: 2026-11-24
+  - https://platform.claude.com/docs/en/models/mythos-5-2/overview
+verified_at: 2026-11-25

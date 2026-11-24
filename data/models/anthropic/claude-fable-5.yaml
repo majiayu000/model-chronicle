@@ -13,19 +13,21 @@ dates:
   deprecated: null
   retired: null
 specs:
-  context_window: null
-  max_output: null
+  context_window: 1000000
+  max_output: 128000
   modalities_in:
     - text
+    - image
   modalities_out:
     - text
-  knowledge_cutoff: null
+  knowledge_cutoff: 2026-01
   params_b: null
   pricing:
-    input_per_mtok: null
-    output_per_mtok: null
+    input_per_mtok: 10
+    output_per_mtok: 50
 benchmarks: []
 highlights: []
 sources:
   - https://www.anthropic.com/news/claude-fable-5-mythos-5
-verified_at: 2026-09-25
+  - https://platform.claude.com/docs/en/models/fable-5/overview
+verified_at: 2026-11-25

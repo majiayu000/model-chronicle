@@ -14,12 +14,13 @@ dates:
   retired: null
 specs:
   context_window: 1000000
-  max_output: null
+  max_output: 128000
   modalities_in:
     - text
+    - image
   modalities_out:
     - text
-  knowledge_cutoff: null
+  knowledge_cutoff: 2026-06
   params_b: null
   pricing:
     input_per_mtok: 10
@@ -28,4 +29,5 @@ benchmarks: []
 highlights: []
 sources:
   - https://www.anthropic.com/claude-fable-and-mythos-5-1
-verified_at: 2026-09-25
+  - https://platform.claude.com/docs/en/models/fable-5-1/overview
+verified_at: 2026-11-25
