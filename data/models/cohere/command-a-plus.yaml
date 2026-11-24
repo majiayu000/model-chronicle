@@ -1,0 +1,40 @@
+id: command-a-plus
+name: Command A+
+vendor: cohere
+family: command
+tier: flagship
+generation: A+
+predecessor: command-a
+open_weights: true
+reasoning: true
+dates:
+  announced: 2026-05-20
+  ga: 2026-05-20
+  deprecated: null
+  retired: null
+specs:
+  context_window: 128000
+  max_output: 64000
+  modalities_in:
+    - text
+    - image
+  modalities_out:
+    - text
+  knowledge_cutoff: 2025-04
+  params_b: 218
+  pricing:
+    input_per_mtok: null
+    output_per_mtok: null
+arch:
+  type: moe
+  total: 218
+  active: 25
+  source: https://docs.cohere.com/docs/command-a-plus
+benchmarks: []
+highlights:
+  - Cohere 首款 MoE，集成图像输入、推理与工具调用，支持 48 种语言
+sources:
+  - https://cohere.com/blog/cohere-releases-command-a-plus
+  - https://docs.cohere.com/docs/command-a-plus
+  - https://huggingface.co/CohereLabs/command-a-plus-05-2026-bf16
+verified_at: 2026-11-24

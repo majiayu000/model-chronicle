@@ -1,0 +1,40 @@
+id: nemotron-3-5-bolt-74b
+name: Nemotron 3.5 Bolt 74B-A9B
+vendor: nvidia
+family: nemotron
+tier: small
+generation: "3.5"
+predecessor: null
+open_weights: true
+reasoning: true
+dates:
+  announced: 2026-10-15
+  ga: 2026-10-15
+  deprecated: null
+  retired: null
+specs:
+  context_window: 256000
+  max_output: null
+  modalities_in:
+    - text
+    - image
+    - video
+  modalities_out:
+    - text
+  knowledge_cutoff: null
+  params_b: 74
+  pricing:
+    input_per_mtok: null
+    output_per_mtok: null
+arch:
+  type: moe
+  total: 74
+  active: 9
+  source: https://huggingface.co/nvidia/NVIDIA-Nemotron-3.5-Bolt-74B-A9B-BF16
+benchmarks: []
+highlights:
+  - 带 C-RADIO 视觉编码器的混合架构，支持切换推理模式并提供量化权重
+sources:
+  - https://huggingface.co/nvidia/NVIDIA-Nemotron-3.5-Bolt-74B-A9B-BF16
+  - https://huggingface.co/nvidia/NVIDIA-Nemotron-3.5-Bolt-74B-A9B-24GB-GGUF
+verified_at: 2026-11-24

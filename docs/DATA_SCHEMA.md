@@ -70,10 +70,10 @@ verified_at: 2026-09-24
 
 | vendor | family |
 |---|---|
-| anthropic | `opus`、`sonnet`、`haiku`、`fable`、`claude`（Claude 2 / 2.1） |
+| anthropic | `opus`、`sonnet`、`haiku`、`fable`、`mythos`、`claude`（Claude 1 / 2 / 2.1） |
 | openai | `gpt`（GPT-3.5/4/4o/4.1/4.5/5…）、`gpt-pro`、`o-series`（o1/o3/o4…）、`o-series-pro`、`gpt-oss` |
 | google | `gemini`、`gemma`、`palm` |
-| meta | `llama` |
+| meta | `llama`、`muse-spark`、`muse-wonder`、`muse-ember` |
 | deepseek | `deepseek-v`（V2/V3…）、`deepseek-r`（R1…）、`deepseek-coder` |
 | qwen | `qwen`、`qwq`、`qwen-coder` |
 | moonshot | `kimi`、`kimi-thinking` |
@@ -81,7 +81,7 @@ verified_at: 2026-09-24
 | minimax | `minimax-m` |
 | bytedance | `seed`、`seed-vl` |
 | baidu | `ernie`、`ernie-x`、`ernie-open` |
-| tencent | `hunyuan-t`、`hunyuan-a` |
+| tencent | `hunyuan-t`、`hunyuan-a`、`hy` |
 | xai | `grok`、`grok-fast` |
 | mistral | `mistral-large`、`mistral-medium`、`mistral-small`、`mistral-nemo`、`mistral-7b`、`mixtral` |
 | cohere | `command`、`command-a` |
@@ -97,7 +97,7 @@ verified_at: 2026-09-24
 | internlm | `internlm` |
 | baichuan | `baichuan` |
 | tii | `falcon` |
-| liquid | `lfm`、`lfm-vl`、`lfm-thinking` |
+| liquid | `lfm`、`lfm-vl`、`lfm-thinking`、`lfm-omni` |
 
 ## tier 判定
 

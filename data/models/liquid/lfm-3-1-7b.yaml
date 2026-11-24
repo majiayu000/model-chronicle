@@ -1,0 +1,33 @@
+id: lfm-3-1-7b
+name: LFM3-1.7B
+vendor: liquid
+family: lfm
+tier: small
+generation: "3"
+predecessor: lfm-2-5-1-2b-instruct
+open_weights: true
+reasoning: true
+dates:
+  announced: 2026-10-27
+  ga: 2026-10-27
+  deprecated: null
+  retired: null
+specs:
+  context_window: 262144
+  max_output: null
+  modalities_in:
+    - text
+  modalities_out:
+    - text
+  knowledge_cutoff: null
+  params_b: 1.73
+  pricing:
+    input_per_mtok: null
+    output_per_mtok: null
+benchmarks: []
+highlights:
+  - LFM3 的文本型号，后训练覆盖设备端任务与工具调用，支持 256K token 上下文
+sources:
+  - https://www.liquid.ai/blog/lfm3
+  - https://huggingface.co/LiquidAI/LFM3-1.7B
+verified_at: 2026-11-24

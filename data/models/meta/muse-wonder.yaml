@@ -1,0 +1,38 @@
+id: muse-wonder
+name: Muse Wonder
+vendor: meta
+family: muse-wonder
+tier: flagship
+generation: "1.0"
+predecessor: null
+open_weights: false
+reasoning: true
+dates:
+  announced: 2026-10-12
+  ga: 2026-10-12
+  deprecated: null
+  retired: null
+specs:
+  context_window: 1048576
+  max_output: null
+  modalities_in:
+    - text
+    - image
+    - video
+    - audio
+    - pdf
+  modalities_out:
+    - text
+  knowledge_cutoff: null
+  params_b: null
+  pricing:
+    input_per_mtok: 4
+    output_per_mtok: 20
+benchmarks: []
+highlights:
+  - 面向多文件编程、长程任务与电脑操作，首发接入 Meta Model API 和 Muse Code
+sources:
+  - https://research.meta.ai/blog/muse-wonder
+  - https://dev.meta.ai/resources/blog/build-with-muse-wonder
+  - https://dev.meta.ai/docs/muse-wonder
+verified_at: 2026-11-24

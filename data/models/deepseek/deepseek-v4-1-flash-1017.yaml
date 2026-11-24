@@ -1,0 +1,37 @@
+id: deepseek-v4-1-flash-1017
+name: DeepSeek-V4.1-Flash-1017
+vendor: deepseek
+family: deepseek-v
+tier: mid
+generation: 4.1-1017
+predecessor: deepseek-v4-1-flash
+open_weights: true
+reasoning: true
+dates:
+  announced: 2026-10-17
+  ga: 2026-10-17
+  deprecated: null
+  retired: null
+specs:
+  context_window: 1000000
+  max_output: null
+  modalities_in:
+    - text
+    - image
+  modalities_out:
+    - text
+  knowledge_cutoff: null
+  params_b: null
+  pricing:
+    input_per_mtok: null
+    output_per_mtok: null
+benchmarks: []
+highlights:
+  - 厂商单独发布更新并开放新权重，重点提升长程编程与复杂任务能力
+  - 官方网页、App 与 deepseek-flash API 同步切换到这一版本
+sources:
+  - https://api-docs.deepseek.com/news/news261017/
+  - https://api-docs.deepseek.com/updates/
+  - https://huggingface.co/deepseek-ai/DeepSeek-V4.1-Flash-1017
+  - https://intl.cloud.baidu.com/en/doc/qianfan/s/7m95lyy43-intl-en
+verified_at: 2026-11-24

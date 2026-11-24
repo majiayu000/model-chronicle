@@ -1,0 +1,34 @@
+id: ernie-light-dt-1-0
+name: ERNIE-Light-DT-1.0
+vendor: baidu
+family: ernie
+tier: small
+generation: "1.0"
+predecessor: null
+open_weights: false
+reasoning: true
+dates:
+  announced: 2026-11
+  ga: 2026-11
+  deprecated: null
+  retired: null
+specs:
+  context_window: 1000000
+  max_output: 128000
+  modalities_in:
+    - text
+  modalities_out:
+    - text
+  knowledge_cutoff: null
+  params_b: null
+  pricing:
+    input_per_mtok: null
+    output_per_mtok: null
+benchmarks: []
+highlights:
+  - 千帆上线的轻量长上下文模型，采用 BSA 稀疏注意力和反馈式历史压缩
+sources:
+  - https://cloud.baidu.com/product/qianfan_home/model_3.html
+  - https://intl.cloud.baidu.com/en/doc/qianfan/s/7m95lyy43-intl-en
+  - https://cloud.baidu.com/product/qianfan.html
+verified_at: 2026-11-24

@@ -1,0 +1,45 @@
+id: ernie-5-5-flash-preview
+name: ERNIE 5.5 Flash Preview
+vendor: baidu
+family: ernie
+tier: mid
+generation: "5.5"
+predecessor: null
+open_weights: true
+reasoning: true
+dates:
+  announced: 2026-11-11
+  ga: null
+  deprecated: null
+  retired: null
+specs:
+  context_window: 1048576
+  max_output: 1000000
+  modalities_in:
+    - text
+  modalities_out:
+    - text
+  knowledge_cutoff: null
+  params_b: 280
+  pricing:
+    input_per_mtok: null
+    output_per_mtok: null
+arch:
+  type: moe
+  total: 280
+  active: 14
+  layers: 43
+  experts: 512
+  topk: 10
+  shared: 1
+  source: https://huggingface.co/baidu/ERNIE-5.5-Flash-Preview
+benchmarks: []
+highlights:
+  - ERNIE 5.5 Flash Base 的首个后训练型号，公开预览可通过千帆调用
+  - 用低精度专家权重与 DSpark 推测解码提升长程任务推理效率，已公开权重
+sources:
+  - https://ernie.baidu.com/zh/
+  - https://ernie.baidu.com/release/ernie-5-5-flash-preview
+  - https://huggingface.co/baidu/ERNIE-5.5-Flash-Preview
+  - https://intl.cloud.baidu.com/en/doc/qianfan/s/7m95lyy43-intl-en
+verified_at: 2026-11-24

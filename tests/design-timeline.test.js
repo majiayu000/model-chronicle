@@ -54,7 +54,7 @@ describe("series and version timeline", () => {
     const original = catalog.map(m => m.id).sort();
     expect(mc.timeline.catalog.flatMap(r => r.versions.flatMap(v => v.models.map(m => m.id))).sort()).toEqual(original);
     expect(liveIds(view({ window: "all" })).sort()).toEqual(original);
-    mc.today = "2026-10-11";
+    mc.today = new Date(Math.max(...mc.models.map(m => m.t))).toISOString().slice(0, 10);
     const recent = view();
     const ids = recent.tl.rows.flatMap(r => r.isLine ? [...r.versions.flatMap(v => v.models.map(m => m.id)), ...r.history.map(m => m.id)] : r.archivedRows.flatMap(a => a.models.map(m => m.id)));
     expect(ids.sort()).toEqual(original);
@@ -298,8 +298,10 @@ describe("window, archive and vendor controls", () => {
     expect(view(changes.at(-1)).vendorFocus.custom).toBe(true);
     view({ vendors: [] }).vendorFocus.reset(); expect(changes.at(-1).vendors).toEqual(mc.VENDORS);
     view().tl.rows.find(r => r.vendorLabel === "OpenAI").focusVendor(); expect(changes.at(-1).vendors).toEqual(["openai"]);
-    const select = render({ vendors: ["google"] }).vendorSelect;
-    expect(select.children.find(c => c?.props.value === "google").children).toEqual(["Google (15)"]);
+    const { vendorSelect, tl } = render({ vendors: ["google"] });
+    const visible = tl.rows.filter(r => r.isLine).reduce((count, row) => count + row.n, 0);
+    expect(visible).toBeGreaterThan(0);
+    expect(vendorSelect.children.find(c => c?.props.value === "google").children).toEqual([`Google (${visible})`]);
   });
 });
 

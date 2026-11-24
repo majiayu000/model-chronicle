@@ -1,0 +1,39 @@
+id: muse-spark-open
+name: Muse Spark Open
+vendor: meta
+family: muse-spark
+tier: flagship
+generation: Open
+predecessor: null
+open_weights: true
+reasoning: true
+dates:
+  announced: 2026-10-15
+  ga: 2026-10-15
+  deprecated: null
+  retired: null
+specs:
+  context_window: 1000000
+  max_output: null
+  modalities_in:
+    - text
+    - image
+  modalities_out:
+    - text
+  knowledge_cutoff: null
+  params_b: 816
+  pricing:
+    input_per_mtok: null
+    output_per_mtok: null
+arch:
+  type: moe
+  total: 816
+  active: 42
+  source: https://huggingface.co/meta-models/Muse-Spark-Open-816B-A42B
+benchmarks: []
+highlights:
+  - 公开权重的多模态 MoE，面向长程软件工程与多步代理任务
+sources:
+  - https://research.meta.ai/blog/muse-spark-open
+  - https://huggingface.co/meta-models/Muse-Spark-Open-816B-A42B
+verified_at: 2026-11-24

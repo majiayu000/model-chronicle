@@ -1,0 +1,40 @@
+id: nemotron-3-5-super-vl
+name: Nemotron 3.5 Super VL
+vendor: nvidia
+family: nemotron
+tier: mid
+generation: "3.5"
+predecessor: nemotron-3-super
+open_weights: true
+reasoning: true
+dates:
+  announced: 2026-10-15
+  ga: 2026-10-15
+  deprecated: null
+  retired: null
+specs:
+  context_window: 1000000
+  max_output: null
+  modalities_in:
+    - text
+    - image
+    - video
+  modalities_out:
+    - text
+  knowledge_cutoff: null
+  params_b: 120
+  pricing:
+    input_per_mtok: null
+    output_per_mtok: null
+arch:
+  type: moe
+  total: 120
+  active: 12
+  source: https://huggingface.co/nvidia/NVIDIA-Nemotron-3.5-Super-VL-120B-A12B-BF16
+benchmarks: []
+highlights:
+  - Super 档位的多模态型号，支持图像、文档和视频理解，公开 120B-A12B 权重
+sources:
+  - https://developer.nvidia.com/blog/nvidia-nemotron-3-5-super-vl-powers-specialized-agents-with-multimodal-reasoning/
+  - https://huggingface.co/nvidia/NVIDIA-Nemotron-3.5-Super-VL-120B-A12B-BF16
+verified_at: 2026-11-24

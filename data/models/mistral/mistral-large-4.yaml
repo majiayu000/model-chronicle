@@ -5,11 +5,11 @@ family: mistral-large
 tier: flagship
 generation: "4"
 predecessor: mistral-large-3
-open_weights: false
+open_weights: true
 reasoning: true
 dates:
   announced: 2026-10-06
-  ga: null
+  ga: 2026-11-05
   deprecated: null
   retired: null
 specs:
@@ -28,14 +28,22 @@ specs:
 arch:
   type: moe
   total: 1050
-  source: https://docs.mistral.ai/models/mistral-large
+  source: https://docs.mistral.ai/models/mistral-large-latest
+  active: 52
 benchmarks: []
 highlights:
-  - 10 月 6 日开放 API 公开预览；截至核查日权重尚未公开，官方计划于 10 月底发布
-  - 原生多模态 MoE，型号文档列出 1.05T 总参数及百万 token 上下文
-  - 融合指令、推理和代理能力，支持图像与复杂文档理解
-  - 发布页标准输入／输出价为每百万 token 1.36／4.18 美元；型号文档另列 0.68／2.09 美元促销价
+  - 10 月 6 日 API 公开预览；10 月 29 日公开权重；API 官方模型卡标注 11 月 5 日 GA
+  - 原生多模态 MoE，1.05T 总参数、52B 激活参数，支持百万 token 上下文
+  - 保留 10 月复核记录中的发布价；新标准 API 价格单列于价格历史
 sources:
   - https://mistral.ai/news/mistral-large-4/
-  - https://docs.mistral.ai/models/mistral-large
-verified_at: 2026-10-11
+  - https://docs.mistral.ai/models/mistral-large-latest
+  - https://mistral.ai/news/mistral-large-4-oss/
+  - https://huggingface.co/blog/mistral-large4
+verified_at: 2026-11-24
+price_history:
+  - observed_at: 2026-11-24
+    input_per_mtok: 0.7
+    output_per_mtok: 2.1
+    source: https://docs.mistral.ai/models/mistral-large-latest
+    note: 复核时的 La Plateforme 标准 API 价格

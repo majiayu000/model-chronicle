@@ -1,0 +1,37 @@
+id: granite-4-2-8b
+name: Granite 4.2 8B
+vendor: ibm
+family: granite
+tier: mid
+generation: "4.2"
+predecessor: null
+open_weights: true
+reasoning: true
+dates:
+  announced: 2026-08-25
+  ga: 2026-08-25
+  deprecated: null
+  retired: null
+specs:
+  context_window: 131072
+  max_output: null
+  modalities_in:
+    - text
+  modalities_out:
+    - text
+  knowledge_cutoff: null
+  params_b: 8
+  pricing:
+    input_per_mtok: null
+    output_per_mtok: null
+arch:
+  type: dense
+  source: https://huggingface.co/ibm-granite/granite-4.2-8b
+benchmarks: []
+highlights:
+  - Granite 4.2 在稠密文本模型中加入原生推理，开放权重，支持企业代理和工具调用
+sources:
+  - https://research.ibm.com/blog/introducing-granite-4-2
+  - https://github.com/ibm-granite/granite-4.2-language-models
+  - https://huggingface.co/ibm-granite/granite-4.2-8b
+verified_at: 2026-11-24

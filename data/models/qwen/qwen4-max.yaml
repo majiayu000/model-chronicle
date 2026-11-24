@@ -1,0 +1,45 @@
+id: qwen4-max
+name: Qwen4-Max
+vendor: qwen
+family: qwen
+tier: flagship
+generation: "4"
+predecessor: qwen3-8-max
+open_weights: false
+reasoning: true
+dates:
+  announced: 2026-11-16
+  ga: 2026-11-16
+  deprecated: null
+  retired: null
+specs:
+  context_window: 1000000
+  max_output: 131072
+  modalities_in:
+    - text
+    - image
+    - video
+  modalities_out:
+    - text
+  knowledge_cutoff: null
+  params_b: 2400
+  pricing:
+    input_per_mtok: null
+    output_per_mtok: null
+benchmarks: []
+highlights:
+  - 采用新的 Qwen4 架构，官方公布 2.4T 参数主干和百万 token 上下文
+  - 视觉能力原生接入；普通输出上限 131,072 token，思考与输出合计预算可达 262,144 token
+sources:
+  - https://qwen.ai/blog?id=qwen4-max
+  - https://www.alibabacloud.com/blog/alibaba-unveils-qwen4-max-new-ai-teammate-for-work-creativity-and-discovery_603783
+  - https://www.alibabacloud.com/help/en/model-studio/qwen4-max
+  - https://docs.modelstudio.console.alibabacloud.com/en/model-studio/text-generation-model
+  - https://www.alibabacloud.com/blog/qwen4-max-one-flagship-for-complex-work-at-a-price-that-scales_603806
+verified_at: 2026-11-24
+price_history:
+  - observed_at: 2026-11-23
+    input_per_mtok: 1.5
+    output_per_mtok: 4.5
+    source: https://www.alibabacloud.com/blog/qwen4-max-one-flagship-for-complex-work-at-a-price-that-scales_603806
+    note: 阿里云国际站发布后文章列示的标准价

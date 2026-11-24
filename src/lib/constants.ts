@@ -17,10 +17,10 @@ export const BENCHMARKS = [
 ] as const;
 
 export const FAMILIES: Record<(typeof VENDORS)[number], readonly string[]> = {
-  anthropic: ["opus", "sonnet", "haiku", "fable", "claude"],
+  anthropic: ["opus", "sonnet", "haiku", "fable", "mythos", "claude"],
   openai: ["gpt", "gpt-pro", "o-series", "o-series-pro", "gpt-oss"],
   google: ["gemini", "gemma", "palm"],
-  meta: ["llama"],
+  meta: ["llama", "muse-spark", "muse-wonder", "muse-ember"],
   deepseek: ["deepseek-v", "deepseek-r", "deepseek-coder"],
   qwen: ["qwen", "qwq", "qwen-coder"],
   moonshot: ["kimi", "kimi-thinking"],
@@ -28,7 +28,7 @@ export const FAMILIES: Record<(typeof VENDORS)[number], readonly string[]> = {
   minimax: ["minimax-m"],
   bytedance: ["seed", "seed-vl"],
   baidu: ["ernie", "ernie-x", "ernie-open"],
-  tencent: ["hunyuan-t", "hunyuan-a"],
+  tencent: ["hunyuan-t", "hunyuan-a", "hy"],
   xai: ["grok", "grok-fast"],
   mistral: ["mistral-large", "mistral-medium", "mistral-small", "mistral-nemo", "mistral-7b", "mixtral"],
   cohere: ["command", "command-a"],
@@ -44,5 +44,5 @@ export const FAMILIES: Record<(typeof VENDORS)[number], readonly string[]> = {
   internlm: ["internlm"],
   baichuan: ["baichuan"],
   tii: ["falcon"],
-  liquid: ["lfm", "lfm-vl", "lfm-thinking"],
+  liquid: ["lfm", "lfm-vl", "lfm-thinking", "lfm-omni"],
 };

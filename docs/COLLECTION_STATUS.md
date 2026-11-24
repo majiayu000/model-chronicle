@@ -1,5 +1,29 @@
 # 数据收录状态（2026-09-30）
 
+## 2026-11-24 目录更新
+
+从 327 条增至 358 条，仍覆盖 28 家厂商。沿用独立命名的主力语言模型口径，优先补齐 10 月至 11 月的官方发布，同时补入 IBM 与 Cohere 此前遗漏的现行主力系列。每个条目的发布与规格来源见对应 YAML。
+
+| 厂商 | 本次新增 |
+|---|---|
+| OpenAI | GPT-6.1 Terra、GPT-6.2 Astra、GPT-6.2 Sol |
+| Anthropic | Claude Fable 5.2、Claude Mythos 5.2 |
+| Google | Gemini 4 Carbon、Hydrogen、Neon |
+| Meta | Muse Wonder、Muse Wonder Full、Muse Spark Open、Muse Ember |
+| DeepSeek、Qwen、Moonshot、智谱 | DeepSeek-V4.1-Flash-1017、Qwen4-Max、Kimi K3.1 Pro、GLM-5.4 |
+| 腾讯、百度 | Hy4、Hy4 flash、ERNIE 5.5 Flash Preview、ERNIE-Light-DT-1.0 |
+| NVIDIA | Nemotron 3.5 Super VL、Bolt 74B-A9B、Bolt E4B |
+| Liquid AI | LFM2.5-24B-A2B、LFM3-1.7B、LFM3-VL-2B、LFM3-Omni-2B |
+| IBM、Cohere | Granite 4.2 3B、8B、30B，Command A+ |
+
+- Gemini 4 Argon 保留 9 月 30 日的宣布日期，正式可用填 10 月 13 日。Argon、Carbon 的引入期优惠记入说明，两个标准发布价字段留空。Gemini 4 的百万输出上限适用于长解码，默认同步上限另列。 [Gemini API 更新日志](https://ai.google.dev/gemini-api/docs/changelog)
+- MiniMax M3.1 Flash 的预览和正式版共用原条目与 URL。10 月 19 日正式开放 API，当前已公开权重。Mistral Large 4 的 10 月 6 日预览、10 月 29 日开放权重、11 月 5 日 API 正式可用分别记录；本次看到的标准价单列为历史观测。 [MiniMax 发布文](https://www.minimax.io/blog/minimax-m31f) · [MiniMax 权重](https://huggingface.co/MiniMaxAI/MiniMax-M3.1-Flash) · [Mistral 开放权重公告](https://huggingface.co/blog/mistral-large4) · [Mistral 模型卡](https://docs.mistral.ai/models/mistral-large-latest)
+- Claude Mythos 5.2 仅向符合条件的机构开放，正式可用日期留空。GLM-5.4 已在官方聊天和订阅产品首发，通用 API、开放权重与标准 API 价格待复核。Qwen4-Max 的国际站美元价作为发布后观测。 [Anthropic 发布文](https://www.anthropic.com/claude-fable-and-mythos-5-2) · [智谱发布文](https://z.ai/blog/glm-5.4) · [阿里云价格文章](https://www.alibabacloud.com/blog/qwen4-max-one-flagship-for-complex-work-at-a-price-that-scales_603806)
+- DeepSeek-V4.1-Flash-1017 有独立发布文和公开权重，作为有官方宣传的独立更新记录。Grok 4.7 Fast 是同一模型的加速服务，ChatGPT 11 月 23 日上线的 GPT-6.2 是消费端变体，两者暂不另建条目。 [DeepSeek 更新日志](https://api-docs.deepseek.com/updates/) · [Grok 4.7 文档](https://docs.x.ai/developers/grok-4-7) · [ChatGPT 更新日志](https://help.openai.com/en/articles/6825453-chatgpt-release-notes)
+- 本轮未新增厂商或重审全量历史记录。纯媒体、专用任务模型和常规日期快照沿用既有收录规则。
+
+## 历次复核和 2026-09-30 快照
+
 > 2026-10-20 biannianshi 迁移：从已停止维护的 [biannianshi](https://github.com/majiayu000/biannianshi) 迁入 7 条本库缺失、属于收录范围且能找到官方来源的记录：Claude 1、ChatGLM-6B、Qwen-7B、Qwen-14B、Kimi k1.5、Qwen3-Max、Grok 4.1。当前共 327 个模型、28 家厂商。所有字段按本库规则重新核对官方来源，没有沿用 biannianshi 的 Wikipedia 来源或二手日期：ChatGLM-6B 与 Kimi k1.5 只确认到月份；Kimi k1.5 的来源没有明确写出公众可用，`ga` 留空；Qwen-7B 官方表格里的分数对应 9 月更新版，因此不填。Qwen3-Max-Thinking 的前代由 Qwen3-235B-A22B 改为 Qwen3-Max，避免同一条线分叉。GLM-4 没有找到智谱官方发布页，暂不收录。Code Llama、Magistral、GPT-5.x-Codex、Muse Spark、DeepSeek LLM 和 MiniMax-Text-01 需要先新增产品线，Gemini Deep Think 属于推理模式；这些都留给后续单独决定。2022-11 之前的模型和 Kimi 智能助手（消费产品）不在收录范围内。
 
 > 2026-10-27 迁移记录复核：按 [Claude 1 发布文](https://www.anthropic.com/news/introducing-claude)记载的 Poe 用户可用渠道，补入 `ga: 2023-03-14`；直连 API 的申请访问不等于所有产品渠道均未公开。[API 生命周期历史](https://platform.claude.com/docs/en/about-claude/model-deprecations)逐项列出 Claude 1.0–1.3，补入 2024-09-04 弃用、2024-11-06 下线。[百炼官方发布日志](https://help.aliyun.com/zh/model-studio/newly-released-models)的华北 2（北京）时间列为 2025-09-23，明确 `qwen3-max` 为本次发布的正式版；国际及全球地区的时间列为 2025-09-24。[Qwen 同期发布文](https://qwen.ai/blog?from=research.latest-advancements-list&id=241398b9cd6353de490b0f82806c7848c5d2777d)也在 9 月 24 日说明 Instruct 已在 Qwen Chat 与阿里云 API 可用，而 Thinking 尚在训练。因此本条 Qwen3-Max 限定当时公开的 Instruct 非思考版，按已有正式发布行中最早的北京日期填写 `announced` 与 `ga: 2025-09-23`、`reasoning: false`；23 日不代表全球发布或团队博客首次公告，也不能仅解释为快照名，独立 Thinking 记录保留。Claude 1 与 Qwen3-Max 的已填事实重新核对后更新 `verified_at`；Kimi k1.5 的月份精度、GA 未知和 Qwen 精确参数未知均保留。另按同 vendor/family/tier 的已收录发布顺序补齐 Claude 1 → Claude 2、Kimi k1.5 → Kimi K2 Thinking、Grok 4.1 → Grok 4.5；这些是本库的发布继任关系，不代表训练或权重血缘，仅改关系的三条保留原 `verified_at`。

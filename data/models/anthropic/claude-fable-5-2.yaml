@@ -1,0 +1,35 @@
+id: claude-fable-5-2
+name: Claude Fable 5.2
+vendor: anthropic
+family: fable
+tier: flagship
+generation: "5.2"
+predecessor: claude-fable-5-1
+open_weights: false
+reasoning: true
+dates:
+  announced: 2026-11-09
+  ga: 2026-11-09
+  deprecated: null
+  retired: null
+specs:
+  context_window: 1000000
+  max_output: 128000
+  modalities_in:
+    - text
+    - image
+  modalities_out:
+    - text
+  knowledge_cutoff: 2026-06
+  params_b: null
+  pricing:
+    input_per_mtok: 8
+    output_per_mtok: 40
+benchmarks: []
+highlights:
+  - 常开自适应思考，面向复杂推理与长程任务
+  - 官方报告输出速度较 Fable 5.1 最多提升 30%，标准 API 单价下调
+sources:
+  - https://www.anthropic.com/claude-fable-and-mythos-5-2
+  - https://platform.claude.com/docs/en/models/fable-5-2/overview
+verified_at: 2026-11-24

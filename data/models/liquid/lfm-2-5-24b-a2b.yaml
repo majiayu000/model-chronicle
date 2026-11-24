@@ -1,0 +1,42 @@
+id: lfm-2-5-24b-a2b
+name: LFM2.5-24B-A2B
+vendor: liquid
+family: lfm-thinking
+tier: flagship
+generation: "2.5"
+predecessor: null
+open_weights: true
+reasoning: true
+dates:
+  announced: 2026-10-13
+  ga: 2026-10-13
+  deprecated: null
+  retired: null
+specs:
+  context_window: 131072
+  max_output: null
+  modalities_in:
+    - text
+  modalities_out:
+    - text
+  knowledge_cutoff: null
+  params_b: 24
+  pricing:
+    input_per_mtok: null
+    output_per_mtok: null
+arch:
+  type: moe
+  layers: 40
+  total: 24
+  active: 2.45
+  experts: 64
+  topk: 4
+  attn: GQA
+  source: https://huggingface.co/LiquidAI/LFM2.5-24B-A2B
+benchmarks: []
+highlights:
+  - LFM2.5 系列最大的型号，专为设备端推理和工具调用训练，推理始终开启
+sources:
+  - https://www.liquid.ai/blog/lfm2-5-24b-a2b
+  - https://huggingface.co/LiquidAI/LFM2.5-24B-A2B
+verified_at: 2026-11-24

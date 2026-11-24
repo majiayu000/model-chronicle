@@ -1,0 +1,35 @@
+id: claude-mythos-5-2
+name: Claude Mythos 5.2
+vendor: anthropic
+family: mythos
+tier: flagship
+generation: "5.2"
+predecessor: null
+open_weights: false
+reasoning: true
+dates:
+  announced: 2026-11-09
+  ga: null
+  deprecated: null
+  retired: null
+specs:
+  context_window: 1000000
+  max_output: 128000
+  modalities_in:
+    - text
+    - image
+  modalities_out:
+    - text
+  knowledge_cutoff: null
+  params_b: null
+  pricing:
+    input_per_mtok: 8
+    output_per_mtok: 40
+benchmarks: []
+highlights:
+  - 与 Claude Fable 5.2 同日公布，向符合条件的机构提供
+  - 支持百万 token 上下文与 128K 最大输出
+sources:
+  - https://www.anthropic.com/claude-fable-and-mythos-5-2
+  - https://platform.claude.com/docs/en/models/fable-5-2/whats-new-fable-5-2
+verified_at: 2026-11-24

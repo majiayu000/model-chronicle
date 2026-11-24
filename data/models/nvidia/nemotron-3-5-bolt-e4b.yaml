@@ -1,0 +1,33 @@
+id: nemotron-3-5-bolt-e4b
+name: Nemotron 3.5 Bolt E4B
+vendor: nvidia
+family: nemotron
+tier: small
+generation: "3.5"
+predecessor: null
+open_weights: true
+reasoning: true
+dates:
+  announced: 2026-10-23
+  ga: 2026-10-23
+  deprecated: null
+  retired: null
+specs:
+  context_window: 64000
+  max_output: null
+  modalities_in:
+    - text
+  modalities_out:
+    - text
+  knowledge_cutoff: null
+  params_b: 8
+  pricing:
+    input_per_mtok: null
+    output_per_mtok: null
+benchmarks: []
+highlights:
+  - 基于 Gemma 4 E4B 继续后训练的设备端文本推理模型，官方列出总参数 8B、有效参数 4B
+sources:
+  - https://huggingface.co/nvidia/NVIDIA-Nemotron-3.5-Bolt-E4B-BF16
+  - https://huggingface.co/nvidia/NVIDIA-Nemotron-3.5-Bolt-E4B-4GB
+verified_at: 2026-11-24

@@ -1,0 +1,40 @@
+id: hy4-flash
+name: Hy4 flash
+vendor: tencent
+family: hy
+tier: small
+generation: "4"
+predecessor: null
+open_weights: true
+reasoning: true
+dates:
+  announced: 2026-11-16
+  ga: 2026-11-16
+  deprecated: null
+  retired: null
+specs:
+  context_window: 1000000
+  max_output: 64000
+  modalities_in:
+    - text
+    - image
+  modalities_out:
+    - text
+  knowledge_cutoff: null
+  params_b: 224
+  pricing:
+    input_per_mtok: 0.07
+    output_per_mtok: 0.281
+arch:
+  type: moe
+  total: 224
+  active: 12
+  source: https://huggingface.co/tencent/Hy4-flash
+benchmarks: []
+highlights:
+  - Hy4 系列低成本型号，支持图像输入与百万 token 上下文，已公开权重
+sources:
+  - https://www.tencent.com/tencent-launches-hy4-flash-to-power-high-speed-cost-efficient-ai-deployment-for-everyday-workflows/
+  - https://huggingface.co/tencent/Hy4-flash
+  - https://cloud.tencent.com/document/product/1823/130051
+verified_at: 2026-11-24

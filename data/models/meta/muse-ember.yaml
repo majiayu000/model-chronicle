@@ -1,0 +1,38 @@
+id: muse-ember
+name: Muse Ember
+vendor: meta
+family: muse-ember
+tier: small
+generation: "1.0"
+predecessor: null
+open_weights: false
+reasoning: true
+dates:
+  announced: 2026-11-09
+  ga: 2026-11-09
+  deprecated: null
+  retired: null
+specs:
+  context_window: 1048576
+  max_output: 524288
+  modalities_in:
+    - text
+    - image
+    - video
+    - audio
+    - pdf
+  modalities_out:
+    - text
+  knowledge_cutoff: null
+  params_b: null
+  pricing:
+    input_per_mtok: 0.1
+    output_per_mtok: 0.5
+benchmarks: []
+highlights:
+  - Muse 的轻量版本，面向日常编程与高频代理子任务
+  - 所列标准 API 价格适用于输入不超过 200K 的请求
+sources:
+  - https://research.meta.ai/blog/muse-ember
+  - https://dev.meta.ai/docs/muse-ember
+verified_at: 2026-11-24

@@ -1,0 +1,36 @@
+id: gpt-6-2-astra
+name: GPT-6.2 Astra
+vendor: openai
+family: gpt
+tier: flagship
+generation: "6.2"
+predecessor: gpt-6-astra
+open_weights: false
+reasoning: true
+dates:
+  announced: 2026-11-17
+  ga: 2026-11-17
+  deprecated: null
+  retired: null
+specs:
+  context_window: 1050000
+  max_output: 128000
+  modalities_in:
+    - text
+    - image
+  modalities_out:
+    - text
+  knowledge_cutoff: 2026-05
+  params_b: null
+  pricing:
+    input_per_mtok: 8
+    output_per_mtok: 40
+benchmarks: []
+highlights:
+  - 面向复杂专业工作、编程和长程推理，官方标准输入与输出单价较 GPT-6 Astra 下调 20%
+  - 支持 105 万 token 上下文与 128K 最大输出，所列标准价格适用于输入不超过 272K 的请求
+sources:
+  - https://openai.com/index/introducing-gpt-6-2-astra-sol/
+  - https://developers.openai.com/api/docs/models/gpt-6.2-astra
+  - https://developers.openai.com/api/docs/changelog
+verified_at: 2026-11-24

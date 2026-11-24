@@ -1,0 +1,35 @@
+id: lfm-3-vl-2b
+name: LFM3-VL-2B
+vendor: liquid
+family: lfm-vl
+tier: small
+generation: "3"
+predecessor: lfm-2-5-vl-1-6b
+open_weights: true
+reasoning: true
+dates:
+  announced: 2026-10-27
+  ga: 2026-10-27
+  deprecated: null
+  retired: null
+specs:
+  context_window: 131072
+  max_output: null
+  modalities_in:
+    - text
+    - image
+    - video
+  modalities_out:
+    - text
+  knowledge_cutoff: null
+  params_b: 1.92
+  pricing:
+    input_per_mtok: null
+    output_per_mtok: null
+benchmarks: []
+highlights:
+  - 新一代设备端视觉语言模型，新增原生视频理解，支持图表、界面和视觉问答
+sources:
+  - https://www.liquid.ai/blog/lfm3
+  - https://huggingface.co/LiquidAI/LFM3-VL-2B
+verified_at: 2026-11-24

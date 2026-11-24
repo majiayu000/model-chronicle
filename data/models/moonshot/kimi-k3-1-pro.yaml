@@ -1,0 +1,41 @@
+id: kimi-k3-1-pro
+name: Kimi K3.1 Pro
+vendor: moonshot
+family: kimi
+tier: flagship
+generation: "3.1"
+predecessor: kimi-k3
+open_weights: true
+reasoning: true
+dates:
+  announced: 2026-10-24
+  ga: 2026-10-24
+  deprecated: null
+  retired: null
+specs:
+  context_window: 1000000
+  max_output: null
+  modalities_in:
+    - text
+    - image
+  modalities_out:
+    - text
+  knowledge_cutoff: null
+  params_b: 2800
+  pricing:
+    input_per_mtok: null
+    output_per_mtok: null
+arch:
+  type: moe
+  total: 2800
+  active: 104
+  source: https://huggingface.co/moonshotai/Kimi-K3.1-Pro
+benchmarks: []
+highlights:
+  - 基于 Kimi K3 做大规模联合强化学习，提升编程、长程任务及 3D 创作能力
+  - 官方模型卡列出 2.8T 总参数、104B 激活参数，已公开权重
+sources:
+  - https://www.moonshot.ai/ja
+  - https://www.kimi.com/en/blog/kimi-k3-1-pro
+  - https://huggingface.co/moonshotai/Kimi-K3.1-Pro
+verified_at: 2026-11-24

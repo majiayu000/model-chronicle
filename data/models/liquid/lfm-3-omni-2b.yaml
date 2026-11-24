@@ -1,0 +1,36 @@
+id: lfm-3-omni-2b
+name: LFM3-Omni-2B
+vendor: liquid
+family: lfm-omni
+tier: small
+generation: "3"
+predecessor: null
+open_weights: true
+dates:
+  announced: 2026-10-27
+  ga: 2026-10-27
+  deprecated: null
+  retired: null
+specs:
+  context_window: 32768
+  max_output: null
+  modalities_in:
+    - text
+    - image
+    - video
+    - audio
+  modalities_out:
+    - text
+    - audio
+  knowledge_cutoff: null
+  params_b: 2.17
+  pricing:
+    input_per_mtok: null
+    output_per_mtok: null
+benchmarks: []
+highlights:
+  - LFM3 系列首个全模态模型，可理解视频与音轨，并以文字或语音回复
+sources:
+  - https://www.liquid.ai/blog/lfm3
+  - https://huggingface.co/LiquidAI/LFM3-Omni-2B
+verified_at: 2026-11-24

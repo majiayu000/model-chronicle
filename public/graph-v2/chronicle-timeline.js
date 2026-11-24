@@ -8,11 +8,16 @@
     gemini: "Gemini",
     gemma: "Gemma",
     llama: "Llama",
+    "muse-spark": "Muse Spark",
+    "muse-wonder": "Muse Wonder",
+    "muse-ember": "Muse Ember",
     qwen: "Qwen",
     opus: "Opus",
     sonnet: "Sonnet",
     haiku: "Haiku",
     fable: "Fable",
+    mythos: "Mythos",
+    hy: "Hy",
     step: "Step",
     spark: "星火",
     "spark-x": "星火 X",
@@ -30,6 +35,7 @@
     lfm: "LFM",
     "lfm-vl": "LFM-VL",
     "lfm-thinking": "LFM Thinking",
+    "lfm-omni": "LFM Omni",
   };
   function seriesOf(model) {
     let family = model.family;

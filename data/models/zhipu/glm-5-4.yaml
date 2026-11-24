@@ -1,0 +1,35 @@
+id: glm-5-4
+name: GLM-5.4
+vendor: zhipu
+family: glm
+tier: flagship
+generation: "5.4"
+predecessor: glm-5-3
+open_weights: false
+reasoning: true
+dates:
+  announced: 2026-11-23
+  ga: 2026-11-23
+  deprecated: null
+  retired: null
+specs:
+  context_window: 1000000
+  max_output: null
+  modalities_in:
+    - text
+    - image
+  modalities_out:
+    - text
+  knowledge_cutoff: null
+  params_b: null
+  pricing:
+    input_per_mtok: null
+    output_per_mtok: null
+benchmarks: []
+highlights:
+  - 首款采用 Loop Transformer 的 GLM 旗舰版本，通过多次执行共享层组增加推理深度
+  - 首发可通过 GLM Coding Plan、ZCode 和 Z.ai Chat 使用；通用 API 与权重待发布
+sources:
+  - https://z.ai/blog/glm-5.4
+  - https://zcode.z.ai/en/docs/qa
+verified_at: 2026-11-24

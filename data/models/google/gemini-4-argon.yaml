@@ -9,16 +9,18 @@ open_weights: false
 reasoning: true
 dates:
   announced: 2026-09-30
-  ga: null
+  ga: 2026-10-13
   deprecated: null
   retired: null
 specs:
-  context_window: null
-  max_output: 1000000
+  context_window: 1048576
+  max_output: 1048576
   modalities_in:
     - text
     - image
     - video
+    - audio
+    - pdf
   modalities_out:
     - text
   knowledge_cutoff: null
@@ -28,11 +30,13 @@ specs:
     output_per_mtok: null
 benchmarks: []
 highlights:
-  - 已宣布并向 Fairwind 计划受邀伙伴逐步开放，尚未确认公开可用日期
-  - 最大输出提升至百万 token，面向长程推理、软件工程及企业知识工作
-  - 支持图表分析与长视频理解，并强化自主漏洞发现和修复能力
-  - 官方预告每百万输入／输出 token 的引入期价格为 2／10 美元，之后为 4／20 美元；正式发布价待核实
+  - 9 月 30 日向 Fairwind 计划受邀伙伴开放，10 月 13 日正式上线 Gemini API 付费层
+  - 默认同步输出上限 65,536 token；启用长解码时，输入与输出共用 1,048,576 token 窗口
+  - 引入期输入／输出价每百万 token 2／10 美元，到期后的标准价为 4／20 美元
 sources:
   - https://blog.google/innovation-and-ai/models-and-research/gemini-models/gemini-4-argon/
   - https://deepmind.google/models/gemini/
-verified_at: 2026-10-11
+  - https://ai.google.dev/gemini-api/docs/changelog
+  - https://ai.google.dev/gemini-api/docs/models/gemini-4-argon
+  - https://blog.google/innovation-and-ai/technology/developers-tools/build-with-gemini-4-argon/
+verified_at: 2026-11-24
